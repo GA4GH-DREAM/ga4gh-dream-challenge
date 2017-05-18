@@ -219,24 +219,39 @@ def validate(evaluation, canCancel, dry_run=False):
         ## refetch the submission so that we get the file path
         ## to be later replaced by a "downloadFiles" flag on getSubmissionBundles
         submission = syn.getSubmission(submission)
+        annotations = {}
+        #Fill in team annotation
+        if 'teamId' in submission:
+            team = syn.getTeam(submission.teamId)
+            if 'name' in team:
+                annotations['team'] = team['name']
+            else:
+                annotations['team'] = submission.teamId
+        elif 'userId' in submission:
+            profile = syn.getUserProfile(submission.userId)
+            annotations['team'] = get_user_name(profile)
+        else:
+            annotations['team'] = '?'
+
         ex1 = None #Must define ex1 in case there is no error
         print "validating", submission.id, submission.name
         try:
-            is_valid, validation_message = conf.validate_submission(evaluation, submission)
+            is_valid, validation_message, subFolder = conf.validate_submission(syn, evaluation, submission, failure_reason['team'])
         except Exception as ex1:
             is_valid = False
             print "Exception during validation:", type(ex1), ex1, ex1.message
             traceback.print_exc()
             validation_message = str(ex1)
-
+        ## fill in team in submission status annotations
         status.status = "VALIDATED" if is_valid else "INVALID"
         if canCancel:
             status.canCancel = True
         if not is_valid:
-            failure_reason = {"FAILURE_REASON":validation_message}
+            annotations["FAILURE_REASON"] = validation_message
         else:
-            failure_reason = {"FAILURE_REASON":''}
-        add_annotations = synapseclient.annotations.to_submission_status_annotations(failure_reason,is_private=True)
+            annotations["FAILURE_REASON"] = ''
+
+        add_annotations = synapseclient.annotations.to_submission_status_annotations(annotations,is_private=False)
         status = update_single_submission_status(status, add_annotations)
 
         if not dry_run:
@@ -289,19 +304,6 @@ def score(evaluation, canCancel, dry_run=False):
             score, message = conf.score_submission(evaluation, submission)
 
             print "scored:", submission.id, submission.name, submission.userId, score
-
-            ## fill in team in submission status annotations
-            if 'teamId' in submission:
-                team = syn.restGET('/team/{id}'.format(id=submission.teamId))
-                if 'name' in team:
-                    score['team'] = team['name']
-                else:
-                    score['team'] = submission.teamId
-            elif 'userId' in submission:
-                profile = syn.getUserProfile(submission.userId)
-                score['team'] = get_user_name(profile)
-            else:
-                score['team'] = '?'
             add_annotations = synapseclient.annotations.to_submission_status_annotations(score,is_private=True)
             status = update_single_submission_status(status, add_annotations)
 

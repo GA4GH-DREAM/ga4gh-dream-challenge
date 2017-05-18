@@ -3,7 +3,9 @@
 ## challenge specific code and configuration
 ##
 ##-----------------------------------------------------------------------------
-
+import os
+import subprocess
+from synapseclient import Folder, File
 
 ## A Synapse project will hold the assetts for your challenge. Put its
 ## synapse ID here, for example
@@ -15,49 +17,18 @@ CHALLENGE_NAME = "GA4GH-DREAM Tool Execution Challenge"
 
 ## Synapse user IDs of the challenge admins who will be notified by email
 ## about errors in the scoring script
-ADMIN_USER_IDS = []
-
-
-## Each question in your challenge should have an evaluation queue through
-## which participants can submit their predictions or models. The queues
-## should specify the challenge project as their content source. Queues
-## can be created like so:
-##   evaluation = syn.store(Evaluation(
-##     name="My Challenge Q1",
-##     description="Predict all the things!",
-##     contentSource="syn1234567"))
-## ...and found like this:
-##   evaluations = list(syn.getEvaluationByContentSource('syn3375314'))
-## Configuring them here as a list will save a round-trip to the server
-## every time the script starts and you can link the challenge queues to
-## the correct scoring/validation functions.  Predictions will be validated and 
-
-def validate_func(submission, goldstandard_path):
-    ##Read in submission (submission.filePath)
-    ##Validate submission
-    ## MUST USE ASSERTION ERRORS!!! 
-    ##eg.
-    ## assert os.path.basename(submission.filePath) == "prediction.tsv", "Submission file must be named prediction.tsv"
-    ## or raise AssertionError()...
-    ## Only assertion errors will be returned to participants, all other errors will be returned to the admin
-    return(True,"Passed Validation")
-
-def score1(submission, goldstandard_path):
-    ##Read in submission (submission.filePath)
-    ##Score against goldstandard
-    return(score1, score2, score3)
-
-def score2(submission, goldstandard_path):
-    ##Read in submission (submission.filePath)
-    ##Score against goldstandard
-    return(score1, score2, score3)
+ADMIN_USER_IDS = ['3324230','2223305']
 
 evaluation_queues = [
+#GA4GH-DREAM_md5sum (9603664)
+#GA4GH-DREAM_hello_world (9603665)
     {
-        'id':1,
-        'scoring_func':score1
-        'validation_func':validate_func
-        'goldstandard_path':'path/to/sc1gold.txt'
+        'id':9603664
+        'filename':'md5sum.result'
+    },
+    {
+        'id':9603665
+        'filename':'hello_world.result'
     }
 ]
 evaluation_queue_by_id = {q['id']:q for q in evaluation_queues}
@@ -87,7 +58,7 @@ for q in evaluation_queues:
 leaderboard_tables = {}
 
 
-def validate_submission(evaluation, submission):
+def validate_submission(syn, evaluation, submission, team):
     """
     Find the right validation function and validate the submission.
 
@@ -95,9 +66,29 @@ def validate_submission(evaluation, submission):
               validation fails or throws exception
     """
     config = evaluation_queue_by_id[int(evaluation.id)]
-    validated, validation_message = config['validation_func'](submission, config['goldstandard_path'])
+    workflow = evaluation.name.reaplace("GA4GH-DREAM_","")
+    fileName = os.path.basename(submission.filePath)
+    scriptDir = os.path.dirname(os.path.realpath(__file__))
+    outputDir = os.path.join(scriptDir, "output")
+    resultFile = os.path.join(outputDir,'results.json')
+    logFile = os.path.join(outputDir,'log.txt')
 
-    return True, validation_message
+    assert config['filename'] == fileName, "Your submitted file must be named: %s, not %s" % (config['filename'],fileName)
+    checker = os.path.join(scriptDir, "checkers",fileName + "_checker.cwl")
+
+    validate_cwl_command = ['cwl-runner','outdir',outputDirchecker,'--input_file',submission.filePath]
+    subprocess.call(validate_cwl_command)
+    with open(resultFile) as data_file:    
+        results = json.load(data_file)
+
+    if results['Overall'] == False:
+        subFolder = syn.store(Folder(submission.id,parent="syn9856439"))
+        resultFileEnt = syn.store(File(resultFile, parent=subFolder))
+        logFileEnt = syn.store(File(logFile,parent=subFolder))
+        syn.setPermissions(subFolder, team, access=["READ","DOWNLOAD"])
+        raise AssertionError("Your resulting file is incorrect, please go to this folder: https://www.synapse.org/#!Synapse:%s to look at your log and result files" % subFolder.id)
+
+    return True, "You passed!"
 
 
 def score_submission(evaluation, submission):
@@ -108,8 +99,7 @@ def score_submission(evaluation, submission):
               is text for display to user
     """
     config = evaluation_queue_by_id[int(evaluation.id)]
-    score = config['scoring_func'](submission, config['goldstandard_path'])
     #Make sure to round results to 3 or 4 digits
-    return (dict(score=round(score[0],4), rmse=score[1], auc=score[2]), "You did fine!")
+    return (dict(), "You did fine!")
 
 
