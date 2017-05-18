@@ -23,11 +23,11 @@ evaluation_queues = [
 #GA4GH-DREAM_md5sum (9603664)
 #GA4GH-DREAM_hello_world (9603665)
     {
-        'id':9603664
+        'id':9603664,
         'filename':'md5sum.result'
     },
     {
-        'id':9603665
+        'id':9603665,
         'filename':'hello_world.result'
     }
 ]
