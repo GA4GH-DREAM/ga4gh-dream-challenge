@@ -5,7 +5,9 @@
 ##-----------------------------------------------------------------------------
 import os
 import subprocess
+import json
 from synapseclient import Folder, File
+import shutil
 
 ## A Synapse project will hold the assetts for your challenge. Put its
 ## synapse ID here, for example
@@ -58,7 +60,7 @@ for q in evaluation_queues:
 leaderboard_tables = {}
 
 
-def validate_submission(syn, evaluation, submission, team):
+def validate_submission(syn, evaluation, submission, annotations):
     """
     Find the right validation function and validate the submission.
 
@@ -66,17 +68,18 @@ def validate_submission(syn, evaluation, submission, team):
               validation fails or throws exception
     """
     config = evaluation_queue_by_id[int(evaluation.id)]
-    workflow = evaluation.name.reaplace("GA4GH-DREAM_","")
     fileName = os.path.basename(submission.filePath)
     scriptDir = os.path.dirname(os.path.realpath(__file__))
     outputDir = os.path.join(scriptDir, "output")
     resultFile = os.path.join(outputDir,'results.json')
     logFile = os.path.join(outputDir,'log.txt')
-
+    submissionDir = os.path.dirname(submission.filePath)
     assert config['filename'] == fileName, "Your submitted file must be named: %s, not %s" % (config['filename'],fileName)
-    checker = os.path.join(scriptDir, "checkers",fileName + "_checker.cwl")
-
-    validate_cwl_command = ['cwl-runner','outdir',outputDirchecker,'--input_file',submission.filePath]
+    checkerPath = os.path.join(scriptDir, "checkers", annotations['workflow'] + "_checker.cwl")
+    origCheckerJsonPath = checkerPath + ".json"
+    shutil.copy(origCheckerJsonPath, submissionDir)
+    newCheckerJsonPath = os.path.join(submissionDir, annotations['workflow'] + "_checker.cwl.json")
+    validate_cwl_command = ['cwl-runner','--outdir',outputDir,checkerPath,newCheckerJsonPath]
     subprocess.call(validate_cwl_command)
     with open(resultFile) as data_file:    
         results = json.load(data_file)
@@ -85,7 +88,7 @@ def validate_submission(syn, evaluation, submission, team):
         subFolder = syn.store(Folder(submission.id,parent="syn9856439"))
         resultFileEnt = syn.store(File(resultFile, parent=subFolder))
         logFileEnt = syn.store(File(logFile,parent=subFolder))
-        syn.setPermissions(subFolder, team, access=["READ","DOWNLOAD"])
+        syn.setPermissions(subFolder, annotations['team'], access=["READ","DOWNLOAD"])
         raise AssertionError("Your resulting file is incorrect, please go to this folder: https://www.synapse.org/#!Synapse:%s to look at your log and result files" % subFolder.id)
 
     return True, "You passed!"

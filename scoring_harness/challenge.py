@@ -218,7 +218,7 @@ def validate(evaluation, canCancel, dry_run=False):
         ## refetch the submission so that we get the file path
         ## to be later replaced by a "downloadFiles" flag on getSubmissionBundles
         submission = syn.getSubmission(submission)
-        annotations = {}
+        annotations = {'workflow':evaluation.name.replace("GA4GH-DREAM_","")}
         #Fill in team annotation
         if 'teamId' in submission:
             team = syn.getTeam(submission.teamId)
@@ -235,7 +235,7 @@ def validate(evaluation, canCancel, dry_run=False):
         ex1 = None #Must define ex1 in case there is no error
         print "validating", submission.id, submission.name
         try:
-            is_valid, validation_message, subFolder = conf.validate_submission(syn, evaluation, submission, failure_reason['team'])
+            is_valid, validation_message = conf.validate_submission(syn, evaluation, submission, annotations)
         except Exception as ex1:
             is_valid = False
             print "Exception during validation:", type(ex1), ex1, ex1.message
