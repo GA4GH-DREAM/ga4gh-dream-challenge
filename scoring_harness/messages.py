@@ -16,9 +16,9 @@ dry_run = False
 
 ## Edit these URLs to point to your challenge and its support forum
 defaults = dict(
-    challenge_instructions_url = "https://www.synapse.org/",
-    support_forum_url = "https://www.synapse.org/#!Synapse:{synIdhere}/discussion/default",
-    scoring_script = "the scoring script")
+    challenge_instructions_url = "https://www.synapse.org/syn8507133",
+    support_forum_url = "https://www.synapse.org/#!Synapse:syn8507133/discussion/default",
+    scoring_script = "GA4GH-DREAM Admins")
 
 ##---------------------------------------------------------
 ## Message templates:

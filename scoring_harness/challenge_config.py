@@ -74,7 +74,8 @@ def validate_submission(syn, evaluation, submission, annotations):
     if submission.filePath.endswith(".zip"):
         zip_ref = zipfile.ZipFile(submission.filePath, 'r')
         zip_ref.extractall(submissionDir)
-    
+        zip_ref.close()
+
     assert all([os.path.exists(os.path.join(submissionDir, actualName)) for actualName in config['filename']]), "Your submitted file or zipped file must contain these file(s): %s" % ",".join(config['filename'])
 
     scriptDir = os.path.dirname(os.path.realpath(__file__))
