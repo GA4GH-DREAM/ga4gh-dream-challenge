@@ -8,6 +8,7 @@ import subprocess
 import json
 from synapseclient import Folder, File
 import shutil
+import synapseutils as synu
 
 ## A Synapse project will hold the assetts for your challenge. Put its
 ## synapse ID here, for example
@@ -21,6 +22,7 @@ CHALLENGE_NAME = "GA4GH-DREAM Tool Execution Challenge"
 ## about errors in the scoring script
 ADMIN_USER_IDS = ['3324230','2223305']
 
+CHALLENGE_OUTPUT_FOLDER = "syn9856439"
 evaluation_queues = [
 #GA4GH-DREAM_md5sum (9603664)
 #GA4GH-DREAM_hello_world (9603665)
@@ -77,19 +79,32 @@ def validate_submission(syn, evaluation, submission, annotations):
     assert config['filename'] == fileName, "Your submitted file must be named: %s, not %s" % (config['filename'],fileName)
     checkerPath = os.path.join(scriptDir, "checkers", annotations['workflow'] + "_checker.cwl")
     origCheckerJsonPath = checkerPath + ".json"
-    shutil.copy(origCheckerJsonPath, submissionDir)
     newCheckerJsonPath = os.path.join(submissionDir, annotations['workflow'] + "_checker.cwl.json")
+    if not os.path.exists(newCheckerJsonPath):
+        shutil.copy(origCheckerJsonPath, submissionDir)
     validate_cwl_command = ['cwl-runner','--outdir',outputDir,checkerPath,newCheckerJsonPath]
     subprocess.call(validate_cwl_command)
     with open(resultFile) as data_file:    
         results = json.load(data_file)
 
     if results['Overall'] == False:
-        subFolder = syn.store(Folder(submission.id,parent="syn9856439"))
+        output = synu.walk(syn, CHALLENGE_OUTPUT_FOLDER)
+        outputFolders = output.next()[1]
+        outputSynId = [synId for name, synId in outputFolders if str(submission.id) == name]
+        if len(outputSynId) == 0:
+            subFolder = syn.store(Folder(submission.id,parent=CHALLENGE_OUTPUT_FOLDER)).id
+        else:
+            subFolder = outputSynId[0]
         resultFileEnt = syn.store(File(resultFile, parent=subFolder))
-        logFileEnt = syn.store(File(logFile,parent=subFolder))
-        syn.setPermissions(subFolder, annotations['team'], access=["READ","DOWNLOAD"])
-        raise AssertionError("Your resulting file is incorrect, please go to this folder: https://www.synapse.org/#!Synapse:%s to look at your log and result files" % subFolder.id)
+        if os.stat(logFile).st_size > 0:
+            logFileEnt = syn.store(File(logFile,parent=subFolder))
+        for participant in submission.contributors:
+            if participant['principalId'] in ADMIN_USER_IDS: 
+                access = ['CREATE', 'DOWNLOAD', 'READ', 'UPDATE', 'DELETE', 'CHANGE_PERMISSIONS', 'MODERATE', 'CHANGE_SETTINGS']
+            else:
+                access = ['READ','DOWNLOAD']
+            syn.setPermissions(subFolder, principalId = participant['principalId'], accessType = access)
+        raise AssertionError("Your resulting file is incorrect, please go to this folder: https://www.synapse.org/#!Synapse:%s to look at your log and result files" % subFolder)
 
     return True, "You passed!"
 
