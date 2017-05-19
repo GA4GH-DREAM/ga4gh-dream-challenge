@@ -84,7 +84,7 @@ def validate_submission(syn, evaluation, submission, annotations):
     checkerPath = os.path.join(scriptDir, "checkers", annotations['workflow'] + "_checker.cwl")
     origCheckerJsonPath = checkerPath + ".json"
     newCheckerJsonPath = os.path.join(submissionDir, annotations['workflow'] + "_checker.cwl.json")
-    if not os.path.exists(checkerPath) and os.path.exists(origCheckerJsonPath)
+    if not os.path.exists(checkerPath) and os.path.exists(origCheckerJsonPath):
         raise ValueError("Must have these cwl and json files: %s, %s" % (checkerPath,origCheckerJsonPath))
     if not os.path.exists(newCheckerJsonPath):
         shutil.copy(origCheckerJsonPath, submissionDir)
