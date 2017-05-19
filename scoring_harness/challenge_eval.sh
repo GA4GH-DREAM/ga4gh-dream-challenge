@@ -1,6 +1,6 @@
 # Automation of validation and scoring
 # Make sure you point to the directory where challenge.py belongs and a log directory must exist for the output
-cd ./
+cd ~/ga4gh-dream-challenge/scoring_harness
 #---------------------
 #Validate submissions
 #---------------------
