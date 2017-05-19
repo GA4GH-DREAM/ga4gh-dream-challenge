@@ -5,7 +5,7 @@ cd ~/ga4gh-dream-challenge/scoring_harness
 #Validate submissions
 #---------------------
 #Remove --send-messages to do rescoring without sending emails to participants
-python challenge.py -u "thomas.yu" --send-messages --notifications validate --all >> log/score.log 2>&1
+python challenge.py -u "thomas.yu" --send-messages --acknowledge-receipt --notifications validate --all >> log/score.log 2>&1
 
 #--------------------
 #Score submissions
