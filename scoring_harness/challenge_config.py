@@ -9,7 +9,7 @@ import json
 from synapseclient import Folder, File
 import shutil
 import synapseutils as synu
-
+import zipfile
 ## A Synapse project will hold the assetts for your challenge. Put its
 ## synapse ID here, for example
 ## CHALLENGE_SYN_ID = "syn1234567"
@@ -28,11 +28,11 @@ evaluation_queues = [
 #GA4GH-DREAM_hello_world (9603665)
     {
         'id':9603664,
-        'filename':'md5sum.result'
+        'filename':['md5sum.result']
     },
     {
         'id':9603665,
-        'filename':'hello_world.result'
+        'filename':['hello_world.result']
     }
 ]
 evaluation_queue_by_id = {q['id']:q for q in evaluation_queues}
@@ -70,16 +70,22 @@ def validate_submission(syn, evaluation, submission, annotations):
               validation fails or throws exception
     """
     config = evaluation_queue_by_id[int(evaluation.id)]
-    fileName = os.path.basename(submission.filePath)
+    submissionDir = os.path.dirname(submission.filePath)
+    if submission.filePath.endswith(".zip"):
+        zip_ref = zipfile.ZipFile(submission.filePath, 'r')
+        zip_ref.extractall(submissionDir)
+    
+    assert all([os.path.exists(os.path.join(submissionDir, actualName)) for actualName in config['filename']]), "Your submitted file or zipped file must contain these file(s): %s" % ",".join(config['filename'])
+
     scriptDir = os.path.dirname(os.path.realpath(__file__))
     outputDir = os.path.join(scriptDir, "output")
     resultFile = os.path.join(outputDir,'results.json')
     logFile = os.path.join(outputDir,'log.txt')
-    submissionDir = os.path.dirname(submission.filePath)
-    assert config['filename'] == fileName, "Your submitted file must be named: %s, not %s" % (config['filename'],fileName)
     checkerPath = os.path.join(scriptDir, "checkers", annotations['workflow'] + "_checker.cwl")
     origCheckerJsonPath = checkerPath + ".json"
     newCheckerJsonPath = os.path.join(submissionDir, annotations['workflow'] + "_checker.cwl.json")
+    if not os.path.exists(checkerPath) and os.path.exists(origCheckerJsonPath)
+        raise ValueError("Must have these cwl and json files: %s, %s" % (checkerPath,origCheckerJsonPath))
     if not os.path.exists(newCheckerJsonPath):
         shutil.copy(origCheckerJsonPath, submissionDir)
     validate_cwl_command = ['cwl-runner','--outdir',outputDir,checkerPath,newCheckerJsonPath]
