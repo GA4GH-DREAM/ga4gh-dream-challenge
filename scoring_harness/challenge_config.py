@@ -105,6 +105,7 @@ def validate_submission(syn, evaluation, submission, annotations):
 
     # run checker
     validate_cwl_command = ['cwl-runner', '--non-strict', '--outdir', outputDir, checkerPath, newCheckerJsonPath]
+    print(validate_cwl_command)
     subprocess.call(validate_cwl_command)
 
     # collect checker results
@@ -113,7 +114,14 @@ def validate_submission(syn, evaluation, submission, annotations):
     with open(resultFile) as data_file:
         results = json.load(data_file)
 
-    if not results['overall']:
+    try:
+        overall_status = results['overall']
+    except KeyError:
+        overall_status = results['Overall']
+    except KeyError:
+        print("No 'overall' field found in {}".format(resultFile))
+
+    if not overall_status:
         output = synu.walk(syn, CHALLENGE_OUTPUT_FOLDER)
         outputFolders = output.next()[1]
         outputSynId = [synId for name, synId in outputFolders if str(submission.id) == name]
