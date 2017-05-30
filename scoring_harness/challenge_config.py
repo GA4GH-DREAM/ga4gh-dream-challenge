@@ -71,30 +71,49 @@ def validate_submission(syn, evaluation, submission, annotations):
     """
     config = evaluation_queue_by_id[int(evaluation.id)]
     submissionDir = os.path.dirname(submission.filePath)
-    if submission.filePath.endswith(".zip"):
+    if submission.filePath.endswith('.zip'):
         zip_ref = zipfile.ZipFile(submission.filePath, 'r')
         zip_ref.extractall(submissionDir)
         zip_ref.close()
 
-    assert all([os.path.exists(os.path.join(submissionDir, actualName)) for actualName in config['filename']]), "Your submitted file or zipped file must contain these file(s): %s" % ",".join(config['filename'])
+    # assert all([os.path.exists(os.path.join(submissionDir, actualName)) for actualName in config['filename']]), "Your submitted file or zipped file must contain these file(s): %s" % ",".join(config['filename'])
 
     scriptDir = os.path.dirname(os.path.realpath(__file__))
-    outputDir = os.path.join(scriptDir, "output")
+    checkerDir = os.path.join(scriptDir, 'checkers')
+    knowngoodDir = os.path.join(scriptDir, 'known_goods')
+    outputDir = os.path.join(scriptDir, 'output')
+
+    # check whether checker cwl and json are present
+    checkerPath = os.path.join(checkerDir, annotations['workflow'] + '_checker.cwl')
+    origCheckerJsonPath = checkerPath + ".json"
+    if not os.path.exists(checkerPath) and os.path.exists(origCheckerJsonPath):
+        raise ValueError("Must have these cwl and json files: %s, %s" % (checkerPath, origCheckerJsonPath))
+
+    # link checker json to submission folder
+    newCheckerJsonPath = os.path.join(submissionDir, annotations['workflow'] + '_checker.cwl.json')
+    if not os.path.exists(newCheckerJsonPath):
+        # shutil.copy(origCheckerJsonPath, submissionDir)
+        os.symlink(origCheckerJsonPath, newCheckerJsonPath)
+
+    # link known good outputs to submission folder
+    knowngoodPaths = os.listdir(os.path.join(knowngoodDir, annotations['workflow']))
+    for knowngood in knowngoodPaths:
+        origKnowngoodPath = os.path.join(knowngoodDir, annotations['workflow'], knowngood)
+        newKnowngoodPath = os.path.join(submissionDir, knowngood)
+        if not os.path.exists(newKnowngoodPath):
+            os.symlink(origKnowngoodPath, newKnowngoodPath)
+
+    # run checker
+    validate_cwl_command = ['cwl-runner', '--non-strict', '--outdir', outputDir, checkerPath, newCheckerJsonPath]
+    subprocess.call(validate_cwl_command)
+
+    # collect checker results
     resultFile = os.path.join(outputDir,'results.json')
     logFile = os.path.join(outputDir,'log.txt')
-    checkerPath = os.path.join(scriptDir, "checkers", annotations['workflow'] + "_checker.cwl")
-    origCheckerJsonPath = checkerPath + ".json"
-    newCheckerJsonPath = os.path.join(submissionDir, annotations['workflow'] + "_checker.cwl.json")
-    if not os.path.exists(checkerPath) and os.path.exists(origCheckerJsonPath):
-        raise ValueError("Must have these cwl and json files: %s, %s" % (checkerPath,origCheckerJsonPath))
-    if not os.path.exists(newCheckerJsonPath):
-        shutil.copy(origCheckerJsonPath, submissionDir)
-    validate_cwl_command = ['cwl-runner','--outdir',outputDir,checkerPath,newCheckerJsonPath]
-    subprocess.call(validate_cwl_command)
-    with open(resultFile) as data_file:    
+    with open(resultFile) as data_file:
         results = json.load(data_file)
 
-    if results['Overall'] == False:
+    if not results['overall']:
         output = synu.walk(syn, CHALLENGE_OUTPUT_FOLDER)
         outputFolders = output.next()[1]
         outputSynId = [synId for name, synId in outputFolders if str(submission.id) == name]
