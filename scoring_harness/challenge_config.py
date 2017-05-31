@@ -28,15 +28,15 @@ evaluation_queues = [
 #GA4GH-DREAM_hello_world (9603665)
     {
         'id':9603664,
-        'filename':['md5sum.result']
+        'handle':['md5sum']
     },
     {
         'id':9603665,
-        'filename':['hello_world.result']
+        'handle':['hello_world']
     },
     {
         'id':9604287,
-        'filename':['biowardrobe_chipseq_se']
+        'handle':['biowardrobe_chipseq_se']
     }
 ]
 evaluation_queue_by_id = {q['id']:q for q in evaluation_queues}
@@ -80,6 +80,8 @@ def validate_submission(syn, evaluation, submission, annotations):
         zip_ref.extractall(submissionDir)
         zip_ref.close()
 
+    # number and organization outputs will vary for each queue; no simple way
+    # to validate file presence -- can leave it up to the checker
     # assert all([os.path.exists(os.path.join(submissionDir, actualName)) for actualName in config['filename']]), "Your submitted file or zipped file must contain these file(s): %s" % ",".join(config['filename'])
 
     scriptDir = os.path.dirname(os.path.realpath(__file__))
@@ -109,7 +111,7 @@ def validate_submission(syn, evaluation, submission, annotations):
 
     # run checker
     validate_cwl_command = ['cwl-runner', '--non-strict', '--outdir', outputDir, checkerPath, newCheckerJsonPath]
-    print(validate_cwl_command)
+    print(' '.join(validate_cwl_command))
     subprocess.call(validate_cwl_command)
 
     # collect checker results
