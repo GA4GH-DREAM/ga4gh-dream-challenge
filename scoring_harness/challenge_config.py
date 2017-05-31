@@ -33,6 +33,10 @@ evaluation_queues = [
     {
         'id':9603665,
         'filename':['hello_world.result']
+    },
+    {
+        'id':9604287,
+        'filename':['biowardrobe_chipseq_se']
     }
 ]
 evaluation_queue_by_id = {q['id']:q for q in evaluation_queues}
