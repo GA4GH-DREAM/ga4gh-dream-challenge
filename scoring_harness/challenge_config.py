@@ -4,6 +4,8 @@
 ##
 ##-----------------------------------------------------------------------------
 import os
+import time
+import traceback
 import subprocess
 import json
 from synapseclient import Folder, File
@@ -89,6 +91,10 @@ def validate_submission(syn, evaluation, submission, annotations):
     knowngoodDir = os.path.join(scriptDir, 'known_goods')
     outputDir = os.path.join(scriptDir, 'output')
 
+    # clear existing outputs
+    for f in os.listdir(outputDir):
+        os.remove(os.path.join(outputDir, f))
+
     # check whether checker cwl and json are present
     checkerPath = os.path.join(checkerDir, annotations['workflow'] + '_checker.cwl')
     origCheckerJsonPath = checkerPath + ".json"
@@ -98,7 +104,6 @@ def validate_submission(syn, evaluation, submission, annotations):
     # link checker json to submission folder
     newCheckerJsonPath = os.path.join(submissionDir, annotations['workflow'] + '_checker.cwl.json')
     if not os.path.exists(newCheckerJsonPath):
-        # shutil.copy(origCheckerJsonPath, submissionDir)
         os.symlink(origCheckerJsonPath, newCheckerJsonPath)
 
     # link known good outputs to submission folder
@@ -110,9 +115,13 @@ def validate_submission(syn, evaluation, submission, annotations):
             os.symlink(origKnowngoodPath, newKnowngoodPath)
 
     # run checker
-    validate_cwl_command = ['cwl-runner', '--non-strict', '--outdir', outputDir, checkerPath, newCheckerJsonPath]
-    print(' '.join(validate_cwl_command))
-    subprocess.call(validate_cwl_command)
+    validate_cwl_command = ['/home/ubuntu/.local/bin/cwl-runner', '--non-strict', '--outdir', outputDir, checkerPath, newCheckerJsonPath]
+    print("Running checker with command\n{}\n...".format(' '.join(validate_cwl_command)))
+    try:
+        subprocess.call(validate_cwl_command)
+    except OSError as ex:
+        print "Exception from 'cwl-runner':", type(ex), ex, ex.message
+        raise
 
     # collect checker results
     resultFile = os.path.join(outputDir,'results.json')
