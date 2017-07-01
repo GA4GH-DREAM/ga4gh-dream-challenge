@@ -250,6 +250,9 @@ def validate(evaluation, canCancel, dry_run=False):
         else:
             annotations["FAILURE_REASON"] = ''
 
+        annotations['reportStatus'] = 'empty'
+        #annotations = conf.initialize_report(syn, evaluation, submission, annotations)
+
         add_annotations = synapseclient.annotations.to_submission_status_annotations(annotations,is_private=False)
         status = update_single_submission_status(status, add_annotations)
 
@@ -279,8 +282,6 @@ def validate(evaluation, canCancel, dry_run=False):
                 submission_id=submission.id,
                 submission_name=submission.name,
                 message=validation_message)
-
-
 
 def score(evaluation, canCancel, dry_run=False):
 

@@ -8,7 +8,7 @@ import time
 import traceback
 import subprocess
 import json
-from synapseclient import Folder, File
+from synapseclient import Folder, File, Wiki
 import shutil
 import synapseutils as synu
 import zipfile
@@ -39,6 +39,14 @@ evaluation_queues = [
     {
         'id':9604287,
         'handle':['biowardrobe_chipseq_se']
+    },
+    {
+        'id':9604596,
+        'handle':['gdc_dnaseq_transform'],
+        'wiki':'syn9766994'
+    },
+    {   'id':9605240,
+        'handle':['bcbio_NA12878-chr20']
     }
 ]
 evaluation_queue_by_id = {q['id']:q for q in evaluation_queues}
@@ -157,6 +165,36 @@ def validate_submission(syn, evaluation, submission, annotations):
 
     return True, "You passed!"
 
+def initialize_report(syn, evaluation, submission, annotations):
+    template_wikis = {
+        'gdc_dnaseq_transform': 'syn9766994'
+    }
+    template_wiki = syn.getWiki(template_wikis[annotations['workflow']])
+    report_folders = {
+        'gdc_dnaseq_transform': 'syn10156701'
+    }
+    report_folder = syn.get(report_folders[annotations['workflow']], downloadFile=False)
+
+    # create and store report file
+    report_path = '{}_README'.format(submission.id)
+    report_msg = """Submission report for object '{}' in evaluation queue '{}'. 
+    This file is a placeholder; see attached Synapse wiki for full report.
+    """.format(submission.id, submission.evaluationId)
+    with open(report_path, 'w') as f:
+        f.write(report_msg)
+    report_file = syn.store(File(report_path, parentId=report_folder.id))
+
+    # copy template wiki to report file
+    try:
+        report_wiki = syn.getWiki(report_file.id)
+    except:
+        report_wiki = Wiki(owner = report_file.id)
+    report_wiki.markdown = template_wiki.markdown
+    report_wiki = syn.store(report_wiki)
+
+    annotations['reportStatus'] = 'ready to edit'
+    annotations['reportEntityId'] = report_file.id
+    return annotations
 
 def score_submission(evaluation, submission):
     """
