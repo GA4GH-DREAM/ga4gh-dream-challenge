@@ -203,7 +203,6 @@ class Query(object):
         self.offset += 1
         return values
 
-
 def validate(evaluation, canCancel, dry_run=False):
 
     if type(evaluation) != Evaluation:
@@ -220,17 +219,16 @@ def validate(evaluation, canCancel, dry_run=False):
         submission = syn.getSubmission(submission)
         annotations = {'workflow':evaluation.name.replace("GA4GH-DREAM_","")}
         #Fill in team annotation
+        profile = syn.getUserProfile(submission.userId)
+        annotations['user'] = get_user_name(profile)
         if 'teamId' in submission:
             team = syn.getTeam(submission.teamId)
             if 'name' in team:
                 annotations['team'] = team['name']
             else:
                 annotations['team'] = submission.teamId
-        elif 'userId' in submission:
-            profile = syn.getUserProfile(submission.userId)
-            annotations['team'] = get_user_name(profile)
         else:
-            annotations['team'] = '?'
+            annotations['team'] = annotations['user']
 
         ex1 = None #Must define ex1 in case there is no error
         print "validating", submission.id, submission.name
@@ -250,9 +248,9 @@ def validate(evaluation, canCancel, dry_run=False):
         else:
             annotations["FAILURE_REASON"] = ''
 
-        annotations['reportStatus'] = 'empty'
-        #annotations = conf.initialize_report(syn, evaluation, submission, annotations)
-
+        annotations['reportStatus'] = 'EMPTY'
+        annotations['reportEntityId'] = ''
+ 
         add_annotations = synapseclient.annotations.to_submission_status_annotations(annotations,is_private=False)
         status = update_single_submission_status(status, add_annotations)
 
@@ -282,6 +280,82 @@ def validate(evaluation, canCancel, dry_run=False):
                 submission_id=submission.id,
                 submission_name=submission.name,
                 message=validation_message)
+
+
+def validate_reports(evaluation, canCancel, dry_run=False):
+
+    if type(evaluation) != Evaluation:
+        evaluation = syn.getEvaluation(evaluation)
+
+    print "\n\nValidating reports", evaluation.id, evaluation.name
+    print "-" * 60
+    sys.stdout.flush()
+
+    for submission, status in syn.getSubmissionBundles(evaluation, status='VALIDATED'):
+        print("checking report status for submission {}".format(submission.id))
+        #if submission.id not in ['9621705', '9617386', '9622674']:
+        #     continue
+
+        status_annotations = {annot['key']: annot['value']
+                              for annot in status['annotations']['stringAnnos']}
+        if 'reportStatus' in status_annotations:
+             if status_annotations['reportStatus'] == 'VALIDATED':
+	         print "report already validated; skipping"
+                 continue
+
+        ## refetch the submission so that we get the file path
+        ## to be later replaced by a "downloadFiles" flag on getSubmissionBundles
+        submission = syn.getSubmission(submission)
+
+
+        ex1 = None #Must define ex1 in case there is no error
+        print "validating report", submission.id, submission.name
+        try:
+            report, report_message = conf.validate_submission_report(syn, evaluation, submission, status_annotations, dry_run)
+
+            print "checked report:", submission.id, submission.name, submission.userId, report
+            add_annotations = synapseclient.annotations.to_submission_status_annotations(report, is_private=False)
+            status = update_single_submission_status(status, add_annotations)
+        except Exception as ex1:
+            print "Exception during report validation:", type(ex1), ex1, ex1.message
+            traceback.print_exc()
+            report_message = str(ex1)
+
+        if not dry_run:
+            status = syn.store(status)
+
+        ## send message AFTER storing status to ensure we don't get repeat messages
+        profile = syn.getUserProfile(submission.userId)
+        if report['reportStatus'] == 'INITIALIZED':
+            print("sending message for initialized report...")
+            messages.report_initialized(
+                userIds=[submission.userId],
+                username=get_user_name(profile),
+                queue_name=evaluation.name,
+                submission_id=submission.id,
+                report_entity_id=report['reportEntityId'])
+        elif report['reportStatus'] == 'VALIDATED':
+            messages.report_validation_passed(
+                userIds=[submission.userId],
+                username=get_user_name(profile),
+                queue_name=evaluation.name,
+                submission_id=submission.id,
+                report_entity_id=report['reportEntityId'])
+        else:
+            if isinstance(ex1, AssertionError):
+                sendTo = [submission.userId]
+                username = get_user_name(profile)
+            #else:
+            #    sendTo = conf.ADMIN_USER_IDS
+            #    username = "Challenge Administrator"
+
+                messages.report_validation_failed(
+                    userIds= sendTo,
+                    username=username,
+                    queue_name=evaluation.name,
+                    submission_id=submission.id,
+                    report_entity_id=report['reportEntityId'],
+                    message=report_message)
 
 def score(evaluation, canCancel, dry_run=False):
 
@@ -353,7 +427,6 @@ def score(evaluation, canCancel, dry_run=False):
 def invalidateSubmission(evaluation, dry_run=False):
     if type(evaluation) != Evaluation:
         evaluation = syn.getEvaluation(evaluation)
-
     for submission, status in syn.getSubmissionBundles(evaluation):
         if status.cancelRequested is True:
             status.status = "INVALID"
@@ -582,6 +655,14 @@ def command_validate(args):
     else:
         sys.stderr.write("\nValidate command requires either an evaluation ID or --all to validate all queues in the challenge")
 
+def command_validate_reports(args):
+    if args.all:
+        for queue_info in conf.evaluation_queues:
+            validate_reports(queue_info['id'], args.canCancel, dry_run=args.dry_run)
+    elif args.evaluation:
+        validate_reports(args.evaluation, args.canCancel, dry_run=args.dry_run)
+    else:
+        sys.stderr.write("\nValidate reports command requires either an evaluation ID or --all to validate all queues in the challenge")
 
 def command_score(args):
     if args.all:
@@ -660,6 +741,12 @@ def main():
     parser_validate.add_argument("--all", action="store_true", default=False)
     parser_validate.add_argument("--canCancel", action="store_true", default=False)
     parser_validate.set_defaults(func=command_validate)
+
+    parser_validate_reports = subparsers.add_parser('validate_reports', help="Validate reports for all VALIDATED submissions to an evaluation")
+    parser_validate_reports.add_argument("evaluation", metavar="EVALUATION-ID", nargs='?', default=None)
+    parser_validate_reports.add_argument("--all", action="store_true", default=False)
+    parser_validate_reports.add_argument("--canCancel", action="store_true", default=False)
+    parser_validate_reports.set_defaults(func=command_validate_reports)
 
     parser_score = subparsers.add_parser('score', help="Score all VALIDATED submissions to an evaluation")
     parser_score.add_argument("evaluation", metavar="EVALUATION-ID", nargs='?', default=None)

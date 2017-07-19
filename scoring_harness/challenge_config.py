@@ -8,10 +8,14 @@ import time
 import traceback
 import subprocess
 import json
+import re
+from datetime import datetime
+from StringIO import StringIO
 from synapseclient import Folder, File, Wiki
 import shutil
 import synapseutils as synu
 import zipfile
+import yaml
 ## A Synapse project will hold the assetts for your challenge. Put its
 ## synapse ID here, for example
 ## CHALLENGE_SYN_ID = "syn1234567"
@@ -30,23 +34,32 @@ evaluation_queues = [
 #GA4GH-DREAM_hello_world (9603665)
     {
         'id':9603664,
-        'handle':['md5sum']
+        'handle': 'md5sum',
+        'report_src': 'syn10167920',
+        'report_dest': 'syn10163084',
     },
     {
         'id':9603665,
-        'handle':['hello_world']
+        'handle': 'hello_world',
+        'report_src': 'syn9630940',
+        'report_dest': 'syn10163081',
     },
     {
         'id':9604287,
-        'handle':['biowardrobe_chipseq_se']
+        'handle': 'biowardrobe_chipseq_se',
+        'report_src': 'syn9772359',
+        'report_dest': 'syn10163082',
     },
     {
         'id':9604596,
-        'handle':['gdc_dnaseq_transform'],
-        'wiki':'syn9766994'
+        'handle': 'gdc_dnaseq_transform',
+        'report_src':'syn9766994',
+        'report_dest': 'syn10156701',
     },
     {   'id':9605240,
-        'handle':['bcbio_NA12878-chr20']
+        'handle': 'bcbio_NA12878-chr20',
+        'report_src': 'syn9725771',
+        'report_dest': 'syn10163083',
     }
 ]
 evaluation_queue_by_id = {q['id']:q for q in evaluation_queues}
@@ -161,22 +174,24 @@ def validate_submission(syn, evaluation, submission, annotations):
             else:
                 access = ['READ','DOWNLOAD']
             syn.setPermissions(subFolder, principalId = participant['principalId'], accessType = access)
-        raise AssertionError("Your resulting file is incorrect, please go to this folder: https://www.synapse.org/#!Synapse:%s to look at your log and result files" % subFolder)
+        raise AssertionError("Your submitted output(s) appear to be incorrect (i.e., did not pass all tests in the {} checker tool). Please go to this folder: https://www.synapse.org/#!Synapse:{} to look at your log and result files".format(annnotations['workflow'], subFolder))
 
-    return True, "You passed!"
+    return True, "Submission validated, ready for documentation!"
 
-def initialize_report(syn, evaluation, submission, annotations):
-    template_wikis = {
-        'gdc_dnaseq_transform': 'syn9766994'
-    }
-    template_wiki = syn.getWiki(template_wikis[annotations['workflow']])
-    report_folders = {
-        'gdc_dnaseq_transform': 'syn10156701'
-    }
-    report_folder = syn.get(report_folders[annotations['workflow']], downloadFile=False)
+def _initialize_report(syn, evaluation, submission):
+    """
+    Create a dummy Synapse entity and attach wiki for report.
+    """
+    config = evaluation_queue_by_id[int(evaluation.id)]
+    print("wiki source: {}".format(config['report_src']))
+    print("wiki target: {}".format(config['report_dest']))
+    template_wiki = syn.getWiki(config['report_src'])
+    report_folder = syn.get(config['report_dest'], downloadFile=False)
+    scriptDir = os.path.dirname(os.path.realpath(__file__))
+    reportDir = os.path.join(scriptDir, 'reports')
 
     # create and store report file
-    report_path = '{}_README'.format(submission.id)
+    report_path = os.path.join(reportDir, '{}_README'.format(submission.id))
     report_msg = """Submission report for object '{}' in evaluation queue '{}'. 
     This file is a placeholder; see attached Synapse wiki for full report.
     """.format(submission.id, submission.evaluationId)
@@ -192,9 +207,53 @@ def initialize_report(syn, evaluation, submission, annotations):
     report_wiki.markdown = template_wiki.markdown
     report_wiki = syn.store(report_wiki)
 
-    annotations['reportStatus'] = 'ready to edit'
-    annotations['reportEntityId'] = report_file.id
-    return annotations
+    return 'INITIALIZED', report_file.id
+
+
+def validate_submission_report(syn, evaluation, submission, status_annotations, dry_run=False):
+    config = evaluation_queue_by_id[int(evaluation.id)]
+    # get submission report wiki
+    report_msg = "Report is ready to edit."
+    try:
+        report_status, report_id = (
+            status_annotations['reportStatus'],
+	    status_annotations['reportEntityId']
+	)
+        report_wiki = syn.getWiki(report_id)
+    except:    
+        report_status, report_id = _initialize_report(syn, evaluation, submission)
+        report_wiki = syn.getWiki(report_id)
+        if dry_run:
+            syn.delete(report_id)
+
+    print('checking report update time')
+    created_time = datetime.strptime(report_wiki['createdOn'], '%Y-%m-%dT%H:%M:%S.%fZ')
+    modified_time = datetime.strptime(report_wiki['modifiedOn'], '%Y-%m-%dT%H:%M:%S.%fZ')
+    
+    required_fields = ['name', 'institution', 'platform', 'workflow_type',
+                       'runner_version', 'docker_version', 'environment',
+                       'env_cpus', 'env_memory', 'env_disk']
+    platform = 'pending documentation'
+    if modified_time > created_time:
+        report_msg = "Report appears to have been modified since creation date/time and is in progress."
+        print('checking report')
+        # validate report
+        report_dict = _parse_wiki_yaml(report_wiki.markdown)
+        platform = report_dict['platform']        
+
+        missed_fields = [f for f in required_fields if f not in report_dict]
+        assert not len(missed_fields), "The following fields are missing from your report: {}; please refer to the original template wiki for the {} workflow here to ensure all fields are present: https://www.synapse.org/#!Synapse:{}".format(missed_fields, config['handle'], config['report_src']) 
+        empty_fields = [f for f in required_fields
+                         if not len(report_dict[f])]
+        if len(empty_fields):
+            report_status = 'IN_PROGRESS'
+            report_msg = 'The following fields are still missing values: {}'.format(missed_fields)
+        else:
+            report_status = 'VALIDATED'
+            report_msg = "Report is pending final review and approval."
+
+    return {'reportStatus': report_status, 'reportEntityId': report_id, 'platform': platform}, report_msg
+
 
 def score_submission(evaluation, submission):
     """
@@ -207,4 +266,15 @@ def score_submission(evaluation, submission):
     #Make sure to round results to 3 or 4 digits
     return (dict(), "You did fine!")
 
-
+def _parse_wiki_yaml(wiki_markdown):
+    """
+    Parse YAML fields from code chunks in a wiki markdown and return dict.
+    """
+    md_lines = StringIO(wiki_markdown).readlines()
+    code_chunks = [(idx, l) for idx, l in enumerate(md_lines)
+                   if re.search('```', l)]
+    yaml_lines = []
+    for idx, chunk in enumerate(code_chunks[0:-1]):
+        if re.search('YAML', chunk[1]):
+            yaml_lines += md_lines[chunk[0]+1:code_chunks[idx+1][0]]
+    return yaml.load(''.join(yaml_lines))
