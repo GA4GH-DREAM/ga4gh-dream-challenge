@@ -1,0 +1,213 @@
+---
+title: "GA4GH/DREAM Submission Summary"
+output: 
+  html_notebook:
+    code_folding: "hide"
+---
+
+```{r, message=FALSE, echo=FALSE}
+library(synapseClient)
+library(tidyverse)
+library(stringr)
+library(ggplot2)
+library(forcats)
+library(viridis)
+library(plotly)
+```
+
+Submission data — aggregated in the Synapse table `syn103088233` — was downloaded using the `synapseClient` package for R on `r lubridate::now("UTC")` UTC. Note that this table includes only submissions for which both `status` and `reportStatus` are **"VALIDATED"**.
+
+```{r, message=FALSE, include=FALSE}
+synapseLogin()
+submission_table <- synTableQuery("select * from syn10388233")
+valid_df <- submission_table@values
+```
+
+Basic cleaning of platform names is also handled here. Note that while the `platform` column in the source table is parsed directly from participant-provided documentation (i.e., the **README** for each submission), `platformHandle` represents the cleaned or merged platform names.
+
+```{r}
+valid_clean_df = valid_df %>% 
+    rownames_to_column("row_id") %>% 
+    mutate(platformHandle = case_when(
+               platform == "dockstore cli" ~ "dockstore",
+               platform == "Toil (new cwltoil branch)" ~ "Toil",
+               TRUE ~ as.character(platform)
+           )
+    ) %>% 
+    column_to_rownames("row_id")
+```
+
+As of the latest update, there have been:
+
++ **`r nrow(valid_clean_df)`** total successful submissions...
++ by **`r n_distinct(valid_clean_df$team)`** different teams or individuals...
++ run on **`r n_distinct(valid_clean_df$platformHandle)`** different platforms.
+
+```{r, include=FALSE}
+if (!all_equal(valid_clean_df, submission_table@values) == TRUE) {
+    schema <- synGet("syn10388233")
+    if (!"platformHandle" %in% map_chr(schema@columns@content, "name")) {
+        new_col <- TableColumn(name = "platformHandle", columnType = "STRING")
+        schema <- synAddColumn(schema, new_col)
+        schema <- synStore(schema)
+    }
+    submission_table@values <- valid_clean_df
+    submission_table <- synStore(submission_table)
+}
+```
+
+# Submission breakdown
+
+Plots below were generated using `ggplot2` and `plotly`. Colors indicate the workflow that was run for each submission.
+
+### Successful submissions per platform
+
+Participants should nominally run each workflow using their platform of choice. We then extract platform information that the participant has recorded (among other YAML-style fields) in the report / **README** wiki for each submission. Each row in the plot below shows the number of validated and documented submissions for a particular workflow execution platform.
+
+```{r subs_by_platform}
+subs_by_platform <- valid_clean_df %>% 
+    mutate(platformHandle = fct_rev(platformHandle)) %>% 
+    ggplot(aes(platformHandle)) +
+    geom_bar(aes(fill = workflow), alpha = 0.8, colour = "white",
+             position = position_stack(reverse = TRUE)) +
+    scale_fill_viridis(discrete = TRUE) + 
+    coord_flip() +
+    xlab("") +
+    ylab("") +
+    theme(plot.title = element_text(face = "bold"),
+          legend.title = element_blank())
+
+ggplotly(subs_by_platform, width = 800) %>%
+    layout(margin = list(l = 100, r = 250))
+```
+
+For demonstration purposes, here's one way that I can represent the plot above as a table:
+
+```{r}
+platform_workflow_df <- valid_clean_df %>% 
+    group_by(workflow, platformHandle) %>%
+    tally() %>%
+    ungroup() %>% 
+    rename(platform = platformHandle) %>% 
+    right_join(., expand(., workflow, platform), 
+               by = c("workflow", "platform")) %>% 
+    replace_na(list(n = 0)) %>% 
+    # need to be careful with column types
+    mutate(n = as.integer(n))
+platform_workflow_df
+```
+
+...and a less tidy, but slightly easier to visually inspect version of the table:
+
+```{r}
+platform_workflow_df %>% 
+    spread(workflow, n)
+```
+
+Now for the messy/tricky part, which is to store the table (if it's new) or update the table (if it already exists in Synapse).
+
+```{r}
+platform_workflow_df[1, 3] <- 1
+```
+
+
+```{r}
+project_id <- "syn8507133"
+syn_project <- synGet(project_id)
+
+table_name <- "WorkflowsByPlatform"
+# check whether table already exists for project
+project_query <- sprintf("select * from Entity where parentId == '%s'", 
+                         project_id)
+table_id <- synQuery(project_query) %>% 
+    # make sure that matched entities are actually tables
+    filter(str_detect(Entity.concreteType, "TableEntity"),
+           # then check whether any tables match the target name
+           str_detect(Entity.name, table_name)) %>% 
+    .[["Entity.id"]]
+if (length(table_id)) {
+    message(sprintf("updating table: %s", table_id))
+    # if table exists, get data from Synapse before updating
+    syn_table_data <- synTableQuery(sprintf("select * from %s", table_id))
+    syn_table_df <- syn_table_data@values
+    
+    # check whether table values have changed at all before updating
+    if (!all_equal(platform_workflow_df, syn_table_df) == TRUE) {
+        # if you're not just modifying rows, but have added one or more
+        # new columns, you'll need to update the schema before updating
+        # the table; see the lines around 50 above starting with...
+        #  `schema <- synGet("syn10388233")`
+        #  `if (!"platformHandle" %in% map_chr(schema@columns@content, "name")) {`
+        # for an example.
+        syn_table_data@values <- platform_workflow_df
+        syn_table <- synStore(syn_table_data)
+    }
+syn_table_data@values
+} else {
+    # otherwise, create new schema and store table data
+    message(sprintf("creating new table with name '%s'", table_name))
+    table_colobject <- as.tableColumns(platform_workflow_df)
+    cols <- table_colobject$tableColumns
+    
+    schema <- TableSchema(name = table_name, columns = cols, parent = syn_project)
+    syn_table <- Table(schema, platform_workflow_df)
+    syn_table <- synStore(syn_table)
+    message(sprintf("table stored as: %s"), properties(syn_table@schema)$id)
+}
+
+```
+
+Finally, to verify that we can take what's now stored in Synapse and generate the same plot (with a few tweaks to the code):
+
+```{r}
+table_id <- properties(syn_table@schema)$id
+subs_by_platform_2 <- synTableQuery(sprintf("select * from %s", table_id))@values %>% 
+    mutate(platformHandle = fct_rev(platform)) %>% 
+    ggplot(aes(x = platformHandle, y = n)) +
+    geom_col(aes(fill = workflow), alpha = 0.8, colour = "white",
+             position = position_stack(reverse = TRUE)) +
+    scale_fill_viridis(discrete = TRUE) + 
+    coord_flip() +
+    xlab("") +
+    ylab("") +
+    theme(plot.title = element_text(face = "bold"),
+          legend.title = element_blank())
+
+ggplotly(subs_by_platform_2, width = 800) %>%
+    layout(margin = list(l = 100, r = 250))
+```
+
+
+
+### Successful submissions per team/participant
+
+Participants can submit as an individual or as part of a team. We record this information when validating each submission. Each row in the plot below shows the number of validated and documented submissions for a team or individual.
+
+```{r subs_by_team}
+subs_by_team <- valid_clean_df %>% 
+    mutate(workflow = ifelse(workflow == "encode_mapping",
+                             "encode_mapping_workflow", workflow),
+           team = fct_rev(team)) %>% 
+    ggplot(aes(team)) +
+    geom_bar(aes(fill = workflow), alpha = 0.8, colour = "white",
+             position = position_stack(reverse = TRUE)) +
+    scale_fill_viridis(discrete = TRUE) + 
+    coord_flip() +
+    xlab("") +
+    ylab("") +
+    theme(plot.title = element_text(face = "bold"),
+          legend.title = element_blank())
+
+ggplotly(subs_by_team, width = 800) %>%
+    layout(margin = list(l = 250, r = 250))
+```
+
+
+
+---
+
+# Session info
+
+```{r}
+sessionInfo()
+```
