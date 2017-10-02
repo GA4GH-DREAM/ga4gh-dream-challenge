@@ -35,31 +35,48 @@ evaluation_queues = [
     {
         'id':9603664,
         'handle': 'md5sum',
+        'param_ext': '.json',
         'report_src': 'syn10167920',
         'report_dest': 'syn10163084',
     },
     {
         'id':9603665,
         'handle': 'hello_world',
+        'param_ext': '.json',
         'report_src': 'syn9630940',
         'report_dest': 'syn10163081',
     },
     {
         'id':9604287,
         'handle': 'biowardrobe_chipseq_se',
+        'param_ext': '.json',
         'report_src': 'syn9772359',
         'report_dest': 'syn10163082',
     },
     {
         'id':9604596,
         'handle': 'gdc_dnaseq_transform',
+        'param_ext': '.json',
         'report_src':'syn9766994',
         'report_dest': 'syn10156701',
     },
     {   'id':9605240,
         'handle': 'bcbio_NA12878-chr20',
+        'param_ext': '.json',
         'report_src': 'syn9725771',
         'report_dest': 'syn10163083',
+    },
+    {   'id':9605639,
+        'handle': 'encode_mapping_workflow',
+        'param_ext': '.json',
+        'report_src': 'syn10163025',
+        'report_dest': 'syn10240069',
+    },
+    {   'id':9606345,
+        'handle': 'knoweng_gene_prioritization',
+        'param_ext': '.yml',
+        'report_src': 'syn10235824',
+        'report_dest': 'syn10611690',
     }
 ]
 evaluation_queue_by_id = {q['id']:q for q in evaluation_queues}
@@ -116,16 +133,22 @@ def validate_submission(syn, evaluation, submission, annotations):
     for f in os.listdir(outputDir):
         os.remove(os.path.join(outputDir, f))
 
-    # check whether checker cwl and json are present
+    # check whether checker cwl and param file are present
     checkerPath = os.path.join(checkerDir, annotations['workflow'] + '_checker.cwl')
-    origCheckerJsonPath = checkerPath + ".json"
-    if not os.path.exists(checkerPath) and os.path.exists(origCheckerJsonPath):
-        raise ValueError("Must have these cwl and json files: %s, %s" % (checkerPath, origCheckerJsonPath))
+    origCheckerParamPath = checkerPath + config['param_ext']
+    if not os.path.exists(checkerPath) and os.path.exists(origCheckerParamPath):
+        raise ValueError("Must have these cwl and param files: %s, %s" % (checkerPath, origCheckerParamPath))
 
-    # link checker json to submission folder
-    newCheckerJsonPath = os.path.join(submissionDir, annotations['workflow'] + '_checker.cwl.json')
-    if not os.path.exists(newCheckerJsonPath):
-        os.symlink(origCheckerJsonPath, newCheckerJsonPath)
+    # link checker param file to submission folder
+    newCheckerParamPath = os.path.join(submissionDir, annotations['workflow'] + '_checker.cwl' + config['param_ext'])
+    if not os.path.exists(newCheckerParamPath):
+        if config['handle'] == 'encode_mapping_workflow':
+            shutil.copy(origCheckerParamPath, newCheckerParamPath)
+            sed_command = ['sed', '-i', '-e', 's|path.*\"\"|path\": \"{}\"|g'.format(submissionDir), newCheckerParamPath]
+            print(' '.join(sed_command))
+            subprocess.call(sed_command)
+        else:
+            os.symlink(origCheckerParamPath, newCheckerParamPath)
 
     # link known good outputs to submission folder
     knowngoodPaths = os.listdir(os.path.join(knowngoodDir, annotations['workflow']))
@@ -136,7 +159,7 @@ def validate_submission(syn, evaluation, submission, annotations):
             os.symlink(origKnowngoodPath, newKnowngoodPath)
 
     # run checker
-    validate_cwl_command = ['/home/ubuntu/.local/bin/cwl-runner', '--non-strict', '--outdir', outputDir, checkerPath, newCheckerJsonPath]
+    validate_cwl_command = ['/home/ubuntu/.local/bin/cwl-runner', '--non-strict', '--outdir', outputDir, checkerPath, newCheckerParamPath]
     print("Running checker with command\n{}\n...".format(' '.join(validate_cwl_command)))
     try:
         subprocess.call(validate_cwl_command)
@@ -214,32 +237,36 @@ def validate_submission_report(syn, evaluation, submission, status_annotations, 
     config = evaluation_queue_by_id[int(evaluation.id)]
     # get submission report wiki
     report_msg = "Report is ready to edit."
+    new_report = False
     try:
         report_status, report_id = (
             status_annotations['reportStatus'],
 	    status_annotations['reportEntityId']
 	)
         report_wiki = syn.getWiki(report_id)
-    except:    
+    except:
         report_status, report_id = _initialize_report(syn, evaluation, submission)
         report_wiki = syn.getWiki(report_id)
+        new_report = True
         if dry_run:
             syn.delete(report_id)
 
     print('checking report update time')
     created_time = datetime.strptime(report_wiki['createdOn'], '%Y-%m-%dT%H:%M:%S.%fZ')
     modified_time = datetime.strptime(report_wiki['modifiedOn'], '%Y-%m-%dT%H:%M:%S.%fZ')
-    
+
     required_fields = ['name', 'institution', 'platform', 'workflow_type',
                        'runner_version', 'docker_version', 'environment',
                        'env_cpus', 'env_memory', 'env_disk']
     platform = 'pending documentation'
+    environment = 'pending documentation'
     if modified_time > created_time:
         report_msg = "Report appears to have been modified since creation date/time and is in progress."
         print('checking report')
         # validate report
         report_dict = _parse_wiki_yaml(report_wiki.markdown)
-        platform = report_dict['platform']        
+        platform = report_dict['platform']
+        environment = report_dict['environment']
 
         missed_fields = [f for f in required_fields if f not in report_dict]
         assert not len(missed_fields), "The following fields are missing from your report: {}; please refer to the original template wiki for the {} workflow here to ensure all fields are present: https://www.synapse.org/#!Synapse:{}".format(missed_fields, config['handle'], config['report_src']) 
@@ -252,7 +279,7 @@ def validate_submission_report(syn, evaluation, submission, status_annotations, 
             report_status = 'VALIDATED'
             report_msg = "Report is pending final review and approval."
 
-    return {'reportStatus': report_status, 'reportEntityId': report_id, 'platform': platform}, report_msg
+    return {'reportStatus': report_status, 'reportEntityId': report_id, 'platform': platform, 'environment': environment}, report_msg, new_report
 
 
 def score_submission(evaluation, submission):
