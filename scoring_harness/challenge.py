@@ -309,9 +309,10 @@ def validate_reports(evaluation, canCancel, dry_run=False):
 
 
         ex1 = None #Must define ex1 in case there is no error
+        new_report = False
         print "validating report", submission.id, submission.name
         try:
-            report, report_message = conf.validate_submission_report(syn, evaluation, submission, status_annotations, dry_run)
+            report, report_message, new_report = conf.validate_submission_report(syn, evaluation, submission, status_annotations, dry_run)
 
             print "checked report:", submission.id, submission.name, submission.userId, report
             add_annotations = synapseclient.annotations.to_submission_status_annotations(report, is_private=False)
@@ -326,7 +327,7 @@ def validate_reports(evaluation, canCancel, dry_run=False):
 
         ## send message AFTER storing status to ensure we don't get repeat messages
         profile = syn.getUserProfile(submission.userId)
-        if report['reportStatus'] == 'INITIALIZED':
+        if new_report:
             print("sending message for initialized report...")
             messages.report_initialized(
                 userIds=[submission.userId],
