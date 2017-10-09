@@ -1,0 +1,157 @@
+---
+title: "GA4GH/DREAM Workflow Execution Challenge Submissions"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(synapseClient)
+library(tidyverse)
+library(stringr)
+library(ggplot2)
+library(forcats)
+library(viridis)
+library(plotly)
+
+custom_theme_bw <- function() {
+    theme_bw() +
+        theme(axis.title = element_text(face = "bold"),
+              legend.title = element_text(face = "bold"),
+              plot.title = element_text(face = "bold"))
+}
+
+```
+
+```{r, message=FALSE, include=FALSE}
+synapseLogin()
+submission_table <- synTableQuery("select * from syn10388233")
+valid_df <- submission_table@values
+```
+
+
+```{r, include=FALSE}
+valid_clean_df = valid_df %>% 
+    rownames_to_column("row_id") %>% 
+    mutate(platformHandle = case_when(
+               str_to_lower(platform) == "dockstore cli" ~ "dockstore",
+               platform == "Toil (new cwltoil branch)" ~ "Toil",
+               str_to_lower(platform) == "toil" ~ "Toil",
+               str_to_lower(platform) == "rabix" ~ "rabix",
+               TRUE ~ as.character(platform)
+           )
+    ) %>% 
+    column_to_rownames("row_id")
+```
+
+Row {data-height=100}
+-----------------------------------------------------------------------
+
+### Overview
+
+Submission data — aggregated in the Synapse table `syn103088233` — was downloaded using the `synapseClient` package for R on `r lubridate::now("UTC")` UTC.  Basic cleaning of platform names is also handled here. Note that while the `platform` column in the source table is parsed directly from participant-provided documentation (i.e., the **README** for each submission), `platformHandle` represents the cleaned or merged platform names.
+
+
+Row
+-----------------------------------------------------------------------
+
+### Successful Submissions
+
+Note that this table includes only submissions for which both `status` and `reportStatus` are **"VALIDATED"**.
+
+### Fully Documented Submissions (vs. all Validated)
+
+```{r}
+eval_ids <- c("9603664", "9603665", "9604287", "9604596", "9605240", 
+              "9605639", "9606345")
+total_validated <- map(eval_ids, function(eval_id) {
+    subs <- synGetSubmissions(eval_id, status = "VALIDATED", limit = 100)
+    subs@totalNumberOfResults
+}) %>% 
+    reduce(sum)
+total_documented <- nrow(valid_clean_df)
+gauge(total_documented, min = 0, max = total_validated)
+```
+
+### Teams Successfully Submitted (vs. all Registered)
+
+```{r}
+teams <- synRestGET('/challenge/3090/challengeTeam')
+total_teams <- teams$totalNumberOfResults
+
+successful_teams <- n_distinct(valid_clean_df$team)
+gauge(successful_teams, min = 0, max = total_teams)
+```
+
+Row {data-height=30}
+-----------------------------------------------------------------------
+
+### Submission Breakdowns
+
+View the distribution of successfully validated and documented workflows below.
+
+Row  {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+```{r, include=FALSE}
+plot_workflow_breakdown <- function(groupvar) {
+    submission_df <- valid_clean_df
+    fill_vals <- unique(submission_df[["workflow"]])
+    bar_vals <- unique(submission_df[[names(groupvar)]])
+    num_bars <- length(bar_vals)
+    
+    fill_margin <- max(purrr::map_int(fill_vals, stringr::str_length))
+    bar_margin <- max(purrr::map_int(bar_vals, stringr::str_length))
+    
+    groupcol = as.name(names(groupvar))
+    plot_df <- submission_df %>% 
+        group_by(.dots = c("workflow", names(groupvar))) %>% 
+        tally() %>% 
+        mutate(label = glue::glue("<b><i>{workflow}</i></b><br>[{groupvar}] <b>{group}</b>: {count} submissions",
+                                  workflow = workflow, 
+                                  groupvar = as.character(groupvar),
+                                  group = rlang::UQ(groupcol),
+                                  count = n))
+
+    
+    p <- plot_df %>% 
+        ggplot(aes_string(x = names(groupvar), y = "n", text = "label")) +
+        geom_col(aes(fill = workflow), alpha = 0.8, colour = "black", size = 0.2) +
+        scale_fill_viridis(discrete = TRUE) +
+        coord_flip() +
+        xlab("") +
+        ylab("") +
+        custom_theme_bw() +
+        theme(plot.title = element_text(face = "bold"),
+              legend.title = element_blank()) +
+        ggtitle(glue::glue("Workflows by {groupvar}", 
+                           groupvar = as.character(groupvar)))
+
+    ggplotly(p, tooltip = "text") %>%
+        layout(margin = list(l = 10 + bar_margin * 6,
+                             r = 10 + fill_margin * 6),
+               font = list(family = "Roboto, Open Sans, sans-serif"))
+}
+```
+
+### Platform
+
+```{r, warning=FALSE, message=FALSE}
+plot_workflow_breakdown(groupvar = list(platformHandle = "Platform"))
+```
+
+### Environment
+
+```{r, message=FALSE, warning=FALSE}
+plot_workflow_breakdown(groupvar = list(environment = "Environment"))
+```
+
+### Team
+
+```{r, message=FALSE, warning=FALSE}
+plot_workflow_breakdown(groupvar = list(team = "Team"))
+```
+
+
