@@ -77,8 +77,16 @@ evaluation_queues = [
         'param_ext': '.yml',
         'report_src': 'syn10235824',
         'report_dest': 'syn10611690',
+    },
+    {   'id':9606704,
+        'handle': 'pcawg-delly-sv-caller',
+        'param_ext': '.json',
+        'report_src': 'syn10793418',
+        'report_dest': 'syn11268901',
     }
 ]
+
+
 evaluation_queue_by_id = {q['id']:q for q in evaluation_queues}
 
 
