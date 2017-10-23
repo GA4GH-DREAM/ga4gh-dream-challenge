@@ -12,7 +12,7 @@ class Query(object):
 
     Also exposes properties totalNumberOfResults, headers and rows.
     """
-    def __init__(self, syn, query, limit=20, offset=0):
+    def __init__(self, syn, query, limit=1000, offset=0):
         self.syn = syn
         self.query = query
         self.limit = limit
