@@ -38,7 +38,7 @@ def filter_submissions(submission_df):
     are 'VALIDATED'; clean up columns a bit.
     """
     is_valid = (submission_df.status == 'VALIDATED') & (submission_df.reportStatus == 'VALIDATED')
-    keep_cols = ['objectId', 'modifiedOn', 'workflow', 'platform', 'scopeId', 
+    keep_cols = ['objectId', 'modifiedOn', 'workflow', 'platform', 'environment', 'scopeId', 
                  'user', 'submitterId',  'team', 'teamId',
                  'name', 'entityId', 'versionNumber', 'status', 
                  'reportEntityId', 'reportStatus']
