@@ -3,7 +3,7 @@ title: "GA4GH/DREAM Workflow Execution Challenge Submissions"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
-    vertical_layout: fill
+    vertical_layout: scroll
 ---
 
 ```{r setup, include=FALSE}
@@ -36,32 +36,47 @@ valid_df <- submission_table@values
 valid_clean_df = valid_df %>% 
     rownames_to_column("row_id") %>% 
     mutate(platformHandle = case_when(
-               str_to_lower(platform) == "dockstore cli" ~ "dockstore",
-               platform == "Toil (new cwltoil branch)" ~ "Toil",
-               str_to_lower(platform) == "toil" ~ "Toil",
-               str_to_lower(platform) == "rabix" ~ "rabix",
+               str_detect(str_to_lower(platform), "dockstore") ~ "dockstore",
+               str_detect(str_to_lower(platform), "toil") ~ "Toil",
+               str_detect(str_to_lower(platform), "rabix") ~ "rabix",
                TRUE ~ as.character(platform)
+           ),
+           environmentHandle = case_when(
+               str_detect(str_to_lower(environment), 
+                          "ucsc podcloud vm") ~ "UCSC podcloud VM",
+               str_detect(str_to_lower(environment), 
+                          "openstack") ~ "OpenStack VM",
+               str_detect(str_to_lower(environment), 
+                          "ec2|aws") ~ "EC2", 
+               str_detect(str_to_lower(environment), 
+                          "google") ~ "Google Compute Engine", 
+               str_detect(str_to_lower(environment), 
+                          "local") ~ "local", 
+               str_detect(str_to_lower(environment), 
+                          "^centos") ~ "local", 
+               TRUE ~ as.character(environment)
            )
     ) %>% 
     column_to_rownames("row_id")
 ```
 
-Row {data-height=100}
+Row {data-height=150}
 -----------------------------------------------------------------------
 
-### Overview
+### **Overview**
 
-Submission data — aggregated in the Synapse table `syn103088233` — was downloaded using the `synapseClient` package for R on `r lubridate::now("UTC")` UTC.  Basic cleaning of platform names is also handled here. Note that while the `platform` column in the source table is parsed directly from participant-provided documentation (i.e., the **README** for each submission), `platformHandle` represents the cleaned or merged platform names.
+Submission data — aggregated in the Synapse table `syn103088233` — was downloaded using the `synapseClient` package for R on `r lubridate::now("UTC")` UTC.  Some basic cleaning or merging of platform and environment names is also handled here for display purposes (note: participant-provided documentation as seen on [**Submission Tracker boards**](https://www.synapse.org/#!Synapse:syn8507133/wiki/451414) and the README for each submission has not been changed).
+
+-----
+
+Note that successful submissions represent those submissions for which both `status` and `reportStatus` are **“VALIDATED”**.
+
 
 
 Row
 -----------------------------------------------------------------------
 
-### Successful Submissions
-
-Note that this table includes only submissions for which both `status` and `reportStatus` are **"VALIDATED"**.
-
-### Fully Documented Submissions (vs. all Validated)
+### Fully Documented Submissions
 
 ```{r}
 eval_ids <- c("9603664", "9603665", "9604287", "9604596", "9605240", 
@@ -75,7 +90,9 @@ total_documented <- nrow(valid_clean_df)
 gauge(total_documented, min = 0, max = total_validated)
 ```
 
-### Teams Successfully Submitted (vs. all Registered)
+> (out of all submissions with validated outputs)
+
+### Teams Successfully Submitted
 
 ```{r}
 teams <- synRestGET('/challenge/3090/challengeTeam')
@@ -85,12 +102,27 @@ successful_teams <- n_distinct(valid_clean_df$team)
 gauge(successful_teams, min = 0, max = total_teams)
 ```
 
-Row {data-height=30}
+> (out of all registered Challenge teams)
+
+### Individuals Successfully Submitted
+
+```{r}
+individuals <- synRestGET('/challenge/3090/participant')
+total_individuals <- individuals$totalNumberOfResults
+
+successful_individuals <- n_distinct(valid_clean_df$user)
+gauge(successful_individuals, min = 0, max = total_individuals)
+```
+
+> (out of all registered Challenge participants)
+
+
+Row {data-height=50}
 -----------------------------------------------------------------------
 
-### Submission Breakdowns
+### **Submission Breakdowns**
 
-View the distribution of successfully validated and documented workflows below.
+Switch between tabs below to view the breakdown of successful submissions by platform, environment, or team.
 
 Row  {.tabset .tabset-fade}
 -----------------------------------------------------------------------
@@ -145,7 +177,7 @@ plot_workflow_breakdown(groupvar = list(platformHandle = "Platform"))
 ### Environment
 
 ```{r, message=FALSE, warning=FALSE}
-plot_workflow_breakdown(groupvar = list(environment = "Environment"))
+plot_workflow_breakdown(groupvar = list(environmentHandle = "Environment"))
 ```
 
 ### Team
