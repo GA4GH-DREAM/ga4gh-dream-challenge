@@ -7,6 +7,9 @@ cd ~/ga4gh-dream-challenge/scoring_harness
 #Remove --send-messages to do rescoring without sending emails to participants
 python challenge.py -u "james.eddy@sagebase.org" --acknowledge-receipt --notifications validate --all >> log/score.log 2>&1
 
+# add sleep to avoid precondition errors
+sleep 10m
+
 #---------------------------
 #Validate submission reports
 #---------------------------
