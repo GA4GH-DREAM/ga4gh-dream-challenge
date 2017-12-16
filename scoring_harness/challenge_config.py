@@ -83,6 +83,12 @@ evaluation_queues = [
         'param_ext': '.json',
         'report_src': 'syn10793418',
         'report_dest': 'syn11268901',
+    },
+    {   'id':9606705,
+        'handle': 'pcawg-sanger-variant-caller',
+        'param_ext': '.json',
+        'report_src': 'syn10517387',
+        'report_dest': 'syn11448560',
     }
 ]
 
@@ -112,6 +118,22 @@ for q in evaluation_queues:
 ## map each evaluation queues to the synapse ID of a table object
 ## where the table holds a leaderboard for that question
 leaderboard_tables = {}
+
+def update_params(submissionDir, checkerParamPath, handle):
+    """
+    Rewrite checker parameters file for workflows with dynamic
+    output filenames.
+    """
+    if handle == 'encode_mapping_workflow':
+        replace_expr = 's|path.*\"\"|path\": \"{}\"|g'.format(submissionDir)
+    elif handle == 'pcawg-sanger-variant-caller':
+        filename = [f for f in os.listdir(submissionDir)
+                    if re.search('somatic.*tar.gz', f)][0]
+        timestamp = re.search('(?<=0-0-0.)\w+', filename).group()
+        replace_expr = 's|0-0-0..*somatic|0-0-0.{}.somatic|g'.format(timestamp)
+    sed_command = ['sed', '-i', '-e', replace_expr, checkerParamPath]
+    print(' '.join(sed_command))
+    subprocess.call(sed_command)
 
 
 def validate_submission(syn, evaluation, submission, annotations):
@@ -150,11 +172,12 @@ def validate_submission(syn, evaluation, submission, annotations):
     # link checker param file to submission folder
     newCheckerParamPath = os.path.join(submissionDir, annotations['workflow'] + '_checker.cwl' + config['param_ext'])
     if not os.path.exists(newCheckerParamPath):
-        if config['handle'] == 'encode_mapping_workflow':
+        if config['handle'] in ['encode_mapping_workflow', 'pcawg-sanger-variant-caller']:
             shutil.copy(origCheckerParamPath, newCheckerParamPath)
-            sed_command = ['sed', '-i', '-e', 's|path.*\"\"|path\": \"{}\"|g'.format(submissionDir), newCheckerParamPath]
-            print(' '.join(sed_command))
-            subprocess.call(sed_command)
+            # sed_command = ['sed', '-i', '-e', 's|path.*\"\"|path\": \"{}\"|g'.format(submissionDir), newCheckerParamPath]
+            # print(' '.join(sed_command))
+            # subprocess.call(sed_command)
+            update_params(submissionDir, newCheckerParamPath, config['handle'])
         else:
             os.symlink(origCheckerParamPath, newCheckerParamPath)
 
