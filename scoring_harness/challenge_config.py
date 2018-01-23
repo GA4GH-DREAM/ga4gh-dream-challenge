@@ -9,13 +9,27 @@ import traceback
 import subprocess
 import json
 import re
-from datetime import datetime
-from StringIO import StringIO
-from synapseclient import Folder, File, Wiki
 import shutil
-import synapseutils as synu
 import zipfile
 import yaml
+import fnmatch
+from datetime import datetime
+from StringIO import StringIO
+from contextlib import contextmanager
+import synapseutils as synu
+from synapseclient import Folder, File, Wiki
+
+# from https://stackoverflow.com/questions/431684/how-do-i-cd-in-python/24176022#24176022
+@contextmanager
+def cd(newdir):
+    prevdir = os.getcwd()
+    os.chdir(os.path.expanduser(newdir))
+    try:
+        yield
+    finally:
+        os.chdir(prevdir)
+
+
 ## A Synapse project will hold the assetts for your challenge. Put its
 ## synapse ID here, for example
 ## CHALLENGE_SYN_ID = "syn1234567"
@@ -30,11 +44,10 @@ ADMIN_USER_IDS = ['3324230','2223305']
 
 CHALLENGE_OUTPUT_FOLDER = "syn9856439"
 evaluation_queues = [
-#GA4GH-DREAM_md5sum (9603664)
-#GA4GH-DREAM_hello_world (9603665)
     {
         'id':9603664,
         'handle': 'md5sum',
+        'checker_type': 'cwl',
         'param_ext': '.json',
         'report_src': 'syn10167920',
         'report_dest': 'syn10163084',
@@ -42,6 +55,7 @@ evaluation_queues = [
     {
         'id':9603665,
         'handle': 'hello_world',
+        'checker_type': 'cwl',
         'param_ext': '.json',
         'report_src': 'syn9630940',
         'report_dest': 'syn10163081',
@@ -49,6 +63,7 @@ evaluation_queues = [
     {
         'id':9604287,
         'handle': 'biowardrobe_chipseq_se',
+        'checker_type': 'cwl',
         'param_ext': '.json',
         'report_src': 'syn9772359',
         'report_dest': 'syn10163082',
@@ -56,40 +71,60 @@ evaluation_queues = [
     {
         'id':9604596,
         'handle': 'gdc_dnaseq_transform',
+        'checker_type': 'cwl',
         'param_ext': '.json',
         'report_src':'syn9766994',
         'report_dest': 'syn10156701',
     },
     {   'id':9605240,
         'handle': 'bcbio_NA12878-chr20',
+        'checker_type': 'cwl',
         'param_ext': '.json',
         'report_src': 'syn9725771',
         'report_dest': 'syn10163083',
     },
     {   'id':9605639,
         'handle': 'encode_mapping_workflow',
+        'checker_type': 'cwl',
         'param_ext': '.json',
         'report_src': 'syn10163025',
         'report_dest': 'syn10240069',
     },
     {   'id':9606345,
         'handle': 'knoweng_gene_prioritization',
+        'checker_type': 'cwl',
         'param_ext': '.yml',
         'report_src': 'syn10235824',
         'report_dest': 'syn10611690',
     },
     {   'id':9606704,
         'handle': 'pcawg-delly-sv-caller',
+        'checker_type': 'cwl',
         'param_ext': '.json',
         'report_src': 'syn10793418',
         'report_dest': 'syn11268901',
     },
     {   'id':9606705,
         'handle': 'pcawg-sanger-variant-caller',
+        'checker_type': 'cwl',
         'param_ext': '.json',
         'report_src': 'syn10517387',
         'report_dest': 'syn11448560',
-    }
+    },
+    {   'id':9606715,
+        'handle': 'pcawg-bwa-mem-aligner',
+        'checker_type': 'cwl',
+        'param_ext': '.json',
+        'report_src': 'syn10517407',
+        'report_dest': 'syn11516211',
+    },
+    {   'id':9607590,
+        'handle': 'broad-gatk-validate-bam',
+        'checker_type': 'wdl',
+        'param_ext': '.json',
+        'report_src': 'syn11178580',
+        'report_dest': 'syn11616986',
+   }
 ]
 
 
@@ -136,6 +171,56 @@ def update_params(submissionDir, checkerParamPath, handle):
     subprocess.call(sed_command)
 
 
+def run_checker(submissionDir, checkerPath, checkerParamPath, outputDir, checker_type):
+    if checker_type == 'cwl':
+        validate_command = [
+            '/home/ubuntu/.local/bin/cwl-runner', 
+            '--non-strict', 
+            '--outdir', 
+            outputDir, 
+            checkerPath, 
+            checkerParamPath
+        ]
+    elif checker_type == 'wdl':
+        validate_command = [
+            'java', 
+            '-jar',
+            '/home/ubuntu/ga4gh-dream-challenge/scoring_harness/cromwell-29.jar', 
+            'run', 
+            checkerPath, 
+            '--inputs', 
+            checkerParamPath
+        ]
+
+    print("Running checker with command\n{}\n...".format(' '.join(validate_command)))
+    try:
+        with cd(submissionDir):
+            subprocess.call(['ls', '-l'])
+            # clear cache
+            if 'cromwell-executions' in os.listdir('.'):
+                shutil.rmtree('cromwell-executions')
+            subprocess.call(validate_command)
+    except OSError as ex:
+        print "Exception from '{}' runner:".format(checker_type), type(ex), ex, ex.message
+        raise
+    # find/move results.json and log.txt for WDL 
+    if checker_type == 'wdl':
+        resultFile = [os.path.join(dirpath, f) 
+                      for dirpath, dirnames, files in os.walk(submissionDir) 
+                      for f in fnmatch.filter(files, 'results.json')][-1]
+        shutil.move(
+            resultFile,
+            os.path.join(outputDir, os.path.basename(resultFile))
+        )
+        logFile = [os.path.join(dirpath, f) 
+                      for dirpath, dirnames, files in os.walk(submissionDir) 
+                      for f in fnmatch.filter(files, 'log.txt')][-1]
+        shutil.move(
+            logFile,
+            os.path.join(outputDir, os.path.basename(logFile))
+        )
+
+
 def validate_submission(syn, evaluation, submission, annotations):
     """
     Find the right validation function and validate the submission.
@@ -162,41 +247,56 @@ def validate_submission(syn, evaluation, submission, annotations):
     # clear existing outputs
     for f in os.listdir(outputDir):
         os.remove(os.path.join(outputDir, f))
+    
+    for f in os.listdir(submissionDir):
+        if f in ['results.json', 'log.txt']:
+            os.remove(os.path.join(submissionDir, f))    
 
     # check whether checker cwl and param file are present
-    checkerPath = os.path.join(checkerDir, annotations['workflow'] + '_checker.cwl')
+    checkerPath = os.path.join(
+        checkerDir, 
+        config['handle'] + '_checker.' + config['checker_type']
+    )
     origCheckerParamPath = checkerPath + config['param_ext']
     if not os.path.exists(checkerPath) and os.path.exists(origCheckerParamPath):
-        raise ValueError("Must have these cwl and param files: %s, %s" % (checkerPath, origCheckerParamPath))
+        raise ValueError(
+            "Must have these cwl and param files: {}, {}"
+            .format(checkerPath, origCheckerParamPath)
+        )
 
     # link checker param file to submission folder
-    newCheckerParamPath = os.path.join(submissionDir, annotations['workflow'] + '_checker.cwl' + config['param_ext'])
+    newCheckerParamPath = os.path.join(
+        submissionDir, 
+        config['handle'] + '_checker.' + config['checker_type'] + config['param_ext']
+    )
     if not os.path.exists(newCheckerParamPath):
         if config['handle'] in ['encode_mapping_workflow', 'pcawg-sanger-variant-caller']:
             shutil.copy(origCheckerParamPath, newCheckerParamPath)
-            # sed_command = ['sed', '-i', '-e', 's|path.*\"\"|path\": \"{}\"|g'.format(submissionDir), newCheckerParamPath]
-            # print(' '.join(sed_command))
-            # subprocess.call(sed_command)
             update_params(submissionDir, newCheckerParamPath, config['handle'])
         else:
             os.symlink(origCheckerParamPath, newCheckerParamPath)
 
     # link known good outputs to submission folder
-    knowngoodPaths = os.listdir(os.path.join(knowngoodDir, annotations['workflow']))
+    knowngoodPaths = os.listdir(os.path.join(knowngoodDir, config['handle']))
     for knowngood in knowngoodPaths:
-        origKnowngoodPath = os.path.join(knowngoodDir, annotations['workflow'], knowngood)
+        origKnowngoodPath = os.path.join(
+            knowngoodDir, 
+            config['handle'], 
+            knowngood
+        )
         newKnowngoodPath = os.path.join(submissionDir, knowngood)
         if not os.path.exists(newKnowngoodPath):
             os.symlink(origKnowngoodPath, newKnowngoodPath)
 
     # run checker
-    validate_cwl_command = ['/home/ubuntu/.local/bin/cwl-runner', '--non-strict', '--outdir', outputDir, checkerPath, newCheckerParamPath]
-    print("Running checker with command\n{}\n...".format(' '.join(validate_cwl_command)))
-    try:
-        subprocess.call(validate_cwl_command)
-    except OSError as ex:
-        print "Exception from 'cwl-runner':", type(ex), ex, ex.message
-        raise
+    #validate_cwl_command = ['/home/ubuntu/.local/bin/cwl-runner', '--non-strict', '--outdir', outputDir, checkerPath, newCheckerParamPath]
+    #print("Running checker with command\n{}\n...".format(' '.join(validate_cwl_command)))
+    #try:
+    #    subprocess.call(validate_cwl_command)
+    #except OSError as ex:
+    #    print "Exception from 'cwl-runner':", type(ex), ex, ex.message
+    #    raise
+    run_checker(submissionDir, checkerPath, newCheckerParamPath, outputDir, config['checker_type'])
 
     # collect checker results
     resultFile = os.path.join(outputDir,'results.json')
@@ -329,6 +429,14 @@ def _parse_wiki_yaml(wiki_markdown):
     Parse YAML fields from code chunks in a wiki markdown and return dict.
     """
     md_lines = StringIO(wiki_markdown).readlines()
+    try:
+        last_line = [idx for idx, l in enumerate(md_lines) 
+                     if re.search('env_disk_ex', l)][0]
+    except IndexError:
+        last_line = [idx for idx, l in enumerate(md_lines) 
+                     if re.search('env_disk', l)][0]
+
+    md_lines = md_lines[0:last_line+2]
     code_chunks = [(idx, l) for idx, l in enumerate(md_lines)
                    if re.search('```', l)]
     yaml_lines = []
