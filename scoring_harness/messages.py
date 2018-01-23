@@ -85,6 +85,29 @@ detailed documentation under the "Steps" section.</p>
 {scoring_script}</p>
 """
 
+report_reminder_subject_template = "REMINDER: report wiki incomplete for submission to {queue_name}"
+report_reminder_template = """\
+<p>Hello {username},</p> 
+<p>Your submission (ID: {submission_id}) for the {queue_name} evaluation queue \
+was previously validated; however, the status of the corresponding Synapse wiki \
+is still either "INITIALIZED" or "IN_PROGRESS". In order for your submission to \
+be counted in the final results for the Workflow Execution Challenge, <u>the report \
+wiki must also be successfully validated by <b>January 6th, 2018</b></u>. Follow the \
+instructions below to  document your methods and complete your submission.</p>
+<p>Please navigate to the Synapse entity located at \
+https://www.synapse.org/#!Synapse:{report_entity_id} \
+and select '<b>Tools</b>' -> '<b>Edit File Wiki</b>' to edit the report. \
+At a minimum, you should complete all YAML-style fields in the \
+"<b>Submission overview</b>" section; however, we strongly encourage you to provide \
+detailed documentation under the "<b>Steps</b>" section. You can also refer to the \
+<a href="https://www.synapse.org/#!Synapse:syn8507133/wiki/451412"><b>Document Submissions</b> \
+page</a> on the challenge site for more details.</p>
+<p>If you have questions, please ask on the forums at {support_forum_url}.</p>
+
+<p>Sincerely,<br>
+{scoring_script}</p>
+"""
+
 report_validation_failed_subject_template = "Report validation error for submission in {queue_name}"
 report_validation_failed_template = """\
 <p>Hello {username},</p>
@@ -220,6 +243,13 @@ def report_initialized(userIds, **kwargs):
         return send_message(userIds=userIds, 
                             subject_template=report_initialized_subject_template,
                             message_template=report_initialized_template,
+                            kwargs=kwargs)
+
+def report_reminder(userIds, **kwargs):
+    if send_messages:
+        return send_message(userIds=userIds, 
+                            subject_template=report_reminder_subject_template,
+                            message_template=report_reminder_template,
                             kwargs=kwargs)
 
 def report_validation_failed(userIds, **kwargs):
