@@ -27,49 +27,17 @@ custom_theme_bw <- function() {
 
 ```{r, message=FALSE, include=FALSE}
 synapseLogin()
-submission_table <- synTableQuery("select * from syn10388233")
-valid_df <- submission_table@values
+submission_table <- synTableQuery("select * from syn11713824")
+valid_clean_df <- submission_table@values
 ```
 
-
-```{r, include=FALSE}
-valid_clean_df = valid_df %>% 
-    rownames_to_column("row_id") %>% 
-    mutate(platformHandle = case_when(
-               str_detect(str_to_lower(platform), "dockstore") ~ "dockstore",
-               str_detect(str_to_lower(platform), "toil") ~ "Toil",
-               str_detect(str_to_lower(platform), "rabix") ~ "rabix",
-               str_detect(str_to_lower(platform), "dnastack/cromwell") ~ "DNAstack/cromwell",
-               str_detect(platform, "ISB-CGC dsub/cwltool/cwl_runner.sh") ~ "ISB-CGC dsub+cwl_runner.sh",
-               TRUE ~ as.character(platform)
-           ),
-           environmentHandle = case_when(
-               str_detect(str_to_lower(environment), 
-                          "ucsc podcloud vm") ~ "UCSC podcloud VM",
-               str_detect(str_to_lower(environment), 
-                          "egi fedcloud") ~ "EGI FedCloud",
-               str_detect(str_to_lower(environment), 
-                          "openstack") ~ "OpenStack VM",
-               str_detect(str_to_lower(environment), 
-                          "ec2|aws") ~ "EC2", 
-               str_detect(str_to_lower(environment), 
-                          "google") ~ "Google Compute Engine", 
-               str_detect(str_to_lower(environment), 
-                          "local") ~ "local", 
-               str_detect(str_to_lower(environment), 
-                          "^centos") ~ "local", 
-               TRUE ~ as.character(environment)
-           )
-    ) %>% 
-    column_to_rownames("row_id")
-```
 
 Row {data-height=150}
 -----------------------------------------------------------------------
 
 ### **Overview**
 
-Submission data — aggregated in the Synapse table `syn103088233` — was downloaded using the `synapseClient` package for R on `r lubridate::now("UTC")` UTC.  Some basic cleaning or merging of platform and environment names is also handled here for display purposes (note: participant-provided documentation as seen on [**Submission Tracker boards**](https://www.synapse.org/#!Synapse:syn8507133/wiki/451414) and the README for each submission has not been changed).
+Submission data — cleaned and aggregated in the Synapse table `syn11713824` — was downloaded using the `synapseClient` package for R on `r lubridate::now("UTC")` UTC.  Some basic cleaning or merging of platform and environment names is also handled here for display purposes (note: participant-provided documentation as seen on [**Submission Tracker boards**](https://www.synapse.org/#!Synapse:syn8507133/wiki/451414) and the README for each submission has not been changed).
 
 -----
 
@@ -89,7 +57,7 @@ valueBox(workflows, icon = "fa-cogs")
 ### Platforms represented
 
 ```{r}
-platforms <- n_distinct(valid_clean_df$platformHandle)
+platforms <- n_distinct(valid_clean_df$platform)
 valueBox(platforms, icon = "fa-wrench")
 ```
 
@@ -101,8 +69,7 @@ Row
 ### Fully Documented Submissions
 
 ```{r}
-eval_ids <- c("9603664", "9603665", "9604287", "9604596", "9605240", 
-              "9605639", "9606345")
+eval_ids <- unique(valid_clean_df$scopeId)
 total_validated <- map(eval_ids, function(eval_id) {
     subs <- synGetSubmissions(eval_id, status = "VALIDATED", limit = 100)
     subs@totalNumberOfResults
@@ -187,7 +154,7 @@ plot_workflow_matrix <- function(groupvar) {
 ```
 
 ```{r, message=FALSE, warning=FALSE}
-plot_workflow_matrix(groupvar = list(platformHandle = "Platform"))
+plot_workflow_matrix(groupvar = list(platform = "Platform"))
 ```
 
 Row {data-height=50}
@@ -235,7 +202,7 @@ plot_workflow_breakdown <- function(groupvar) {
                            groupvar = as.character(groupvar)))
 
     ggplotly(p, tooltip = "text") %>%
-        layout(margin = list(l = 10 + bar_margin * 6,
+        layout(margin = list(l = 12 + bar_margin * 6,
                              r = 10 + fill_margin * 6),
                font = list(family = "Roboto, Open Sans, sans-serif"))
 }
@@ -244,13 +211,13 @@ plot_workflow_breakdown <- function(groupvar) {
 ### Platform
 
 ```{r, warning=FALSE, message=FALSE}
-plot_workflow_breakdown(groupvar = list(platformHandle = "Platform"))
+plot_workflow_breakdown(groupvar = list(platform = "Platform"))
 ```
 
 ### Environment
 
 ```{r, message=FALSE, warning=FALSE}
-plot_workflow_breakdown(groupvar = list(environmentHandle = "Environment"))
+plot_workflow_breakdown(groupvar = list(environment = "Environment"))
 ```
 
 ### Team
@@ -259,3 +226,9 @@ plot_workflow_breakdown(groupvar = list(environmentHandle = "Environment"))
 plot_workflow_breakdown(groupvar = list(team = "Team"))
 ```
 
+
+### Type
+
+```{r, message=FALSE, warning=FALSE}
+plot_workflow_breakdown(groupvar = list(workflow_type = "Type"))
+```

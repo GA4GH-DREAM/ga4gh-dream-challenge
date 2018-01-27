@@ -1,0 +1,271 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(synapseClient)
+library(tidyverse)
+library(stringr)
+library(ggplot2)
+library(forcats)
+library(glue)
+```
+
+## Collect submission data
+
+```{r}
+synapseLogin()
+
+# AllSubmissions_annotated table in Synapse
+submission_table <- synTableQuery("select * from syn11700144")
+submission_df <- submission_table@values
+```
+
+
+```{r}
+# keep only validated submissions
+valid_df <- submission_df %>% 
+    filter(status == "VALIDATED" & reportStatus == "VALIDATED")
+```
+
+## Fix and subset columns
+
+```{r}
+names(valid_df)
+```
+
+```{r}
+# fix mislabeled columns
+valid_df <- valid_df %>%
+    mutate(
+        date_accessed = ifelse(
+            !is.na(ate_accessed) & is.na(date_accessed),
+            ate_accessed,
+            date_accessed),
+        date_accessed = ifelse(
+            !is.na(pdate_accessed) & is.na(date_accessed),
+            pdate_accessed,
+            date_accessed)
+    ) %>% 
+    select(-ate_accessed, -pdate_accessed)
+```
+
+```{r}
+# remove submission system specific columns
+valid_df <- valid_df %>% 
+    select(-FAILURE_REASON, -canCancel, -cancelControl, -cancelRequested)
+```
+
+```{r}
+# edit ambiguous column names
+valid_clean_df <- valid_df %>% 
+    rename(workflow_contributor = contributor, 
+           file_name = name)
+```
+
+## Clean values
+
+```{r}
+clean_bytes <- function(bytes_string) {
+    if (str_detect(bytes_string, "(elastic|autoscale)")) {
+        return(bytes_string)
+    } else {
+        size <- parse_number(bytes_string) %>% 
+            str_trim()
+        units <- str_extract(bytes_string, "[[:alpha:]]+") %>% 
+            str_to_title() %>% 
+            str_trim()
+        if (!is.na(units)) {
+            if (!str_detect(units, "b$")) {
+                units <- str_c(units, "b")
+            }
+        } else {
+            return(size)
+        }
+        str_c(size, units)
+    }
+}
+
+guess_bytes_units <- function(bytes_size) {
+    if (str_detect(bytes_size, "(elastic|autoscale|b$)")) {
+        return(bytes_size)
+    }
+    if (str_length(bytes_size) > 1) {
+        units <- "Gb"
+    } else {
+        units <- "Tb"
+    }
+    str_c(bytes_size, units)
+}
+```
+
+
+```{r}
+# fill in or correct missing values for workflow info
+workflow_fields <- c("workflow_contributor", "workflow_handle","input_handle",
+                     "suggested_cpus", "suggested_disk", "suggested_ram")
+
+workflow_info_df <- valid_clean_df %>% 
+    select(one_of(workflow_fields)) %>% 
+    mutate_at(c("suggested_disk", "suggested_ram"), clean_bytes) %>% 
+    group_by(.dots = workflow_fields) %>% 
+    tally() %>% 
+    ungroup() %>% 
+    filter_all(all_vars(!is.na(.))) %>% 
+    filter(!(workflow_contributor %in% 
+                 c("Lon Blauvelt", "Zhicheng Ji", "Benjamin Story"))) %>% 
+    select(-n)
+
+valid_clean_df <- valid_clean_df %>% 
+    select(-one_of(workflow_fields)) %>% 
+    left_join(workflow_info_df, by = c("workflow" = "workflow_handle"))
+```
+
+```{r}
+rearrange_runner_version <- function(runner_info) {
+    if(str_detect(runner_info, "(, |with)")) {
+        
+        runner_info <- str_split(runner_info, "(, |with)") %>% 
+            map(function(x) {
+                str_trim(x) %>% 
+                    str_split(" ") %>% 
+                    map(function(part) set_names(part, c("name", "version")))
+            }) %>% 
+            .[[1]] 
+        runner_names = map_chr(runner_info, "name")
+        runner_versions = map_chr(runner_info, "version")
+        str_c(str_c(runner_names, collapse = ","), 
+              str_c(runner_versions, collapse = ","),
+              sep = " ")
+    } else {
+        runner_info
+    }
+}
+```
+
+
+```{r}
+valid_clean_df <- valid_clean_df %>% 
+    # fix hyphen-separated runner/version for downstream parsing
+    mutate(runner_version = str_replace(runner_version, 
+                                        "cwltool-", "cwltool "),
+           runner_version = str_replace(runner_version, 
+                                        "rabix-cli-", "rabix-cli "),
+           runner_version = str_replace(runner_version,
+                                        "05644 1.0.2", "05644~1.0.2")) %>% 
+    # filter(str_detect(runner_version_clean, "(, |with)")) %>%
+    rowwise() %>% 
+    mutate(runner_version = rearrange_runner_version(runner_version)) %>%
+    ungroup() %>% 
+    # split runner name and version into separate columns
+    separate(runner_version, c("runner", "runner_version"),
+             sep = "( |==|:)+") %>%
+    # consolidate platform names
+    mutate(
+        platform = case_when(
+            str_detect(str_to_lower(platform), "^dockstore") ~ "dockstore",
+            str_detect(str_to_lower(platform), "^toil") ~ "Toil",
+            str_detect(str_to_lower(platform), "^rabix") ~ "rabix",
+            str_detect(str_to_lower(platform), "^dnastack/cromwell") ~
+                "DNAstack/cromwell",
+            str_detect(platform, "ISB-CGC dsub/cwltool/cwl_runner.sh") ~
+                "ISB-CGC/dsub+cwltool",
+            str_detect(platform, "ISB-CGC dsub/rabix/cwl_runner.sh") ~
+                "ISB-CGC/dsub+rabix",
+            TRUE ~ as.character(platform)
+    )) %>%
+    # clean up runner name and version
+    mutate(
+        runner_version = ifelse(is.na(runner_version),
+                                runner, runner_version),
+        runner = ifelse(str_detect(runner,
+                                   "^([[:number:]]|latest|alpha)"),
+                        NA, runner),
+        runner = ifelse(is.na(runner),
+                        str_extract(
+                            platform,
+                            "(cwltool|cromwell|dockstore|rabix|Toil|JTracker)"
+                        ),
+                        runner)
+    ) %>%
+    # consolidate environment names
+    mutate(
+        environment = case_when(
+            str_detect(str_to_lower(environment),
+                       "ucsc podcloud vm") ~ "UCSC podcloud VM",
+            str_detect(str_to_lower(environment),
+                       "egi fedcloud") ~ "EGI FedCloud",
+            str_detect(str_to_lower(environment),
+                       "openstack") ~ "OpenStack VM",
+            str_detect(str_to_lower(environment),
+                       "ec2|aws") ~ "EC2",
+            str_detect(str_to_lower(environment),
+                       "google") ~ "Google Compute Engine",
+            str_detect(str_to_lower(environment),
+                       "local") ~ "local",
+            str_detect(str_to_lower(environment),
+                       "^centos") ~ "local",
+            str_detect(str_to_lower(environment),
+                       "^linux") ~ "local",
+            TRUE ~ as.character(environment)
+        )
+    ) %>%
+    # consolidate institutions
+    mutate(
+        institution = case_when(
+            str_detect(str_to_lower(institution),
+                       "children's mercy") ~ "Children's Mercy Kansas City",
+            str_detect(str_to_lower(institution),
+                       "isb-cgc") ~ "Institute for Systems Biology",
+            str_detect(str_to_lower(institution),
+                       "isb") ~ "Institute for Systems Biology",
+            str_detect(str_to_lower(institution),
+                       "oicr") ~ "Ontario Institute for Cancer Research",
+            str_detect(str_to_lower(institution),
+                       "ucsc") ~ "UCSC",
+            str_detect(str_to_lower(institution),
+                       "embl") ~ "European Molecular Biology Laboratory, Heidelberg",
+            str_detect(str_to_lower(institution),
+                       "u201cEMBLu201d") ~ "European Molecular Biology Laboratory, Heidelberg",
+            str_detect(str_to_lower(institution),
+                       "none") ~ "No Institution",
+            TRUE ~ as.character(institution)
+        )
+    ) %>%
+    # clean up docker version
+    mutate(docker_version = str_replace(docker_version, "Docker version ", "")) %>% 
+    # clean up disk/memory sizes
+    rowwise() %>%
+    mutate_at(c("env_disk", "env_memory"), clean_bytes) %>%
+    mutate_at(c("env_disk", "env_memory"), guess_bytes_units) %>% 
+    ungroup() %>% 
+    # clean up workflow type
+    mutate(
+        workflow_type = case_when(
+            str_detect(str_to_lower(workflow_type), "cw") ~ "CWL",
+            str_detect(str_to_lower(workflow_type), "wd") ~ "WDL",
+            TRUE ~ workflow_type
+        )
+    )
+```
+
+```{r}
+table_name <- "ValidSubmissions_clean"
+# otherwise, create new schema and store table data
+message(sprintf("creating new table with name '%s'", table_name))
+table_colobject <- as.tableColumns(valid_clean_df, doFullFileScan = FALSE)
+cols <- table_colobject$tableColumns
+
+schema <- TableSchema(name = table_name, columns = cols,
+                      parent = "syn8507133")
+write_csv(valid_clean_df, "valid_clean_df.csv")
+syn_table <- Table(schema, read_csv("valid_clean_df.csv"))
+syn_table <- synStore(syn_table)
+message(sprintf("table stored as: %s",
+                properties(syn_table@schema)$id))
+```
+
+
+    
+
