@@ -37,7 +37,7 @@ Row {data-height=150}
 
 ### **Overview**
 
-Submission data — cleaned and aggregated in the Synapse table `syn11713824` — was downloaded using the `synapseClient` package for R on `r lubridate::now("UTC")` UTC.  Some basic cleaning or merging of platform and environment names is also handled here for display purposes (note: participant-provided documentation as seen on [**Submission Tracker boards**](https://www.synapse.org/#!Synapse:syn8507133/wiki/451414) and the README for each submission has not been changed).
+Submission data — cleaned and aggregated in the Synapse table `syn11713824` — was downloaded using the `synapseClient` package for R on `r lubridate::now("UTC")` UTC. The code used for cleaning participant-provided information can be found [here](https://github.com/GA4GH-DREAM/ga4gh-dream-challenge/blob/master/submission_cleaning.Rmd)  (note: undedited submission information can be found in Synapse table `syn11700144`, and full participant documentation can be found through the [**Submission Tracker boards**](https://www.synapse.org/#!Synapse:syn8507133/wiki/451414) leaderboards).
 
 -----
 
