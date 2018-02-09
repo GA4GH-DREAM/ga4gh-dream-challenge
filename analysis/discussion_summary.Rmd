@@ -1,0 +1,79 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(synapser)
+```
+
+```{r}
+synLogin()
+```
+
+```{r}
+forum_replies_df <- readr::read_csv("../data/forum_replies_df.csv")
+```
+
+```{r}
+forum_replies_df %>% 
+    dplyr::distinct(reply_createdBy)
+```
+
+```{r}
+x <- synGetUserProfile("3340080")
+
+parse_user_profile <- function(user_profile) {
+    list(
+        company = user_profile$company,
+        firstName = user_profile$firstName,
+        industry = user_profile$industry,
+        lastName = user_profile$lastName,
+        location = user_profile$location,
+        ownerId = user_profile$ownerId,
+        position = user_profile$position,
+        summary = user_profile$summary,
+        url = user_profile$url,
+        userName = user_profile$userName
+    )
+}
+
+```
+
+
+```{r}
+forum_user_df <- forum_replies_df %>% 
+    dplyr::distinct(reply_createdBy) %>% 
+    pmap_df(function(reply_createdBy) {
+        as.character(reply_createdBy) %>% 
+            synGetUserProfile() %>% 
+            parse_user_profile() %>% 
+            map(function(x) {
+                if (is.null(x)) {
+                    ""
+                } else {
+                    x
+                }
+            }) %>% 
+            as_tibble()
+    })
+```
+
+```{r}
+forum_replies_df %>% 
+    select(reply_content) %>% 
+    mutate(reply_mentions = str_extract_all(reply_content, "@\\w+"),
+           reply_at = str_extract(reply_content, "^(Hi |Dear )*@\\w+"),
+           reply_at = str_extract(reply_content, "@\\w+")) %>% 
+    unnest(reply_mentions) %>% 
+    left_join(forum_replies_df, ., by = c("reply_content")) %>% 
+    mutate(reply_createdBy = as.character(reply_createdBy)) %>% 
+    left_join(forum_user_df, by = c("reply_createdBy" = "ownerId")) %>% 
+    select(userName, reply_content, reply_mentions, reply_at)
+```
+
+```{r}
+str(forum_user_df$ownerId)
+```
+

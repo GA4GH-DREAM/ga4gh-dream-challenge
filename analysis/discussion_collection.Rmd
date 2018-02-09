@@ -1,0 +1,99 @@
+---
+title: "GA4GH/DREAM Discussion Forum Collection"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+library(synapseClient)
+library(tidyverse)
+library(stringr)
+library(glue)
+library(httr)
+```
+
+```{r, message=FALSE, include=FALSE}
+synapseLogin()
+```
+
+```{r}
+get_reply_message <- function(reply_bundle) {
+    synRestGET(
+        glue::glue('/reply/messageUrl?messageKey={message_key}', 
+                   message_key = reply_bundle$messageKey)
+    ) %>% 
+        purrr::pluck("messageUrl") %>% 
+        httr::GET(
+            url = ., 
+            httr::add_headers(`Content-Type` = "text/plain; charset=utf-8")
+        ) %>% 
+        httr::content("text")
+}
+
+parse_reply_bundle <- function(reply_bundle) {
+    reply_message <- get_reply_message(reply_bundle)
+    as_tibble(reply_bundle) %>% 
+        mutate(content = reply_message) %>% 
+        rename_all(funs(function(x) {str_c("reply_", .)}))
+}
+```
+
+
+```{r}
+get_thread_replies <- function(thread_id) {
+    synRestGET(
+        glue::glue('/thread/{thread_id}/replies?limit=25&offset=0&filter=EXCLUDE_DELETED',
+                   thread_id = thread_id)
+    )
+}
+
+get_thread_message <- function(thread_bundle) {
+    synRestGET(
+        glue::glue('/thread/messageUrl?messageKey={message_key}', 
+                   message_key = thread_bundle$messageKey)
+    ) %>% 
+        purrr::pluck("messageUrl") %>% 
+        httr::GET(
+            url = ., 
+            httr::add_headers(`Content-Type` = "text/plain; charset=utf-8")
+        ) %>% 
+        httr::content("text")
+}
+
+parse_thread_bundle <- function(thread_bundle) {
+    thread_message <- get_thread_message(thread_bundle)
+    as_tibble(thread_bundle) %>% 
+        mutate(content = thread_message) %>% 
+        select(-activeAuthors) %>%
+        distinct() %>%
+        rename_all(funs(function(x) {str_c("thread_", .)}))
+}
+```
+
+
+```{r}
+collect_thread_replies <- function(thread_bundle) {
+    parse_thread_bundle(thread_bundle) %>% 
+        mutate(reply_data = map(thread_id, function(x) {
+            get_thread_replies(thread_id) %>%
+                pluck("results") %>%
+                map_df(., parse_reply_bundle)
+        })) %>%
+        unnest(reply_data)
+}
+```
+
+```{r}
+challenge_forum <- synRestGET('/project/syn8507133/forum')
+challenge_threads <- synRestGET(
+    glue::glue('/forum/{forum_id}/threads?limit=20&offset=0&filter=EXCLUDE_DELETED', 
+               forum_id = challenge_forum$id)
+)
+forum_replies_df <- challenge_threads %>% 
+    pluck("results") %>% 
+    map_df(., collect_thread_replies)
+```
+
+```{r}
+write_csv(forum_replies_df, "forum_replies_df.csv")
+```
+

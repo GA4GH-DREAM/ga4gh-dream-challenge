@@ -1,0 +1,44 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(fs)
+```
+
+
+```{r}
+if (!file_exists("../data/report_wiki_df.csv")) {
+    report_wiki_df <- dir_ls("../data/report_wikis/", glob = "*.md", recursive = TRUE) %>% 
+        map_df(function(md) {
+            read_file(md) %>% 
+                tibble(content = .)
+        }, .id = "file")
+    
+    report_wiki_df <- report_wiki_df %>% 
+        mutate(file = str_replace(file, ".*report_wikis/", "")) %>% 
+        separate(file, c("workflow", "file"), sep = "/") %>% 
+        mutate(submission_id = str_extract(file, ".*(?=_report)"))
+    
+    write_csv(report_wiki_df, "../data/report_wiki_df.csv")
+} else {
+    report_wiki_df <- read_csv("../data/report_wiki_df.csv")
+}
+```
+
+
+```{r}
+extract_steps <- Vectorize(function(text) {
+    steps_location <- str_locate(str_to_lower(text), "(### steps|#### 1)")
+    str_sub(text, steps_location[1], str_length(text))
+})
+
+test <- report_wiki_df %>% 
+    mutate(steps_text = extract_steps(content))
+# report_wiki_df %>% 
+#     mutate(has_steps_header = str_detect(str_to_lower(content), "(steps|#### 1)")) %>% 
+#     select(has_steps_header)
+```
+
