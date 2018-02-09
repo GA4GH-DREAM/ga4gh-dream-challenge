@@ -1,0 +1,2095 @@
+thread_id,thread_forumId,thread_projectId,thread_title,thread_createdOn,thread_createdBy,thread_modifiedOn,thread_etag,thread_messageKey,thread_numberOfViews,thread_numberOfReplies,thread_lastActivity,thread_isEdited,thread_isDeleted,thread_isPinned,thread_content,reply_id,reply_threadId,reply_forumId,reply_projectId,reply_createdOn,reply_createdBy,reply_modifiedOn,reply_etag,reply_messageKey,reply_isEdited,reply_isDeleted,reply_content
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,11945,2219,72579,syn8507133,2017-07-27T02:01:38.000Z,3340080,2017-07-27T02:01:38.000Z,53820595-5571-417d-ac07-2acc96b7e3c7,72579/2219/11945/5cd590ff-e69e-432d-ae32-a2a4efc63e48,FALSE,FALSE,Is it required to use docker?
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,11952,2219,72579,syn8507133,2017-07-27T18:37:00.000Z,2223305,2017-07-27T18:37:00.000Z,377e5d2b-a7da-4ddf-a942-2ed22f715534,72579/2219/11952/4d02f0b8-2d88-4d26-9020-74694e3b7fe5,FALSE,FALSE,"For this particular challenge, yes — Docker is required.
+
+&nbsp;
+
+The goal of these challenges is to evaluate standards and tools for sharing and running reproducible analytical workflows. We're currently focusing on those conventions put forth and described by the [**GA4GH Containers and Workflows**](https://genomicsandhealth.org/working-groups/our-work/containers-and-workflows) group. These conventions are based on distributing tools/dependencies as Docker images and describing the execution and parameterization of the resulting Docker containers through CWL or WDL. 
+
+&nbsp;
+
+As such, all of the workflows provided for the **Workflow Execution Challenge** are based in one or more Docker images hosted in [**Docker Hub**](https://hub.docker.com/) or [**QUAY**](https://quay.io/).
+
+&nbsp;
+
+Docker is the only containerization technology with stable support in CWL and WDL platforms right now. However, we expect that other types of containers (e.g., Singularity or Linux Containers) might become more relevant in the future. At that point, it would certainly be interesting to reevaluate some of the workflows in this challenge using alternative container technologies!"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,11978,2219,72579,syn8507133,2017-07-31T16:43:12.000Z,3359557,2017-07-31T16:43:12.000Z,f7c908be-36de-4f12-8480-cb3e5b280c33,72579/2219/11978/549ec278-5d0e-4f18-895c-ee1b5a7946f7,FALSE,FALSE,"Hi:
+I am attempting to use 'synapse' to download files for the challenge, but keep getting an error that is something like this:
+
+> synapse get -r syn9630939
+SynapseHTTPError: 416 Client Error: Requested Range Not Satisfiable
+<?xml version=""1.0"" encoding=""UTF-8""?>
+<Error><Code>InvalidRange</Code><Message>The requested range is not satisfiable</Message><RangeRequested>bytes=6-</RangeRequested><ActualObjectSize>6</ActualObjectSize><RequestId>CB1451537B5DA9BF</RequestId><HostId>oLNF/Kh6wRyQVR4kvoAbBTwoMQjQi6rIHxHWNk7AQsWrawAvZHf1X5r4B9MfW+sFrV4r01iKU1M=</HostId></Error>
+
+That is a download from the root directory, I've tried subdirectories as well and sometimes get slightly different ones, though they all resemble the above.  Anyone else have this problem, any suggestions?
+Thanks,
+Trevor"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,11985,2219,72579,syn8507133,2017-08-01T16:34:53.000Z,2223305,2017-08-01T16:34:53.000Z,4c9a3331-0207-4075-9608-a0d75500142a,72579/2219/11985/5ced496b-4f09-4315-affb-a99e4ea9b257,FALSE,FALSE,"Hi @tcickovs,
+
+&nbsp;
+
+Which version of the Synapse client are you using? I found a thread in the Synapse help forums that discusses a similar error:
+https://www.synapse.org/#!Synapse:syn5637528/discussion/threadId=1423
+
+&nbsp;
+
+The JIRA issue related to the error is still open, but I can add details from your case to help with debugging. Please share any other information about your environment that you think might be relevant.
+
+&nbsp;
+
+In the meantime, I suggest trying to download the folders for each workflow using the process described [**here*](https://www.synapse.org/#!Synapse:syn8507133/wiki/451410) for `dockstore-tool-synapse-get` along with the corresponding JSON file for the workflow you want. Because this CWL tool is based on a Docker image with a fixed version of the Synapse client, behavior should hopefully be more consistent — but obviously, we'd like to resolve issues with the actual client as well. :)
+
+&nbsp;
+
+Let me know if you have further questions.
+
+&nbsp;
+
+Thanks!
+James
+"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,11994,2219,72579,syn8507133,2017-08-01T23:35:18.000Z,3359557,2017-08-01T23:35:18.000Z,6ab8bd3c-294f-4c50-8c6b-dfb2fffc960b,72579/2219/11994/5d53c295-2c66-47fe-b441-2877084b5020,FALSE,FALSE,"Thanks James!  Turns out an upgrade of Synapse was enough to fix the problem.
+Best,
+Trevor"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,12243,2219,72579,syn8507133,2017-08-29T12:05:46.000Z,3352048,2017-08-29T12:05:46.000Z,72d79603-4b64-489f-a963-66324c044a50,72579/2219/12243/6df79665-4389-4d1a-9006-72da581daab8,FALSE,FALSE,"I'm having significant problems with inherent limits to docker container sizes in CentOS 6 (it might be OS specific). Mainly tried adding this to my docker config: --storage-opt dm.basesize=100G. I followed a tutorial on https://www.projectatomic.io/blog/2016/03/daemon_option_basedevicesize/ to allocate more space to the container but despite that the container never changed its rootfs size.
+
+This is a problem for two of the pipelines where I need to download large images that fill up my entire container. Anybody else encounter similar problem and overcome it?"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,12287,2219,72579,syn8507133,2017-09-01T15:04:19.000Z,2223305,2017-09-01T15:04:19.000Z,f0124d5a-a01e-4704-87fc-ebbec42a5b44,72579/2219/12287/baa38245-c16e-4bcb-9f06-3b3d23798354,FALSE,FALSE,"Hi @benstory,
+
+Sorry for not getting back to you sooner! I've tested on Ubuntu and macOS and haven't run into this particular issue yet (though I did have to mess with the Docker daemon config to avoid containers maxing out my scratch space..). We've had a couple questions come up now that are beyond my Docker expertise; I'll raise these again to the group on our Tuesday call next week and see if anyone has suggestions. In the meantime, cc'ing @briandoconnor, @denis.yuen, and @jeremiahsavage, in case they have a better answer.
+
+Will hopefully follow up with you soon.
+"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,12342,2219,72579,syn8507133,2017-09-05T16:33:23.000Z,3359517,2017-09-05T16:33:23.000Z,ed676e16-bd90-4424-84fb-204bc769aef7,72579/2219/12342/26f0c30b-2974-4905-8666-bc8384428371,FALSE,FALSE,Is this helpful?  https://gist.github.com/OliPelz/4cf1ea585fe0a8a3c24ba711d5bccb89
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,12973,2219,72579,syn8507133,2017-09-28T08:42:44.000Z,3360642,2017-09-28T08:42:44.000Z,e616c28d-5bbf-4659-b5c3-22f0c1431dba,72579/2219/12973/cd9ccd45-b599-41b3-bbab-4e02b5a07091,FALSE,FALSE,"Hi @jaeddy, 
+
+Can you create a discussion thread for **knoweng_gene_prioritization**  workflow help. I have found an issue with running this workflow using `rabix` runner.  
+
+Thanks! 
+Vipin"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,13059,2219,72579,syn8507133,2017-10-02T14:00:55.000Z,3345963,2017-10-02T14:00:55.000Z,7c9543ba-da26-4dce-81a1-ed205607b7e3,72579/2219/13059/09694a6b-2c3a-413a-8a48-e694dc00d1b4,FALSE,FALSE,Is there a decision whether this challenge (or phase) will be extended?  Thanks.
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,13063,2219,72579,syn8507133,2017-10-02T18:25:01.000Z,2223305,2017-10-02T18:25:01.000Z,6b2b7e9e-6117-4a0f-ad70-8a6cd85ce024,72579/2219/13063/39c37712-859d-45cb-91ab-4d868201cbd4,FALSE,FALSE,"Hi @stevetsa ,
+
+We sent out an email to participants last Thursday announcing that the challenge will be extended till **December 22nd.** We posted some additional notes on the [news & updates page](https://www.synapse.org/#!Synapse:syn8507133/wiki/451397) as well, if you're curious.
+
+Thanks!
+James
+
+"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,13064,2219,72579,syn8507133,2017-10-02T18:27:32.000Z,2223305,2017-10-02T18:27:32.000Z,7110b1bb-a0d3-4ba9-bbdd-d2ad73f0a6f4,72579/2219/13064/994d4ac3-4f32-4b90-a6e7-c21a67390cca,FALSE,FALSE,"Dear @vipin 
+
+My apologies for not spotting your request sooner! I just created a thread for the **knoweng_gene_prioritization** workflow, which you can find here:
+https://www.synapse.org/#!Synapse:syn8507133/discussion/threadId=2619
+
+Best,
+James
+"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,14233,2219,72579,syn8507133,2017-12-08T15:05:03.000Z,3360642,2017-12-08T15:05:37.000Z,56a576a9-cca0-449a-97fc-22371a606f20,72579/2219/14233/e63f9496-ebf1-4c21-a50a-4b605eafb8ec,TRUE,FALSE,"Dear James, 
+
+I have recently created a team called ""ETH Zurich NEXUS Workflow Handler"" from our institute for participating in GA4GH/DREAM Workflow Execution Challenge. I have been participating in this challenge for past months and I submitted results of the workflow run to the result tracking system with complete documentations. The previous submissions are are under my name (Vipin T Sreedharan). 
+
+Now my question is that will it be possible to link the old results submissions (which are already in the synapse page under my account) to the newly created team? 
+
+Please let me know whether this will be possible? I am happy to provide more details if you want. 
+
+Thank you for considering, 
+Vipin
+"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,14236,2219,72579,syn8507133,2017-12-08T20:33:43.000Z,2223305,2017-12-08T20:33:43.000Z,5a0a8d4f-a0c7-4ce8-a0e6-822a057746c8,72579/2219/14236/eaa339da-3188-429b-a533-d45266fe3f15,FALSE,FALSE,"Hi @vipin,
+
+&nbsp;
+
+This question came up in another thread recently. The short answer is that there's technically no way to retroactively associate a submission with a team (without deleting and resubmitting — which would be a pain). However, because there are only a couple of these cases for this challenge, I should be able to update how the team _appears_ for submissions (e.g., in the overall stats and leaderboards). I'll take a look at that and let you know what I find!
+
+&nbsp;
+
+One thing I won't be able to change is how the challenge infrastructure checks for ""eligibility"" when submitting. In other words, if you've already submitted for a particular workflow as an individual, you won't be eligible to then submit new results as part of a team (and vice versa). Just something to pay attention to when setting your parameters for the `synapse-submit` tool.
+
+&nbsp;
+
+Best,
+James
+
+"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,14237,2219,72579,syn8507133,2017-12-08T22:20:36.000Z,2223305,2017-12-08T22:20:36.000Z,9c7a4a66-5939-459c-b7b7-31bb46540236,72579/2219/14237/ab5b6da9-0b1f-4741-9ca7-0cbc41a33726,FALSE,FALSE,"Hi @vipin — the issue has been resolved! See this thread for more info:
+https://www.synapse.org/#!Synapse:syn8507133/discussion/threadId=2967
+
+"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,14251,2219,72579,syn8507133,2017-12-11T13:56:24.000Z,3360642,2017-12-11T13:56:24.000Z,e3a17e1a-0cb8-4a8f-af5c-40a30aaa3eb9,72579/2219/14251/44fe6b1d-03f6-419a-8b19-07273803a4f7,FALSE,FALSE,"Hi @james, 
+
+Thank you for taking care of this request! 
+I am happy with the team name appearing at the submission and overall stats page. This is perfect. 
+
+Regards, 
+Vipin"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,14265,2219,72579,syn8507133,2017-12-12T18:21:58.000Z,3365727,2017-12-12T18:21:58.000Z,c44128b6-578b-40f7-92a3-bb2e0bf322fc,72579/2219/14265/a143e550-bea5-4ab2-8faf-46777c95a8fe,FALSE,FALSE,Will we be able to access the workflows and submit results (not counting toward the challenge of course) after the deadline of December 22?
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,14299,2219,72579,syn8507133,2017-12-19T16:50:40.000Z,2223305,2017-12-19T16:50:40.000Z,784d2fdb-1c50-4be1-95ed-7eeca37e4e9e,72579/2219/14299/3ead0196-1393-4b59-a8f4-0ac96ce0f6dd,FALSE,FALSE,"Hi @bernest — I plan to keep the evaluation queues for workflow submissions open through **12/31**. After that, I'll leave some lag time for folks to finalize submission reports. 
+
+&nbsp;
+
+We'll push pause on workflow submissions at the start of 2018 — hopefully for not much longer than a few weeks — so that we can regroup and implement any changes prior to the next round of testing. I'll be sure to update everyone on these plans as they become more concrete.
+
+&nbsp;
+
+Thanks!
+James
+"
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,14300,2219,72579,syn8507133,2017-12-19T17:00:07.000Z,3365727,2017-12-19T17:00:07.000Z,8d399036-534d-48f0-99e8-b90658088f76,72579/2219/14300/f818fd9f-ca66-4240-9b13-55bdd4311c46,FALSE,FALSE,"Ok, thanks.  To be clear, are you saying you're moving the deadline for workflow validation back to 12/31 and then later for submission reports and Wikis?  "
+2219,72579,syn8507133,Have a question about the GA4GH/DREAM Workflow Execution Challenge? Ask it here.,2017-07-19T19:09:29.000Z,2223305,2017-07-19T19:09:29.000Z,82c5806d-4c9d-4c29-b66b-621a7a7dedfd,72579/2219/6884b9c3-486a-4b57-a580-5ca55124f13a,28,20,2017-12-19T17:16:08.000Z,FALSE,FALSE,TRUE,This is a public forum for participants to post questions. Challenge organizers monitor and respond to questions posted here.,14301,2219,72579,syn8507133,2017-12-19T17:16:08.000Z,2223305,2017-12-19T17:16:08.000Z,cd267814-4393-4051-a4a5-9b029df3db19,72579/2219/14301/d7342387-413b-4034-bbd7-8206ad439823,FALSE,FALSE,"Correct. Probably a week later (1/6) for submission reports/wikis. I'll send out an announcement about both deadlines.
+
+"
+2220,72579,syn8507133,md5sum workflow help,2017-07-19T19:11:17.000Z,2223305,2017-07-19T19:11:17.000Z,0575c746-f1e8-4aef-9221-30a6ae9fc7fd,72579/2220/08b1f253-707e-4805-b80a-f39b078427f7,17,9,2017-10-23T17:31:20.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **md5sum** workflow.,11912,2220,72579,syn8507133,2017-07-21T12:34:05.000Z,3359530,2017-07-21T12:34:45.000Z,bed6f60c-a38f-49e1-ac91-f381dfd70144,72579/2220/11912/d5516699-b33c-4dfe-bee0-c18e0d6576b6,TRUE,FALSE,"I believe there is a problem in dockstore-tool-md5sum.cwl. The CWL specification (http://www.commonwl.org/draft-3/CommandLineTool.html#ResourceRequirement) states that the outdirMin value is specified in MB (mebibytes actually). Therefore, dockstore-tool-md5sum.cwl is asking for 512000M. So 1/2 a TB."
+2220,72579,syn8507133,md5sum workflow help,2017-07-19T19:11:17.000Z,2223305,2017-07-19T19:11:17.000Z,0575c746-f1e8-4aef-9221-30a6ae9fc7fd,72579/2220/08b1f253-707e-4805-b80a-f39b078427f7,17,9,2017-10-23T17:31:20.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **md5sum** workflow.,11917,2220,72579,syn8507133,2017-07-21T15:59:36.000Z,2223305,2017-07-21T15:59:36.000Z,1ca31db5-93a1-4769-b631-4cc8fd763c32,72579/2220/11917/aace5579-c11b-4266-ae22-d3faf0bbe044,FALSE,FALSE,"Hmm... good catch. @briandoconnor should be able to fix that in a future version. Just curious — are you using a system that actually provisions resources based on the ""hint"" fields? That would be cool (though obviously problematic if you're looking for 1/2 a TB of space...).
+"
+2220,72579,syn8507133,md5sum workflow help,2017-07-19T19:11:17.000Z,2223305,2017-07-19T19:11:17.000Z,0575c746-f1e8-4aef-9221-30a6ae9fc7fd,72579/2220/08b1f253-707e-4805-b80a-f39b078427f7,17,9,2017-10-23T17:31:20.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **md5sum** workflow.,11918,2220,72579,syn8507133,2017-07-21T16:07:12.000Z,3359530,2017-07-21T16:07:12.000Z,c2375020-90b3-4136-859f-48d949b480a2,72579/2220/11918/a007014f-49d7-47fe-8388-5ba8cd8b2ed4,FALSE,FALSE,"I ran it with Toil on my Mac. It failed, saying insufficient resources."
+2220,72579,syn8507133,md5sum workflow help,2017-07-19T19:11:17.000Z,2223305,2017-07-19T19:11:17.000Z,0575c746-f1e8-4aef-9221-30a6ae9fc7fd,72579/2220/08b1f253-707e-4805-b80a-f39b078427f7,17,9,2017-10-23T17:31:20.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **md5sum** workflow.,11926,2220,72579,syn8507133,2017-07-23T15:20:50.000Z,3321032,2017-07-23T15:20:50.000Z,6d2ae529-92bc-41a6-a73e-0724f6b76686,72579/2220/11926/052aeb9c-986d-4b0f-98c8-cf052bb1754b,FALSE,FALSE,"I'm working on a fix for this, the container for 1.0.4 of the md5sum tool is building and, once it's done, I'll release a new version of the workflow.  I think I need to change the references in Synapse once this is done."
+2220,72579,syn8507133,md5sum workflow help,2017-07-19T19:11:17.000Z,2223305,2017-07-19T19:11:17.000Z,0575c746-f1e8-4aef-9221-30a6ae9fc7fd,72579/2220/08b1f253-707e-4805-b80a-f39b078427f7,17,9,2017-10-23T17:31:20.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **md5sum** workflow.,13152,2220,72579,syn8507133,2017-10-04T16:48:20.000Z,3362758,2017-10-04T16:48:20.000Z,fe835529-08b5-48ff-81ef-f480a0c50a64,72579/2220/13152/3aed7ecb-334a-4676-9552-c272ac1064d1,FALSE,FALSE,"I was hoping to recycle the md5sum checker cwl. Where would the known md5sum output need to be placed? I was suspecting the md5sum_checker.cwl.json would have hint where the known md5sum input would be but it only uses md5sum.txt as input. 
+"
+2220,72579,syn8507133,md5sum workflow help,2017-07-19T19:11:17.000Z,2223305,2017-07-19T19:11:17.000Z,0575c746-f1e8-4aef-9221-30a6ae9fc7fd,72579/2220/08b1f253-707e-4805-b80a-f39b078427f7,17,9,2017-10-23T17:31:20.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **md5sum** workflow.,13257,2220,72579,syn8507133,2017-10-06T17:41:52.000Z,2223305,2017-10-06T17:41:52.000Z,f6e08a7f-38f5-4f3c-9063-aacc5e91b5cd,72579/2220/13257/7c8cdbe7-91df-4a2f-85d9-45f5971844c1,FALSE,FALSE,"Hi @bshifaw 
+
+&nbsp;
+
+The instructions for the md5sum workflow [**here**](https://www.synapse.org/#!Synapse:syn10167920) assume that you're running the workflow, the checker, and the submit CWL all within the same directory. So, after `md5sum.cwl` is ran, there should be a new file named `md5sum.txt` in the folder; this is the input for `md5sum_checker.cwl` (i.e., you don't need to provide a full or relative path). 
+
+&nbsp;
+
+Does this answer your question?
+
+&nbsp;
+
+-James"
+2220,72579,syn8507133,md5sum workflow help,2017-07-19T19:11:17.000Z,2223305,2017-07-19T19:11:17.000Z,0575c746-f1e8-4aef-9221-30a6ae9fc7fd,72579/2220/08b1f253-707e-4805-b80a-f39b078427f7,17,9,2017-10-23T17:31:20.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **md5sum** workflow.,13334,2220,72579,syn8507133,2017-10-09T23:03:05.000Z,3362758,2017-10-09T23:03:05.000Z,f312c9ee-6137-4fb4-aad1-7610da3448bb,72579/2220/13334/91ceeaf1-0f66-4b75-a9c8-ed4b3b684717,FALSE,FALSE,"Yes my question was answer, Thanks. "
+2220,72579,syn8507133,md5sum workflow help,2017-07-19T19:11:17.000Z,2223305,2017-07-19T19:11:17.000Z,0575c746-f1e8-4aef-9221-30a6ae9fc7fd,72579/2220/08b1f253-707e-4805-b80a-f39b078427f7,17,9,2017-10-23T17:31:20.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **md5sum** workflow.,13562,2220,72579,syn8507133,2017-10-22T11:42:08.000Z,3333939,2017-10-22T11:42:08.000Z,d91cef8a-db5f-4dd5-a012-f0e37b7767a3,72579/2220/13562/3e08a9b4-6f91-430e-aad5-2ac64e600c8c,FALSE,FALSE,"Hello,
+
+This is a bit out of place here, but  while documenting my run for the md5sum workflow, I erroneously edited the wiki file of @achave11 , from the UCSC GA4GH-DREAM Challenge Team. I just wished to bring their attention to this via this area.
+
+Thanks,
+Azza"
+2220,72579,syn8507133,md5sum workflow help,2017-07-19T19:11:17.000Z,2223305,2017-07-19T19:11:17.000Z,0575c746-f1e8-4aef-9221-30a6ae9fc7fd,72579/2220/08b1f253-707e-4805-b80a-f39b078427f7,17,9,2017-10-23T17:31:20.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **md5sum** workflow.,13574,2220,72579,syn8507133,2017-10-23T17:22:17.000Z,3359518,2017-10-23T17:31:20.000Z,c3ba06a8-ddd2-4ad0-98e9-f319e65d039a,72579/2220/13574/a72d79ff-bf2a-40f7-bc74-3fdc8b40c825,TRUE,FALSE,"Hey @Azza 
+Thanks for letting me know, I'll correct it. Do you remember which one was it?  Maybe syn:id would help Thanks! 
+**EDIT** I found it, thank for the FYI. "
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,11923,2221,72579,syn8507133,2017-07-22T14:25:20.000Z,3359814,2017-07-22T14:25:20.000Z,8cff9eb9-5f95-467c-89fe-41b0bae4ab15,72579/2221/11923/77f8879d-f71e-43c1-97e9-5bc5066aaa41,FALSE,FALSE,"Hello,
+
+While running the submission command using ``dockstore-tool-synapse-submit``, I get the following error:
+
+
+```
+Tool definition failed validation:
+dockstore-tool-synapse-submit.cwl:3:1: Object `dockstore-tool-synapse-submit.cwl` is not valid
+                                       because
+                                         tried `CommandLineTool` but
+                                           unrecognized extension field
+                                           `http://purl.org/dc/terms/creator` and strict is True.  Did
+                                           you include a $schemas section?
+```
+"
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,11925,2221,72579,syn8507133,2017-07-23T15:16:54.000Z,3359814,2017-07-23T15:16:54.000Z,fc6eb042-95ba-4eef-a981-b2fcc50305c0,72579/2221/11925/22b16f34-bf13-4a5c-a382-eb830bce3c0d,FALSE,FALSE,Is there something wrong with the cwltool installation?
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,11927,2221,72579,syn8507133,2017-07-23T17:14:58.000Z,3352211,2017-07-23T17:14:58.000Z,80bd17e4-61c8-45ba-8847-52a43cc83ddb,72579/2221/11927/17e23a3f-b9c6-49fc-aeae-74245683799d,FALSE,FALSE,Depending on the version of cwltool you might need to use `--non-strict` option to ignore unrecognized fields in your workflow/tool.
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,11928,2221,72579,syn8507133,2017-07-23T17:18:45.000Z,2223305,2017-07-23T17:20:35.000Z,23e3866a-7951-4ab9-92ae-a38e90b646f7,72579/2221/11928/c1936226-a0ba-4b10-9fd9-41790d00c3a8,TRUE,FALSE,"Hi Sourav,
+
+There might have been an incompatibility between the example I was referencing when I first wrote the `dockstore-tool-synapse-submit` tool and some versions of `cwltool`. For `cwltool==1.0.20170217172322`, which we've used for most of the workflow testing here, I've been able to run both the `synapse-submit` tool as well as `dockstore-tool-synapse-get` by including the `--non-strict` flag — e.g.:
+```shell
+cwltool --non-strict dockstore-tool-synapse-get.cwl hello_world_get.cwl.json
+```
+
+&nbsp;
+
+I just updated that in the documented example here: https://www.synapse.org/#!Synapse:syn9630940. Apologies for the confusion!
+"
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,12285,2221,72579,syn8507133,2017-09-01T09:52:24.000Z,3352048,2017-09-01T09:52:49.000Z,7e85229e-9f94-4d63-a411-28ea6bb8c681,72579/2221/12285/07acf02e-134b-49d5-b1de-5b27d0227ff2,TRUE,FALSE,"Running the tool with tmp and cache directories specified results in an error:
+```
+cwltool --tmpdir-prefix tmp/ --cachedir cache/ --non-strict hello_world.cwl hello_world.cwl.json
+```
+Example error:
+
+```
+[job dockstore-tool-synapse-get.cwl] completed success
+Unhandled error, try again with --debug for more information:
+  [Errno 21] Is a directory: '/tmpdata/story/hello_world_run/cache/7f35629c0273214bab343a2ae5c888f0/synapse_files/hello_world_ref'
+```
+
+Running it without those two dir's specified works fine.
+"
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,12288,2221,72579,syn8507133,2017-09-01T15:09:20.000Z,2223305,2017-09-01T15:09:20.000Z,c410b4c5-aaf4-4f72-a51e-1b10e8261461,72579/2221/12288/3c6a829b-3aa2-487a-9c54-ab32e4f47cd5,FALSE,FALSE,"Hi @benstory,
+
+Which version of `cwltool` are you using? We've had some issues with the cache feature when attempting to run some other workflows as well — my understanding is that this feature isn't entirely stable yet (cc @chapmanb). If you try to run with just `--tmpdir-prefix` argument, but not `--cachedir`, do you get a different result?
+"
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,12322,2221,72579,syn8507133,2017-09-04T08:07:55.000Z,3352048,2017-09-04T08:09:15.000Z,f10813e2-e932-47af-aabf-3b9ddfbc6d0a,72579/2221/12322/4dbfa71a-48d2-4a98-b247-688eaaa7e6fb,TRUE,FALSE,"Thanks for getting back to me I use:
+cwltool 1.0.20170413194156
+
+Also @chapmanb
+Runs successfully if I just use the 
+```
+--tmpdir-prefix
+```
+and exclude the
+```
+--cachedir
+```
+ (see verified submission)"
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,12323,2221,72579,syn8507133,2017-09-04T09:42:58.000Z,3321812,2017-09-04T09:42:58.000Z,52dd58cb-bd8f-4fb3-9971-9ec30be8a46d,72579/2221/12323/56f26db1-cc7a-4acf-8616-426b93da02c1,FALSE,FALSE,"Benjamin;
+Thanks much for reporting this and following up. I'm in agreement with James, don't use the `--cachedir` feature of cwltool as it often causes issues, so this makes sense with your outcomes. If you want workflow reuse on local runs, both Toil (http://toil.readthedocs.io) and Rabix Bunny (https://github.com/rabix/bunny) support them. Hope this get working cleanly now."
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,12434,2221,72579,syn8507133,2017-09-10T23:28:18.000Z,3340080,2017-09-10T23:29:35.000Z,68199e65-9b41-4041-ae58-73c1a4096a7a,72579/2221/12434/00bdd2b9-79eb-479e-9e80-7998d92d5101,TRUE,FALSE,"Hello, I need help in submission; dockstore-tool-helloworld.cwl seem to expect a template file as a first argument. Thank you in advance!
+
+Command:
+
+```
+cwltool --tmpdir-prefix tmp/ --non-strict dockstore-tool-helloworld.cwl hello_world_submit.cwl.json
+```
+
+
+Error log:
+
+```
+cwltool 1.0.20170817131858
+Resolved 'dockstore-tool-helloworld.cwl' to 'file:///hello_world/dockstore-tool-helloworld.cwl'
+dockstore-tool-helloworld.cwl:3:1: unrecognized extension field `http://purl.org/dc/terms/creator`.  Did you include a $schemas section?
+Workflow error, try again with --debug for more information:
+Invalid job input record:
+dockstore-tool-helloworld.cwl:28:3: Missing required input parameter `input_file`
+~
+```
+
+
+dockstore-tool-helloworld.cwl:
+
+```
+...
+inputs:
+  template_file:
+    type: File
+    inputBinding:
+      position: 1
+
+  input_file:
+    type: File
+    inputBinding:
+      position: 2
+...
+
+```
+
+
+"
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,12452,2221,72579,syn8507133,2017-09-12T00:24:34.000Z,2223305,2017-09-12T00:24:34.000Z,e0241f09-8a5b-49a7-93d9-7cc3990bbf48,72579/2221/12452/da2492db-6825-469d-a518-d5a35739dfcb,FALSE,FALSE,"Hi @byoo,
+
+&nbsp;
+
+Two things:
+
+1. You shouldn't need to use `dockstore-tool-helloworld.cwl` directly. This is the Dockerized *tool* that is used in the single step of the **hello_world** workflow. To run the workflow itself, you'll want to use `hello_world.cwl`.
+2. When running the **hello_world** workflow described in `hello_world.cwl`, you should use the `hello_world.cwl.json` parameters file instead of the `hello_world_submit.cwl.json` file (which corresponds to `dockstore-tool-synapse-submit.cwl`).
+
+&nbsp; 
+
+To run the workflow, the command should look like this: 
+```
+cwltool --tmpdir-prefix tmp/ --non-strict hello_world.cwl hello_world.cwl.json
+```
+
+&nbsp;
+
+You can check out the documentation wiki for **hello_world** [here](https://www.synapse.org/#!Synapse:syn9630940) for a complete example of how to run the workflow.
+
+&nbsp;
+
+Let me know if you run into any other issues!"
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,12880,2221,72579,syn8507133,2017-09-26T06:50:33.000Z,3343266,2017-09-26T06:50:33.000Z,1cb00890-16f6-472e-9614-4b37421914e9,72579/2221/12880/8b0662f6-adc5-47ac-84f6-01a2a87225db,FALSE,FALSE,"Hi everyone,
+
+When I run the synapse-get, it throws an error. Do you have any idea about the error?
+
+Cheers,
+Thuc.
+
+(hello_world) INM274863:hello_world_run letd$ cwltool --non-strict dockstore-tool-synapse-get.cwl hello_world_get.cwl.json 
+
+Traceback (most recent call last):
+  File ""/Users/letd/anaconda/bin/cwltool"", line 7, in <module>
+    from cwltool.main import main
+  File ""/Users/letd/anaconda/lib/python3.6/site-packages/cwltool/main.py"", line 472
+    print u""\nOptions for %s "" % args.workflow
+                             ^
+SyntaxError: Missing parentheses in call to 'print'"
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,12888,2221,72579,syn8507133,2017-09-26T11:32:04.000Z,3352211,2017-09-26T11:32:04.000Z,0c8f11d5-acda-4c1c-83da-23bf01111fa9,72579/2221/12888/e79a7ca2-06a1-4005-8685-89580fee37f4,FALSE,FALSE,"Hi Thuc
+I think the reason you got an error with ""print"", is your python 3.6. I don't think cwltool is supposed to be used in that Python version. Try to run the same in Python 2.7
+
+Regards,
+Michael"
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,12929,2221,72579,syn8507133,2017-09-27T03:35:59.000Z,3343266,2017-09-27T03:35:59.000Z,ac9a3f01-1234-454c-a09a-1ce3a4527f50,72579/2221/12929/c5324288-6b71-4f85-ae07-9227e3235bd5,FALSE,FALSE,"Thanks, Michael.
+
+I see.
+
+Cheers,
+Thuc."
+2221,72579,syn8507133,hello_world workflow help,2017-07-19T19:11:39.000Z,2223305,2017-07-19T19:11:39.000Z,d0e56cc9-b270-4854-8059-171618044fa7,72579/2221/72c53b40-a7c4-4dea-9974-65376de2996f,23,14,2017-09-27T03:48:33.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **hello_world** workflow.,12930,2221,72579,syn8507133,2017-09-27T03:48:33.000Z,3343266,2017-09-27T03:48:33.000Z,02f38648-a0dd-4987-8894-ee853b695502,72579/2221/12930/e62b65c6-e4ec-416d-8844-973e3eeef02d,FALSE,FALSE,"Hi everyone,
+
+I have another problem when running the dockstore-tool-synapse-get.cwl:
+Thanks for your help.
+Cheers,
+Thuc.
+
+$ cwltool --non-strict dockstore-tool-synapse-get.cwl hello_world_get.cwl.json
+
+it says:
+
+SynapseHTTPError: 401 Client Error: Unauthorized
+{""reason"":""Timestamp in request, 2017-09-19T10:09:34.000Z, is out of date""}"
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,12814,2222,72579,syn8507133,2017-09-22T12:36:45.000Z,3360642,2017-09-22T12:36:45.000Z,3b5a4c66-b8a6-4a9b-ab23-c7681af983fb,72579/2222/12814/c54f95dd-47dd-49fd-b38e-4cb99285e0fc,FALSE,FALSE,"Hello, 
+
+I am using `cwltool` to run **biowardrobe_chipseq_se** workflow on RHEL 7 workstation. I have downloaded the workflow input files and ran the workflow without any error. 
+
+```shell
+cd ~/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se
+cwltool --tmpdir-prefix ~/tmp/ --cachedir ~/tmp/cache --debug --non-strict ~/synapse_utils/dockstore-tool-synapse-get.cwl ~/config_files/biowardrobe_chipseq_se_get.cwl.json
+
+cwltool --tmpdir-prefix ~/tmp/ --cachedir  ~/tmp/cache --debug --non-strict biowardrobe_chipseq_se.cwl biowardrobe_chipseq_se.json
+```
+&nbsp;
+
+But when I validated the output before submitting the result, I found few `false` items in the result comparison file. 
+```shell
+cd ~/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se
+cwltool --tmpdir-prefix ~/tmp/ --cachedir ~/tmp/cache --debug --non-strict biowardrobe_chipseq_se_checker.cwl biowardrobe_chipseq_se_checker.json
+``` 
+&nbsp;
+
+Checking the results: 
+
+```shell 
+cd ~/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se
+cat results.json 
+```
+```json
+{
+    ""steps"": {
+        ""macs2_callpeak_forced"": ""true"", 
+        ""macs2_callpeak"": ""true"", 
+        ""samtools_sort_index_after_rmdup"": ""false"", 
+        ""bam_to_bigwig"": ""true"", 
+        ""macs_island_count"": ""true"", 
+        ""samtools_sort_index"": ""false"", 
+        ""bowtie_aligner"": ""false"", 
+        ""samtools_rmdup"": ""false"", 
+        ""fastx_quality_stats"": ""true"", 
+        ""bamtools_stats"": ""true""
+    }, 
+    ""overall"": ""false""
+}
+```
+
+I didn't see any particular error message on my console, it will be good if you can point me anything which I missed in trace backing the error. 
+
+Thank you, 
+Vipin"
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,12823,2222,72579,syn8507133,2017-09-22T16:56:57.000Z,3352211,2017-09-22T16:56:57.000Z,755d2fc0-cbab-4a10-8cd2-7e396bba92a8,72579/2222/12823/faff2163-8230-46cf-954b-130cfb2dcc5b,FALSE,FALSE,"Hi Vipin
+Thank you for running **biowardrobe_chipseq_se** workflow and for your feedback.
+Could you please tell me the version of **cwltool** runner you use.
+**biowardrobe_chipseq_se_checker** also generates **log.txt**. This file will help me to find the reason why checker tool failed.
+The output of running **biowardrobe_chipseq_se** workflow with -**-debug** will be helpful too.
+
+Michael "
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,12825,2222,72579,syn8507133,2017-09-22T19:01:06.000Z,3360642,2017-09-22T19:01:06.000Z,ec3f96bb-999c-4f7d-a396-d2e5fe1eec1d,72579/2222/12825/4df40e2b-903c-487a-8048-7266f40ab0a3,FALSE,FALSE,"Hi Michael, 
+
+Thank you for the quick response. Here is the version of my runner `cwltool 1.0.20170828135420`.
+Sorry I forgot to attach the contents from log.txt file: 
+cat log.txt
+```
+samtools idxstats: fail to load index for ""/var/lib/cwl/stgbbce3dc3-04e6-488c-9b36-c6007541c63b/check_dir/SRR1198790.sorted.bam""
+LOAD control directory
+     Found BAM file   SRR1198790.sorted.bam   (/var/lib/cwl/stgbbce3dc3-04e6-488c-9b36-c6007541c63b/check_dir/controls/SRR1198790.sorted.bam)
+     Replaced   /var/lib/cwl/stgbbce3dc3-04e6-488c-9b36-c6007541c63b/check_dir/controls/SRR1198790.sorted.bam --> /var/spool/cwl/9ef7430e-5410-4ee5-91ef-63c715573353.idxstats
+LOAD output directory
+     Found BAM file   SRR1198790.sorted.bam   (/var/lib/cwl/stgbbce3dc3-04e6-488c-9b36-c6007541c63b/check_dir/SRR1198790.sorted.bam)
+     Command 'samtools idxstats /var/lib/cwl/stgbbce3dc3-04e6-488c-9b36-c6007541c63b/check_dir/SRR1198790.sorted.bam > 1e98d72c-0eee-4f12-a1ad-473b7c163fe9.idxstats' returned non-zero exit status 1
+PROCESS
+   - SRR1198790.sorted_peaks.xls   (/var/lib/cwl/stgbbce3dc3-04e6-488c-9b36-c6007541c63b/check_dir/controls/SRR1198790.sorted_peaks.xls)
+     Ok
+   - SRR1198790.sam.log   (/var/lib/cwl/stgbbce3dc3-04e6-488c-9b36-c6007541c63b/check_dir/controls/SRR1198790.sam.log)
+     Ok
+   - SRR1198790.sorted.sorted.bigwig   (/var/lib/cwl/stgbbce3dc3-04e6-488c-9b36-c6007541c63b/check_dir/controls/SRR1198790.sorted.sorted.bigwig)
+     Ok
+   - SRR1198790.fastq.fastxstat   (/var/lib/cwl/stgbbce3dc3-04e6-488c-9b36-c6007541c63b/check_dir/controls/SRR1198790.fastq.fastxstat)
+     Ok
+   - SRR1198790.sorted.bam.bai   (/var/lib/cwl/stgbbce3dc3-04e6-488c-9b36-c6007541c63b/check_dir/controls/SRR1198790.sorted.bam.bai)
+     Fail: missing output file   SRR1198790.sorted.bam.bai
+   - SRR1198790.sam.stat   (/var/lib/cwl/stgbbce3dc3-04e6-488c-9b36-c6007541c63b/check_dir/controls/SRR1198790.sam.stat)
+     Ok
+   - SRR1198790.sorted.bam   (/var/spool/cwl/9ef7430e-5410-4ee5-91ef-63c715573353.idxstats)
+     Fail: size comparison
+```
+
+I have used `--debug` option during the workflow run. I didn't find anything failed message in stdout. I found a warning message in the beginning as follows: 
+```
+Resolved 'biowardrobe_chipseq_se.cwl' to 'file:///home/wfrunner/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se/biowardrobe_chipseq_se.cwl'
+biowardrobe_chipseq_se.cwl:1:1: unrecognized extension field `http://schema.org/name`.  Did you include a $schemas section?
+biowardrobe_chipseq_se.cwl:1:1: unrecognized extension field `http://schema.org/downloadUrl`.  Did you include a $schemas section?
+biowardrobe_chipseq_se.cwl:1:1: unrecognized extension field `http://schema.org/codeRepository`.  Did you include a $schemas section?
+biowardrobe_chipseq_se.cwl:1:1: unrecognized extension field `http://schema.org/license`.  Did you include a $schemas section?
+biowardrobe_chipseq_se.cwl:1:1: unrecognized extension field `http://schema.org/isPartOf`.  Did you include a $schemas section?
+biowardrobe_chipseq_se.cwl:1:1: unrecognized extension field `http://schema.org/creator`.  Did you include a $schemas section?
+biowardrobe_chipseq_se.cwl:1:1: unrecognized extension field `http://schema.org/about`.  Did you include a $schemas section?
+No handlers could be found for logger ""rdflib.term""
+``` 
+Hope this will help you, please let me know if you need any further information from my side. 
+Cheers! 
+Vipin"
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,12826,2222,72579,syn8507133,2017-09-22T19:24:25.000Z,3352211,2017-09-22T19:24:25.000Z,b0f8b3b3-f76f-4f78-a867-3ec94d43cee0,72579/2222/12826/7d65d39e-db73-458b-8217-4ce489fffcee,FALSE,FALSE,"Hey, I have a solution!
+You have two options:
+1. Downgrade your cwltool to **1.0.20170217172322**, which I used for testing my workflow
+2. Update `biowardrobe_chipseq_se/tools/samtools-sort-index.cwl` with 
+```
+   outputs:
+           if (inputs.sort_input.secondaryFiles && inputs.trigger == false){
+             return inputs.sort_input.secondaryFiles;
+           } else {
+-            return self.location + ext();
++            return self.basename+ext();
+           }
+         }
+```
+If you chose the second option, document these changes in a description that you will write after submission.
+This problem is caused by the slightly different interpretation of secondary files in a newer version of cwltool.
+
+Michael"
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,12830,2222,72579,syn8507133,2017-09-22T21:16:27.000Z,3360642,2017-09-22T21:16:27.000Z,5125e6a2-1c69-4624-a581-0c1b91f9fbc9,72579/2222/12830/cbb80eb7-586c-4c5c-a672-4e2fb775ac0b,FALSE,FALSE,"Thank you Micheal for the quick fix! Yes the solution worked. I opted for the option 2 and I will update this to my README. 
+
+```shell
+cat results.json
+```
+
+```
+{
+    ""steps"": {
+        ""macs2_callpeak_forced"": ""true"", 
+        ""macs2_callpeak"": ""true"", 
+        ""samtools_sort_index_after_rmdup"": ""true"", 
+        ""bam_to_bigwig"": ""true"", 
+        ""macs_island_count"": ""true"", 
+        ""samtools_sort_index"": ""true"", 
+        ""bowtie_aligner"": ""true"", 
+        ""samtools_rmdup"": ""true"", 
+        ""fastx_quality_stats"": ""true"", 
+        ""bamtools_stats"": ""true""
+    }, 
+    ""overall"": ""true""
+}
+```
+Regards, 
+Vipin
+"
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,12836,2222,72579,syn8507133,2017-09-24T12:33:00.000Z,3360642,2017-09-24T12:33:00.000Z,165c8fdf-446f-46ee-806f-b5fc8d3f5d21,72579/2222/12836/515586ea-8d26-4769-8bd2-e21b13279dce,FALSE,FALSE,"Hi Micheal, 
+
+I have one more question to you. I would like to know whether it possible to run your workflow with `rabix` runner? 
+
+I tried to run as follows: 
+```shell
+~/tools/rabix-cli-1.0.0/rabix --tmpdir-prefix ~/tmp/ --tmp-outdir-prefix ~/tmp/ biowardrobe_chipseq_se.cwl biowardrobe_chipseq_se.json 
+```
+but returns me the error message: 
+```shell
+[2017-09-24 13:57:08.748] [ERROR] Error: file://biowardrobe_chipseq_se.cwl is not a valid app! Unknown error when parsing the app!
+```
+
+Let me know if you have any fix for this. 
+Regards, 
+Vipin"
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,12863,2222,72579,syn8507133,2017-09-25T19:53:11.000Z,3360642,2017-09-25T19:53:11.000Z,3ea74731-118c-447b-9e73-0babde93bad2,72579/2222/12863/8f24a79b-424d-4c56-955d-0fb13a131335,FALSE,FALSE,"Hi Micheal, 
+
+May be it is too much, but I just want to check with you. Did you try your workflow with `Toil` platform? I tried and I got a permanent Fail message when I ran the workflow. If you are interested to the see the STDERR I am happy to share with you. 
+
+Regards, 
+Vipin "
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,12891,2222,72579,syn8507133,2017-09-26T14:25:43.000Z,3352211,2017-09-26T14:25:43.000Z,e4ebaebf-8bbe-456f-a96f-465baf2bc4d6,72579/2222/12891/aee59262-116b-4612-a950-fde9e1bec26b,FALSE,FALSE,"Hi Vipin
+To run it with Rabix you can follow Bogdan's instructions https://www.synapse.org/#!Synapse:syn10208944. He already figured out which changes should be made to satisfy Rabix's requirements.
+As for the Toil, send me STDERR and we'll try to find the solution
+
+Michael
+"
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,12908,2222,72579,syn8507133,2017-09-26T20:03:57.000Z,3360642,2017-09-26T20:03:57.000Z,48b20794-4c08-4b63-a0b8-a59f33acd6bb,72579/2222/12908/4bff1b6d-7dfa-4f38-96a1-e164edf3a8d8,FALSE,FALSE,"Hi Michael, 
+
+I looked at the documentation from Bogdan and unfortunately I am not able to find the github issue links from this readme file (https://www.synapse.org/#!Synapse:syn10208944). Both links are broken and could you pass me the issue number or a place I can see the changes. 
+
+https://www.synapse.org/#!Error:7b226d657373616765223a22446964206e6f742066696e642061206d6174636820666f7220616c6961733a2055524c5f504c414345484f4c444552222c226c6162656c223a22536f727279227d
+https://www.synapse.org/#!Error:7b226d657373616765223a22446964206e6f742066696e642061206d6174636820666f7220616c6961733a2055524c5f504c414345484f4c444552222c226c6162656c223a22536f727279227d
+
+Regards, 
+Vipin"
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,12910,2222,72579,syn8507133,2017-09-26T20:06:29.000Z,3360642,2017-09-26T20:06:29.000Z,db3d99f8-e474-43d7-b074-090d456ec0cd,72579/2222/12910/7f748fd1-d343-4774-85c4-70cccfd5eb05,FALSE,FALSE,"Hi Michael, 
+
+The error from toil is: 
+
+```
+[STDOUT]
+~/tools/venv/bin/cwltoil --workDir /home/nexcbu/tmp/ ../../synapse_utils/dockstore-tool-synapse-get.cwl ../../config_files/biowardrobe_chipseq_se_get.cwl.json
+
+
+ ~/tools/venv/bin/cwltoil --workDir /home/nexcbu/tmp/ biowardrobe_chipseq_se.cwl biowardrobe_chipseq_se.json
+
+
+led job 'file:///home/nexcbu/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se/tools/samtools-rmdup.cwl' bash -c H/A/jobce6_cU
+---TOIL WORKER OUTPUT LOG---
+INFO:toil:Running Toil version 3.11.0-ca24899f31a2d7f8b3f766a1c99c982ccf1044eb.
+WARNING:rdflib.term:http://schema.org/docs/!DOCTYPE html does not look like a valid URI, trying to serialize this will break.
+INFO:toil.fileStore:Starting job ('file:///home/nexcbu/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se/tools/samtools-rmdup.cwl' bash -c H/A/jobce6_cU) with ID (f4407ef710be44a0b2847364fc08c19224632e7a).
+['docker', 'pull', 'biowardrobe2/samtools:v1.4']
+INFO:cwltool:['docker', 'pull', 'biowardrobe2/samtools:v1.4']
+Trying to pull repository registry.access.redhat.com/biowardrobe2/samtools ...
+Trying to pull repository docker.io/biowardrobe2/samtools ...
+v1.4: Pulling from docker.io/biowardrobe2/samtools
+Digest: sha256:e4dad5f38c1b782d3f1608410c07e8dc47fb7b92bc427175a160dfa0813c48d8
+[job samtools-rmdup.cwl] /home/nexcbu/tmp/out_tmpdir4VcbVf$ docker \
+    run \
+    -i \
+    --volume=/home/nexcbu/tmp/out_tmpdir4VcbVf:/var/spool/cwl:rw \
+    --volume=/home/nexcbu/tmp/toil-e757c11c-c96c-4f7a-b121-4c5cf38c0930-e272bc7e-1aa2-4a9c-9a20-23d5d0e31e3a/tmpJXCXeo/06920985-47ae-44ad-84ba-e5e488e49df3/tZNLZlyEC5C61:/tmp:rw \
+    --volume=/home/nexcbu/tmp/toil-e757c11c-c96c-4f7a-b121-4c5cf38c0930-e272bc7e-1aa2-4a9c-9a20-23d5d0e31e3a/tmpJXCXeo/06920985-47ae-44ad-84ba-e5e488e49df3/tmpnH13ck.tmp:/var/spool/cwl/tmpjX8uDE.sorted.bam.bai:ro \
+    --volume=/home/nexcbu/tmp/toil-e757c11c-c96c-4f7a-b121-4c5cf38c0930-e272bc7e-1aa2-4a9c-9a20-23d5d0e31e3a/tmpJXCXeo/06920985-47ae-44ad-84ba-e5e488e49df3/tmpIZAXjc.tmp:/var/spool/cwl/tmpjX8uDE.sorted.bam:ro \
+    --workdir=/var/spool/cwl \
+    --read-only=true \
+    --user=1000:1000 \
+    --rm \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/var/spool/cwl \
+    --env=PATH=/usr/local/bin/:/usr/bin:/bin \
+    biowardrobe2/samtools:v1.4 \
+    /bin/sh \
+    -c \
+    'bash' '-c' '#!/bin/bash
+if [ ""$0"" = True ]
+then
+  samtools rmdup ""${@:1}""
+else
+  echo ""Skip samtools rmdup "" ${@:1}
+fi
+' 'False' '-s' '/var/spool/cwl/tmpjX8uDE.sorted.bam' 'tmpwadNA3.tmp'  > tmpwadNA3.tmp.rmdup 2>&1
+INFO:cwltool:[job samtools-rmdup.cwl] /home/nexcbu/tmp/out_tmpdir4VcbVf$ docker \
+    run \
+    -i \
+    --volume=/home/nexcbu/tmp/out_tmpdir4VcbVf:/var/spool/cwl:rw \
+    --volume=/home/nexcbu/tmp/toil-e757c11c-c96c-4f7a-b121-4c5cf38c0930-e272bc7e-1aa2-4a9c-9a20-23d5d0e31e3a/tmpJXCXeo/06920985-47ae-44ad-84ba-e5e488e49df3/tZNLZlyEC5C61:/tmp:rw \
+    --volume=/home/nexcbu/tmp/toil-e757c11c-c96c-4f7a-b121-4c5cf38c0930-e272bc7e-1aa2-4a9c-9a20-23d5d0e31e3a/tmpJXCXeo/06920985-47ae-44ad-84ba-e5e488e49df3/tmpnH13ck.tmp:/var/spool/cwl/tmpjX8uDE.sorted.bam.bai:ro \
+    --volume=/home/nexcbu/tmp/toil-e757c11c-c96c-4f7a-b121-4c5cf38c0930-e272bc7e-1aa2-4a9c-9a20-23d5d0e31e3a/tmpJXCXeo/06920985-47ae-44ad-84ba-e5e488e49df3/tmpIZAXjc.tmp:/var/spool/cwl/tmpjX8uDE.sorted.bam:ro \
+    --workdir=/var/spool/cwl \
+    --read-only=true \
+    --user=1000:1000 \
+    --rm \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/var/spool/cwl \
+    --env=PATH=/usr/local/bin/:/usr/bin:/bin \
+    biowardrobe2/samtools:v1.4 \
+    /bin/sh \
+    -c \
+    'bash' '-c' '#!/bin/bash
+if [ ""$0"" = True ]
+then
+  samtools rmdup ""${@:1}""
+else
+  echo ""Skip samtools rmdup "" ${@:1}
+fi
+' 'False' '-s' '/var/spool/cwl/tmpjX8uDE.sorted.bam' 'tmpwadNA3.tmp'  > tmpwadNA3.tmp.rmdup 2>&1
+[job samtools-rmdup.cwl] Job error:
+tools/samtools-rmdup.cwl:99:3: Error collecting output for parameter 'rmdup_output':
+:1:1:   Did not find output file with glob pattern: '[u'tmpwadNA3.tmp']'
+ERROR:cwltool:[job samtools-rmdup.cwl] Job error:
+tools/samtools-rmdup.cwl:99:3: Error collecting output for parameter 'rmdup_output':
+:1:1:   Did not find output file with glob pattern: '[u'tmpwadNA3.tmp']'
+[job samtools-rmdup.cwl] completed permanentFail
+WARNING:cwltool:[job samtools-rmdup.cwl] completed permanentFail
+Traceback (most recent call last):
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/worker.py"", line 313, in main
+    job._runner(jobGraph=jobGraph, jobStore=jobStore, fileStore=fileStore)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/job.py"", line 1299, in _runner
+    returnValues = self._run(jobGraph, fileStore)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/job.py"", line 1244, in _run
+    return self.run(fileStore)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/cwl/cwltoil.py"", line 451, in run
+    raise cwltool.errors.WorkflowException(status)
+WorkflowException: permanentFail
+ERROR:toil.worker:Exiting the worker because of a failed job on host wfexecutor.nexus.ethz.ch
+WARNING:toil.jobGraph:Due to failure we are reducing the remaining retry count of job 'file:///home/nexcbu/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se/tools/samtools-rmdup.cwl' bash -c H/A/jobce6_cU with ID H/A/jobce6_cU to 0
+<=========
+``` "
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,13209,2222,72579,syn8507133,2017-10-05T09:47:01.000Z,3360642,2017-10-05T09:47:01.000Z,eb6a2364-0fa6-4721-b352-80881d151fd7,72579/2222/13209/7a0a0864-6f5b-4a83-819a-47b89e2927f4,FALSE,FALSE,"Hi Michael, 
+
+Here is the error message when I was running with `rabix` version Rabix 1.0.0. 
+```shell
+
+[nexcbu@wfexecutor biowardrobe_chipseq_se]$ ~/tools/rabix-cli-1.0.0/rabix --tmpdir-prefix ~/tmp/ --tmp-outdir-prefix ~/tmp/ ./biowardrobe_chipseq_se.cwl biowardrobe_chipseq_se.json
+[2017-10-05 11:35:17.934] [ERROR] Unsupported feature: $schemas.
+[2017-10-05 11:35:19.673] [INFO] Job root.fastx_quality_stats has started
+[2017-10-05 11:35:19.674] [INFO] Job root.bowtie_aligner has started
+[2017-10-05 11:35:43.299] [INFO] Pulling docker image biowardrobe2/bowtie:v1.2.0
+[2017-10-05 11:35:43.299] [INFO] Pulling docker image biowardrobe2/fastx_toolkit:v0.0.14
+[2017-10-05 11:35:50.024] [INFO] Running command line: fastx_quality_stats -i /home/nexcbu/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se/inputs/SRR1198790.fastq -o SRR1198790.fastq.fastxstat
+[2017-10-05 11:35:50.327] [INFO] Running command line: bowtie --best -3 0 -5 0 -m 1 -q -S --strata -p 8 -v 3 /home/nexcbu/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se/references/dm3/bowtie_indices/dm3 /home/nexcbu/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se/inputs/SRR1198790.fastq SRR1198790.sam  2> SRR1198790.sam.log
+^[[B^[[B[2017-10-05 11:38:05.688] [INFO] Job root.fastx_quality_stats has completed
+[2017-10-05 11:39:29.324] [INFO] Job root.bowtie_aligner has completed
+[2017-10-05 11:39:30.404] [INFO] Job root.samtools_sort_index has started
+[2017-10-05 11:39:34.650] [INFO] Pulling docker image biowardrobe2/samtools:v1.4
+[2017-10-05 11:39:37.607] [INFO] Running command line: bash -c '#!/bin/bash
+if [ ""$0"" = True ]
+then
+  echo ""Run: samtools sort "" ${@:1}
+  samtools sort ""${@:1}""
+else
+  echo ""Skip samtools sort "" ${@:1}
+fi
+' True -o SRR1198790.sorted.bam -O bam -@ 8 SRR1198790.sam ; bash -c '#!/bin/bash
+if [ ""$0"" = True ]
+then
+  echo ""Run: samtools index "" ${@:1}
+  samtools index ""${@:1}""
+else
+  echo ""Skip samtools index "" ${@:1}
+fi
+' True -@ 8 SRR1198790.sorted.bam SRR1198790.sorted.bam.bai
+[2017-10-05 11:40:37.075] [INFO] Job root.samtools_sort_index has completed
+[2017-10-05 11:40:37.403] [INFO] Job root.samtools_rmdup has started
+[2017-10-05 11:40:38.291] [INFO] Pulling docker image biowardrobe2/samtools:v1.4
+[2017-10-05 11:40:41.025] [INFO] Running command line: bash -c '#!/bin/bash
+if [ ""$0"" = True ]
+then
+  samtools rmdup ""${@:1}""
+else
+  echo ""Skip samtools rmdup "" ${@:1}
+fi
+' False -s /home/nexcbu/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se/biowardrobe_chipseq_se-2017-10-05-113515.780/root/samtools_rmdup/SRR1198790.sorted.bam SRR1198790.sorted.bam  > SRR1198790.sorted.bam.rmdup 2>&1
+[2017-10-05 11:40:50.278] [INFO] Job root.samtools_rmdup has completed
+[2017-10-05 11:40:50.406] [INFO] Job root.get_stat has started
+[2017-10-05 11:40:50.406] [INFO] Job root.samtools_sort_index_after_rmdup has started
+[2017-10-05 11:40:50.415] [INFO] Pulling docker image biowardrobe2/scidap:v0.0.2
+[2017-10-05 11:40:51.310] [INFO] Pulling docker image biowardrobe2/samtools:v1.4
+[2017-10-05 11:40:56.331] [INFO] Running command line: python -c '#!/usr/bin/env python
+import sys, re
+TOTAL, ALIGNED, SUPRESSED, USED = 100, 80, 0, 0
+with open(sys.argv[1], '\''r'\'') as bowtie_log:
+  for line in bowtie_log:
+    if '\''processed:'\'' in line:
+      TOTAL = int(line.split('\''processed:'\'')[1])
+    if '\''alignment:'\'' in line:
+      ALIGNED = int(line.split('\''alignment:'\'')[1].split()[0])
+    if '\''due to -m:'\'' in line:
+      SUPRESSED = int(line.split('\''due to -m:'\'')[1].split()[0])
+USED = ALIGNED
+with open(sys.argv[2], '\''r'\'') as rmdup_log:
+  for line in rmdup_log:
+    if '\''/'\'' in line and '\''Skip'\'' not in line:
+      splt = line.split('\''/'\'')
+      USED = int((splt[1].split('\''='\''))[0].strip()) - int((splt[0].split('\'']'\''))[1].strip())
+print TOTAL, ALIGNED, SUPRESSED, USED
+' /home/nexcbu/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se/biowardrobe_chipseq_se-2017-10-05-113515.780/root/bowtie_aligner/SRR1198790.sam.log /home/nexcbu/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se/biowardrobe_chipseq_se-2017-10-05-113515.780/root/samtools_rmdup/SRR1198790.sorted.bam.rmdup  > SRR1198790.sam.stat
+[2017-10-05 11:40:56.556] [INFO] Running command line: bash -c '#!/bin/bash
+if [ ""$0"" = True ]
+then
+  echo ""Run: samtools sort "" ${@:1}
+  samtools sort ""${@:1}""
+else
+  echo ""Skip samtools sort "" ${@:1}
+fi
+' False -o SRR1198790.sorted.bam -O bam -@ 8 SRR1198790.sorted.bam ; bash -c '#!/bin/bash
+if [ ""$0"" = True ]
+then
+  echo ""Run: samtools index "" ${@:1}
+  samtools index ""${@:1}""
+else
+  echo ""Skip samtools index "" ${@:1}
+fi
+' False -@ 8 SRR1198790.sorted.bam SRR1198790.sorted.bam.bai
+[2017-10-05 11:41:04.991] [INFO] Job root.get_stat has completed
+[2017-10-05 11:41:09.582] [INFO] Job root.samtools_sort_index_after_rmdup has completed
+[2017-10-05 11:41:10.416] [INFO] Job root.bamtools_stats has started
+[2017-10-05 11:41:10.416] [INFO] Job root.macs2_callpeak has started
+[2017-10-05 11:41:10.426] [INFO] Pulling docker image biowardrobe2/bamtools:v2.4.1
+[2017-10-05 11:41:10.458] [INFO] Pulling docker image biowardrobe2/macs2:v2.1.1
+[2017-10-05 11:41:16.137] [INFO] Running command line: bamtools stats -in -in -in /home/nexcbu/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se/biowardrobe_chipseq_se-2017-10-05-113515.780/root/samtools_sort_index_after_rmdup/SRR1198790.sorted.bam > stats.log
+[2017-10-05 11:41:16.358] [INFO] Running command line: bash -c '#!/bin/bash
+if [ ""$0"" = True ]
+then
+  echo ""Run: macs2 callpeak "" ${@:1}
+  ls | grep -v ${@: -1}.log | xargs rm
+  macs2 callpeak ""${@:1}""
+else
+  echo ""Skip macs2 callpeak "" ${@:1}
+fi
+' True -t /home/nexcbu/dream_challenge/2017/workflow_execution/workflows/biowardrobe_chipseq_se/biowardrobe_chipseq_se-2017-10-05-113515.780/root/samtools_sort_index_after_rmdup/SRR1198790.sorted.bam -f BAM -g 1.2e8 --keep-dup auto --buffer-size 10000 --bw 150 -m 4 40 -q 0.05 --nolambda --call-summits --verbose 3 -n SRR1198790.sorted  2> SRR1198790.sorted.log
+[2017-10-05 11:41:17.573] [ERROR] Job e1d8eba5-2edb-4aa6-b836-c164f249a6a4 failed with exit code 1.
+[2017-10-05 11:41:17.573] [INFO] Job e1d8eba5-2edb-4aa6-b836-c164f249a6a4 failed with exit code 1.
+[2017-10-05 11:41:17.664] [WARN] Job root.bamtools_stats, rootId: 0f9836a1-0830-48c2-bd1a-d27921bb1d00 failed: Job e1d8eba5-2edb-4aa6-b836-c164f249a6a4 failed with exit code 1.
+[2017-10-05 11:41:17.673] [WARN] Root job 0f9836a1-0830-48c2-bd1a-d27921bb1d00 failed.
+[2017-10-05 11:41:17.678] [INFO] Failed to execute a Job
+```"
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,13245,2222,72579,syn8507133,2017-10-06T10:40:41.000Z,3357304,2017-10-06T10:40:41.000Z,dd8d8572-4a6e-4978-b159-64c017678734,72579/2222/13245/867f2b75-c0d2-4580-8c35-2cb023d6da03,FALSE,FALSE,"Hi Vipin,
+
+Did you follow instructions from this report? https://www.synapse.org/#!Synapse:syn10208944
+Most importantly, step 3, to replace bamtools-stats tool and samtools-sort-index tool?
+
+Best,
+Bogdan"
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,14056,2222,72579,syn8507133,2017-11-16T19:24:16.000Z,3340132,2017-11-16T19:24:16.000Z,fb65173b-e2f5-43f8-9ad1-79393017e04e,72579/2222/14056/d8ad8ceb-4b06-4e38-b32a-a85c1c5338ad,FALSE,FALSE,I had the same issue as @vipin . Will try the same solution he used and re-run.
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,14177,2222,72579,syn8507133,2017-11-28T09:58:27.000Z,3333939,2017-11-28T09:58:27.000Z,a3eba3b8-a8d3-46d5-8d15-2abfdfe6dcf5,72579/2222/14177/9fc13eee-4292-4e74-b53d-ad19ff115e73,FALSE,FALSE,"Hi!
+Thank you for the suggestions. I'm still having problems though:
+## with `rabix`:
+Despite following the instructions of @bogdang  in https://www.synapse.org/#!Synapse:syn10208944, and replacing the mentioned tools, I'm getting the error: `[ERROR] Unsupported feature: $schemas`, and subsequent jobs are all failing.  I'm using `Rabix 1.03` for this purpose, and my machine has 50G of disk space.
+## with `toil`:
+Like @vipin , the workflow freezes at the `samtools-rmdup` stage and permenantly fails. I'm using `toil-cwl-runner 3.12.0`"
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,14178,2222,72579,syn8507133,2017-11-28T11:27:10.000Z,3357304,2017-11-28T11:27:10.000Z,a2745e03-9e8d-4013-b56e-ebe4de2f5450,72579/2222/14178/4863d485-a5ae-44c0-847f-a16f499aa690,FALSE,FALSE,"Hi @Azza 
+
+Thank you for testing the workflow with rabix. Rabix 1.0.3. is a bit buggy, and we are preparing a 1.0.4. release with the fixes. In the meantime could you please retry running the workflow with rabix 1.0.0 version? Sorry about the inconvenience, hopefully in the next release it will all be stable."
+2222,72579,syn8507133,biowardrobe_chipseq_se workflow help,2017-07-19T19:12:07.000Z,2223305,2017-07-19T19:12:07.000Z,1b974775-f005-4c25-9370-9489ab93c98d,72579/2222/7755969f-188f-4681-8c78-3d1192f56202,16,16,2017-11-28T14:20:38.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **biowardrobe_chipseq_se** workflow.,14180,2222,72579,syn8507133,2017-11-28T14:20:38.000Z,3333939,2017-11-28T14:20:38.000Z,b3df63f2-4c30-4639-96c9-56ed34caf5bd,72579/2222/14180/98ea5792-0ca4-4eb8-b526-7b6963151d81,FALSE,FALSE,"That was quick, thank you indeed.
+It worked like charm with **`rabix 1.0.0`**, and the modified tools files above.
+
+Appreciated @bogdang ."
+2223,72579,syn8507133,gdc_dnaseq_transform workflow help,2017-07-19T19:12:32.000Z,2223305,2017-07-19T19:12:32.000Z,18109f3a-80d8-4fae-bcb7-6fe7b7cbce8e,72579/2223/0eab4f7e-4978-432d-97f4-ba97b3e4d683,11,3,2017-12-08T19:12:54.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **gdc_dnaseq_transform** workflow.,12852,2223,72579,syn8507133,2017-09-25T14:10:16.000Z,3360642,2017-09-25T14:10:16.000Z,161a0f8e-b6ed-48ad-af77-65d63596cee9,72579/2223/12852/73683fa3-8ed3-417e-86c9-68b81e127bec,FALSE,FALSE,"Hi, 
+
+I am trying to run gdc_dnaseq_transform workflow with `toil`. I have downloaded the files successfully. 
+```shell
+cwltoil --workDir ~/tmp/ dockstore-tool-synapse-get.cwl gdc_dnaseq_transform_get.cwl.json
+```
+Now when I tried to run the workflow with following command: 
+```shell
+cwltoil --workDir ~/tmp/ cwl/workflows/dnaseq/transform.cwl transform.cwl.json
+```
+
+ended up the error message: 
+```
+[STDOUT]
+=========> Failed job 'file:///home/nexcbu/dream_challenge/2017/workflow_execution/workflows/gdc_dnaseq_transform/cwl/tools/decider_bwa_expression.cwl' S/m/job1LNoas
+---TOIL WORKER OUTPUT LOG---
+INFO:toil:Running Toil version 3.11.0-ca24899f31a2d7f8b3f766a1c99c982ccf1044eb.
+INFO:toil.fileStore:Starting job ('file:///home/nexcbu/dream_challenge/2017/workflow_execution/workflows/gdc_dnaseq_transform/cwl/tools/decider_bwa_expression.cwl' S/m/job1LNoas) with ID (e5473b82ce4039dfe39fa4a02f5e5e2966ac6197).
+Failed to evaluate expression:
+Expression evaluation error:
+
+evalmachine.<anonymous>:71
+       exit()
+       ^
+
+ReferenceError: exit is not defined
+    at get_slice_number (evalmachine.<anonymous>:71:8)
+    at evalmachine.<anonymous>:81:25
+    at evalmachine.<anonymous>:99:4
+    at ContextifyScript.Script.runInContext (vm.js:53:29)
+    at ContextifyScript.Script.runInNewContext (vm.js:59:15)
+    at Object.runInNewContext (vm.js:112:38)
+    at Socket.<anonymous> ([eval]:10:55)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+WARNING:cwltool:Failed to evaluate expression:  
+Expression evaluation error:
+
+evalmachine.<anonymous>:71
+       exit()
+       ^
+
+ReferenceError: exit is not defined
+    at get_slice_number (evalmachine.<anonymous>:71:8)
+    at evalmachine.<anonymous>:81:25
+    at evalmachine.<anonymous>:99:4
+    at ContextifyScript.Script.runInContext (vm.js:53:29)
+    at ContextifyScript.Script.runInNewContext (vm.js:59:15)
+    at Object.runInNewContext (vm.js:112:38)
+    at Socket.<anonymous> ([eval]:10:55)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+Traceback (most recent call last):
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/worker.py"", line 313, in main
+    job._runner(jobGraph=jobGraph, jobStore=jobStore, fileStore=fileStore)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/job.py"", line 1299, in _runner
+    returnValues = self._run(jobGraph, fileStore)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/job.py"", line 1244, in _run
+    return self.run(fileStore)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/cwl/cwltoil.py"", line 451, in run
+    raise cwltool.errors.WorkflowException(status)
+WorkflowException: permanentFail
+ERROR:toil.worker:Exiting the worker because of a failed job on host YYY
+WARNING:toil.jobGraph:Due to failure we are reducing the remaining retry count of job 'file:///home/nexcbu/dream_challenge/2017/workflow_execution/workflows/gdc_dnaseq_transform/cwl/tools/decider_bwa_expression.cwl' S/m/job1LNoas with ID S/m/job1LNoas to 0
+```
+
+Have you seen something like before? I am running cwltoil version `3.11.0`. Please let me know if you need any additional information from my side to debug the issue. 
+
+Thank you very much for providing the workflow! 
+
+Cheers! 
+Vipin"
+2223,72579,syn8507133,gdc_dnaseq_transform workflow help,2017-07-19T19:12:32.000Z,2223305,2017-07-19T19:12:32.000Z,18109f3a-80d8-4fae-bcb7-6fe7b7cbce8e,72579/2223/0eab4f7e-4978-432d-97f4-ba97b3e4d683,11,3,2017-12-08T19:12:54.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **gdc_dnaseq_transform** workflow.,14234,2223,72579,syn8507133,2017-12-08T17:09:17.000Z,3365727,2017-12-08T17:09:17.000Z,5135b2fc-3508-4840-aff4-e90245f8c887,72579/2223/14234/266cf0ea-8aaf-4007-82f8-e00cb17fd29b,FALSE,FALSE,"Hi Jeremiah and James, 
+I've run the gdc_dnaseq_transform workflow multiple times and each time the checker says it ran successfully, but when I submit it to the challenge it fails.  Any ideas?  I've pasted my software versions and environment below.  I would show my steps, but they're exactly as you described.  The only apparent difference is that you ran yours in an EC2 instance, whereas I'm running mine in Linux CentOS.  I've seen other successful submissions that seem to deviate more from your example than I have.  Thanks.  --Ben. 
+
+#### Software and environment
+Linux
+```shell
+$ lsb_release -a
+LSB Version:    :core-4.1-amd64:core-4.1-noarch
+Distributor ID: CentOS
+Description:    CentOS Linux release 7.3.1611 (Core)
+Release:        7.3.1611
+Codename:       Core
+```
+
+docker
+```shell
+$ docker --version
+Docker version 17.06.0-ce, build 02c1d87
+```
+
+mkvirtualenv
+```shell
+$ mkvirtualenv --version
+15.1.0
+```
+
+pip
+```shell
+$ pip --version
+pip 9.0.1 from /usr/lib/python2.7/site-packages (python 2.7)
+```
+
+schema
+```shell
+$ schema-salad-tool schema --version
+/usr/bin/schema-salad-tool 2.2.20170222151604
+```
+
+cwltool
+```shell
+$ cwltool --version
+/usr/bin/cwltool 1.0.20170217172322
+```
+
+synapseClient
+```shell
+$ synapse --version
+Synapse Client 1.7.2
+```
+
+"
+2223,72579,syn8507133,gdc_dnaseq_transform workflow help,2017-07-19T19:12:32.000Z,2223305,2017-07-19T19:12:32.000Z,18109f3a-80d8-4fae-bcb7-6fe7b7cbce8e,72579/2223/0eab4f7e-4978-432d-97f4-ba97b3e4d683,11,3,2017-12-08T19:12:54.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **gdc_dnaseq_transform** workflow.,14235,2223,72579,syn8507133,2017-12-08T19:12:54.000Z,2223305,2017-12-08T19:12:54.000Z,57edd0c6-b232-47b0-83a1-a21c9ae2ae7e,72579/2223/14235/08fe6ad2-051a-4166-a53c-7576e553ee60,FALSE,FALSE,"Hi @bernest,
+
+&nbsp;
+
+I apologize — this was entirely due to a bug on the validation EC2 instance (which, unfortunately, was creating an error in a place that did not signal the system to notify me as well). I fixed the error, reset your ""invalid"" submissions, and they're now listed in the validated submissions table.
+
+&nbsp;
+
+Note: this error affected submissions between 12/6 and 12/8 to the following workflows (cc: @slagelwa @benstory, whose submissions were also erroneously invalidated):
++ gdc_dnaseq_transform
++ biowardrobe_chipseq_se
++ pcawg-delly-sv-caller
++ pcawg-bwa-mem-aligner
+
+&nbsp;
+
+I've reset invalidated submissions for all of these workflows, and everything should hopefully show up as validated shortly!
+
+&nbsp;
+
+Sorry again for any confusion or extra work this caused! If there are any duplicated submissions that you would like to remove, let me know.
+
+&nbsp;
+
+Best,
+James
+"
+2224,72579,syn8507133,bcbio_NA12878-chr20 workflow help,2017-07-19T19:13:09.000Z,2223305,2017-07-19T19:13:09.000Z,2575616c-b441-4685-a667-b9e5c80a2225,72579/2224/c5df69dd-d6b4-4fb1-bb3b-651a7a647dff,20,9,2017-12-08T22:22:22.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **bcbio_NA12878-chr20** workflow.,12441,2224,72579,syn8507133,2017-09-11T13:16:01.000Z,3352048,2017-09-11T13:32:09.000Z,d4ef0b28-d2f5-4677-b73b-8e31fe32206b,72579/2224/12441/9e8d891b-e9b4-4969-8548-892d0fdbdd94,TRUE,FALSE,"This is the only challenge I haven't been able to complete.
+
+Here is the end of the error that I get:
+
+```
+[job postprocess_variants] Job error:
+Error validating output record, the `vrn_file` field is not valid because
+  is not a dict
+ in {
+    ""vrn_file"": []
+}
+[job postprocess_variants] completed permanentFail
+[step postprocess_variants] Output is missing expected field file:///tmpdata/story/bcbionew/NA12878-platinum-chr20-workflow/wf-variantcall.cwl#postprocess_variants/vrn_file
+[step postprocess_variants] completed permanentFail
+[workflow variantcall] outdir is /tmpdata/story/bcbionew/tmp/dcDZ_y
+Workflow cannot make any more progress.
+Final process status is permanentFail
+```
+
+In the most recently created tmpfile in /tmp/qNcptJ/log (sub folders in the main directory where I am running everything) this is the contents of the debug file (bcbio-nextgen-debug.log):
+
+```
+[2017-09-04T11:47Z] 458290e35a63: Finalizing variant calls: NA12878-chr20, platypus
+[2017-09-04T11:47Z] 458290e35a63: Calculating variation effects for NA12878-chr20, platypus
+[2017-09-04T11:47Z] 458290e35a63: Uncaught exception occurred
+Traceback (most recent call last):
+  File ""/usr/local/share/bcbio-nextgen/anaconda/lib/python2.7/site-packages/bcbio/distributed/runfn.py"", line 56, in process
+    out = fn(fnargs)
+  File ""/usr/local/share/bcbio-nextgen/anaconda/lib/python2.7/site-packages/bcbio/utils.py"", line 50, in wrapper
+    return apply(f, *args, **kwargs)
+  File ""/usr/local/share/bcbio-nextgen/anaconda/lib/python2.7/site-packages/bcbio/distributed/multitasks.py"", line 178, in postprocess_variants
+    return variation.postprocess_variants(*args)
+  File ""/usr/local/share/bcbio-nextgen/anaconda/lib/python2.7/site-packages/bcbio/pipeline/variation.py"", line 68, in postprocess_variants
+    ann_vrn_file, vrn_stats = effects.add_to_vcf(data[vrn_key], data)
+  File ""/usr/local/share/bcbio-nextgen/anaconda/lib/python2.7/site-packages/bcbio/variation/effects.py"", line 31, in add_to_vcf
+    ann_vrn_file, stats_files = snpeff_effects(in_file, data)
+  File ""/usr/local/share/bcbio-nextgen/anaconda/lib/python2.7/site-packages/bcbio/variation/effects.py"", line 244, in snpeff_effects
+    return _run_snpeff(vcf_in, ""vcf"", data)
+  File ""/usr/local/share/bcbio-nextgen/anaconda/lib/python2.7/site-packages/bcbio/variation/effects.py"", line 340, in _run_snpeff
+    ""Did not find %s snpEff genome data in %s"" % (snpeff_db, datadir)
+AssertionError: Did not find GRCh38_86 snpEff genome data in /var/spool/cwl/wf-inputs/snpeff/GRCh38.86
+
+```
+
+Here are the commands I've used so far (pretty standard relative to all the other pipelines) because it wasn't working I started a brand new full attempt:
+
+```
+## local whole server install of bcbio-nextgen-vm
+conda install -c conda-forge -c bioconda bcbio-nextgen-vm
+## copied my synapse config
+cp ../testfolder/.synapseConfig ./
+### get the data and stuff
+synapse get syn9770802 # dockstore-tool-synapse-get.cwl
+synapse get syn9819444 # bcbio_NA12878-chr20_get.cwl.json
+cwltool --tmpdir-prefix tmp/ --tmp-outdir-prefix tmp/ --non-strict dockstore-tool-synapse-get.cwl bcbio_NA12878-chr20_get.cwl.json
+## run the pipeline
+cwltool --tmpdir-prefix tmp/ --tmp-outdir-prefix tmp/ NA12878-platinum-chr20-workflow/main-NA12878-platinum-chr20.cwl NA12878-platinum-chr20-workflow/main-NA12878-platinum-chr20-samples.json
+```
+This file exists:
+bcbionew/NA12878-platinum-chr20-workflow/wf-variantcall.cwl
+
+This file exists:
+bcbionew/NA12878-platinum-chr20-workflow/postprocess_variants.cwl
+
+This folder exists:
+bcbionew/tmp/qNcptJ/wf-inputs/snpeff/GRCh38.86
+
+```
+cwltool 1.0.20170413194156
+Docker version 1.7.1, build 786b29d/1.7.1
+```
+
+
+Any ideas?
+
+"
+2224,72579,syn8507133,bcbio_NA12878-chr20 workflow help,2017-07-19T19:13:09.000Z,2223305,2017-07-19T19:13:09.000Z,2575616c-b441-4685-a667-b9e5c80a2225,72579/2224/c5df69dd-d6b4-4fb1-bb3b-651a7a647dff,20,9,2017-12-08T22:22:22.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **bcbio_NA12878-chr20** workflow.,13769,2224,72579,syn8507133,2017-11-01T19:57:35.000Z,3348267,2017-11-01T19:57:35.000Z,b8aae662-ddb8-4739-9a29-549b325850dc,72579/2224/13769/2640eecb-437b-44d9-b3dc-fabb93c8e652,FALSE,FALSE,"I've also had some problems completing this workflow.  My first attempts were using cwltool version 1.0.20170822192924 and it seems to have problems in the samtools index steps.  I then went back and tried the version listed in the workflow 1.0.20170217172322 and was successful.  
+
+I'm left wondering, for the challenge, the fact that a later version of cwltool didn't work seems like an important data point.  How does this get tracked?"
+2224,72579,syn8507133,bcbio_NA12878-chr20 workflow help,2017-07-19T19:13:09.000Z,2223305,2017-07-19T19:13:09.000Z,2575616c-b441-4685-a667-b9e5c80a2225,72579/2224/c5df69dd-d6b4-4fb1-bb3b-651a7a647dff,20,9,2017-12-08T22:22:22.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **bcbio_NA12878-chr20** workflow.,14079,2224,72579,syn8507133,2017-11-19T20:41:17.000Z,3363440,2017-11-19T20:54:04.000Z,1797e512-d2d5-45e3-a534-52c754ab934f,72579/2224/14079/9106e1e5-13bb-4fd5-b611-281aa355e0d7,TRUE,FALSE,"Hi,
+
+My bcbio workflow has completed without problems (""Overall"": true,). But when I submit using `cwltool --non-strict dockstore-tool-synapse-submit.cwl bcbio_NA12878-chr20_submit.json` I get the message shown in this image: [screenshot](https://drive.google.com/file/d/149o-HCXlDJ9vBYd7rjEnEn-eFkkHCz6A/view?usp=sharing). Just in case the link to my screenshot for some reason can't be accessed: the message shows this output: 
+
+```bash
+SynapseHTTPError: 403 Client Error: Forbidden
+The following Team members are ineligible to contribute to a Submission in the specified Evaluation at this time [3363440]
+```
+
+This although it says further above that the ""...submission completed to success"", and ""...the process status is success"". 
+
+The problem is that my workflow does not show up in the section of submitted workflows, so I'm stuck (this is not the same as the one the validated section, this one I'm talking about here I ran on my local).
+
+Anyone?
+
+Thanks,
+Michael"
+2224,72579,syn8507133,bcbio_NA12878-chr20 workflow help,2017-07-19T19:13:09.000Z,2223305,2017-07-19T19:13:09.000Z,2575616c-b441-4685-a667-b9e5c80a2225,72579/2224/c5df69dd-d6b4-4fb1-bb3b-651a7a647dff,20,9,2017-12-08T22:22:22.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **bcbio_NA12878-chr20** workflow.,14130,2224,72579,syn8507133,2017-11-21T18:32:12.000Z,2223305,2017-11-21T18:32:12.000Z,3ad71ca0-b312-4202-94e1-2f2502d48470,72579/2224/14130/f483ed4a-0460-4aaa-b456-1ba8b3a5242f,FALSE,FALSE,"Hi @mkrause,
+
+&nbsp;
+
+I think I figured out what's going on. The problem was less obvious to track down than it would be in most challenges, because we have so many evaluation queues: for any given queue, participants can only submit with a single team. Because you already submitted outputs from Toil (submission `9650685`) as an individual, this means you're ineligible to submit as a member of @UCSCGA4GHDREAMChallengeTeam (at least *for this workflow*). 
+
+&nbsp;
+
+You should still be able to submit as an individual for the bcbio workflow; or if you would like, I can try to associate your existing submission with the UCSC team.
+
+&nbsp;
+
+Best,
+James"
+2224,72579,syn8507133,bcbio_NA12878-chr20 workflow help,2017-07-19T19:13:09.000Z,2223305,2017-07-19T19:13:09.000Z,2575616c-b441-4685-a667-b9e5c80a2225,72579/2224/c5df69dd-d6b4-4fb1-bb3b-651a7a647dff,20,9,2017-12-08T22:22:22.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **bcbio_NA12878-chr20** workflow.,14131,2224,72579,syn8507133,2017-11-21T19:01:40.000Z,2223305,2017-11-21T19:01:40.000Z,8b5d6be8-f441-4cf9-9687-6ce45a2c5fdf,72579/2224/14131/3fb684da-7c58-4826-8a19-afa7f4d17ac5,FALSE,FALSE,"Hi @benstory,
+
+&nbsp;
+
+Sorry I missed your question from a couple months ago! I'm going to cc @chapmanb here and see if he can help troubleshoot. I'll try to take a closer later and offer any advice that might be relevant from my own experience running the workflow.
+
+&nbsp;
+
+-James
+"
+2224,72579,syn8507133,bcbio_NA12878-chr20 workflow help,2017-07-19T19:13:09.000Z,2223305,2017-07-19T19:13:09.000Z,2575616c-b441-4685-a667-b9e5c80a2225,72579/2224/c5df69dd-d6b4-4fb1-bb3b-651a7a647dff,20,9,2017-12-08T22:22:22.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **bcbio_NA12878-chr20** workflow.,14143,2224,72579,syn8507133,2017-11-22T19:39:35.000Z,3363440,2017-11-22T19:39:35.000Z,86dc960f-7737-4e24-b1b9-c4b862774c87,72579/2224/14143/43182f5e-04f0-4c3b-8fd3-a7bdf227e554,FALSE,FALSE,"Hi James,
+
+Thanks for the explanation and suggestion, that makes sense. Yes, if it's not too much to ask please go ahead and associate my first bcbio submission to UCSC GA4GH team. Unfortunately, I forgot to include that in the submission file. After that I will try to resubmit my second bcbio workflow.
+
+Thanks,
+Michael"
+2224,72579,syn8507133,bcbio_NA12878-chr20 workflow help,2017-07-19T19:13:09.000Z,2223305,2017-07-19T19:13:09.000Z,2575616c-b441-4685-a667-b9e5c80a2225,72579/2224/c5df69dd-d6b4-4fb1-bb3b-651a7a647dff,20,9,2017-12-08T22:22:22.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **bcbio_NA12878-chr20** workflow.,14159,2224,72579,syn8507133,2017-11-24T20:10:27.000Z,3321812,2017-11-24T20:10:27.000Z,e41c76db-d765-4472-8cf0-0bd222a1abed,72579/2224/14159/8f4321ea-3a45-4877-b931-46fa47e6b996,FALSE,FALSE,"Benjamin;
+So sorry about missing this earlier and thank you James for tagging me. If you ever need future help and I miss your post feel free to tag me or raise an issue on the bcbio GitHub (https://github.com/chapmanb/bcbio-nextgen).
+
+I think the underlying issue with your run is that you have incompatible versions of the bcbio biodata and CWL descriptions. As we've worked to port this workflow to multiple systems, we ended up using tarballs for some of the complex directories like snpEff. This resulted in an update of both the data and CWL but I think it's possible you have the most recent data but an older CWL. 
+
+I believe if you update both to the latest and re-run it should hopefully work cleanly. Sorry about the issue and the changes and I appreciate you testing this out.
+Brad"
+2224,72579,syn8507133,bcbio_NA12878-chr20 workflow help,2017-07-19T19:13:09.000Z,2223305,2017-07-19T19:13:09.000Z,2575616c-b441-4685-a667-b9e5c80a2225,72579/2224/c5df69dd-d6b4-4fb1-bb3b-651a7a647dff,20,9,2017-12-08T22:22:22.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **bcbio_NA12878-chr20** workflow.,14169,2224,72579,syn8507133,2017-11-27T22:21:39.000Z,2223305,2017-11-27T22:21:39.000Z,65e73440-b690-478d-bfbb-996f196f4331,72579/2224/14169/339d3c92-79fb-421a-8e4a-e7156a077b13,FALSE,FALSE,"Hi @mkrause — turns out I was overly optimistic about my ability to fix the submission. Apparently, `teamId` can only be set at the time of submission, and the REST API does not have an option to update that information later.
+
+&nbsp;
+
+Instead, I would need to delete the current submission and have you re-submit syn11382097 to the evaluation queue. This can be done through the Synapse browser by navigating to the entity page for syn11382097, clicking on 'Tools' -> 'Submit File to Challenge', and selecting **GA4GH-DREAM_bcbio_NA12878-chr20*. After clicking 'Next', you'll have the option to submit as part of a team.
+
+&nbsp;
+
+Making a note of the original submission report here — syn11382141 — so that it should be easy to copy the documentation over for a new submission.
+
+&nbsp;
+
+If that seems reasonable, let me know and I'll delete submission *9650685* (want to verify before creating any unwanted extra work).
+
+"
+2224,72579,syn8507133,bcbio_NA12878-chr20 workflow help,2017-07-19T19:13:09.000Z,2223305,2017-07-19T19:13:09.000Z,2575616c-b441-4685-a667-b9e5c80a2225,72579/2224/c5df69dd-d6b4-4fb1-bb3b-651a7a647dff,20,9,2017-12-08T22:22:22.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **bcbio_NA12878-chr20** workflow.,14238,2224,72579,syn8507133,2017-12-08T22:22:22.000Z,2223305,2017-12-08T22:22:22.000Z,8f780922-640e-4d3a-adac-290476d193cb,72579/2224/14238/3f578108-572b-49ba-8799-10d461467aa2,FALSE,FALSE,"Hi @mkrause — following up on the earlier issue about teams, you can disregard my previous comment. I figured out a workaround that takes care of the problem reasonably well. See this thread for more info:
+https://www.synapse.org/#!Synapse:syn8507133/discussion/threadId=2967
+
+&nbsp;
+
+Thanks!"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,12813,2313,72579,syn8507133,2017-09-22T11:08:06.000Z,3360642,2017-09-22T11:08:06.000Z,e92f5413-33e2-4aa3-bfc5-4f4412714108,72579/2313/12813/90e9ff17-7ad1-478c-8721-25c8d2833638,FALSE,FALSE,"Hello, 
+
+I am trying to run encode_mapping_workflow with Toil (cwltoil). 
+
+Downloaded workflow input files as: 
+```shell
+cwltoil --workDir ~/tmp/ ~/synapse_utils/dockstore-tool-synapse-get.cwl ~/config_files/encode_mapping_workflow_get.cwl.json
+```
+
+Run the workflow: 
+```shell
+cwltoil --workDir ~/tmp/ --maxDisk 30000000000 encode_mapping_workflow.cwl encode_mapping_workflow.cwl.json
+```
+
+Running the workflow ended up in the error message: 
+```
+2017-09-22 13:02:40,744 - toil.statsAndLogging - INFO - ... finished collating stats and logs. Took 0.00424098968506 seconds
+Traceback (most recent call last):
+  File ""/home/nexcbu/tools/venv/bin/cwltoil"", line 11, in <module>
+    sys.exit(main())
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/cwl/cwltoil.py"", line 940, in main
+    outobj = toil.start(wf1)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/common.py"", line 727, in start
+    return self._runMainLoop(rootJobGraph)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/common.py"", line 997, in _runMainLoop
+    jobCache=self._jobCache).run()
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/leader.py"", line 183, in run
+    self.innerLoop()
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/leader.py"", line 388, in innerLoop
+    self.issueJobs(successors)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/leader.py"", line 554, in issueJobs
+    self.issueJob(job)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/leader.py"", line 536, in issueJob
+    jobBatchSystemID = self.batchSystem.issueBatchJob(jobNode)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/batchSystems/singleMachine.py"", line 208, in issueBatchJob
+    self.checkResourceRequest(jobNode.memory, cores, jobNode.disk)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/batchSystems/abstractBatchSystem.py"", line 256, in checkResourceRequest
+    raise InsufficientSystemResources('disk', disk, self.maxDisk)
+toil.batchSystems.abstractBatchSystem.InsufficientSystemResources: Requesting more disk than either physically available, or enforced by --maxDisk. Requested: 1073741824000, Available: 30000000000
+```
+
+In the documentation it says that the maximum disk space for running this workflow as 30Gb. I am not sure from where this 1TB disk space request error came in while running the workflow. I am running on RHEL 7 with 60GB disk space. "
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,12824,2313,72579,syn8507133,2017-09-22T17:22:42.000Z,3352396,2017-09-22T17:22:42.000Z,804dcf8e-2b5c-4c41-95ec-590ddaa27ad6,72579/2313/12824/0a49d76a-3421-496e-9750-5742ee00efb0,FALSE,FALSE,"Hi Vipin - Thanks for trying our workflow, and I'm sorry you're having trouble.  I'm not sure where that 1TB request is coming from.  Would you mind trying to run the workflow with the smaller test input files and see if that will work?  You can use the input JSON file encode_mapping_workflow.wdl_test.json.  That will run the workflow on a chr21 extract against a chr21-only reference (both of which are included as part of the workflow package you downloaded).  Whether or not that works will give us some clues to work from.
+
+I note that another submission using Toil was run on a large EC2 instance, and might have gotten around this unreasonable disk space request that way.  https://www.synapse.org/#!Synapse:syn10676071
+
+Let me know if you get anything from running with encode_mapping_workflow.wdl_test.json and we'll take it from there.
+
+Seth
+ENCODE DCC
+"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,12828,2313,72579,syn8507133,2017-09-22T20:44:35.000Z,3360642,2017-09-22T20:44:35.000Z,b3317c5d-a5f4-4bb0-9c05-7128bd203d20,72579/2313/12828/479ad8a1-a817-44b0-9f43-404904f764c4,FALSE,FALSE,"Hi Seth, 
+
+Thank you for the quick response. I have tested with the smaller input file corresponds to `chr21` as: 
+```shell
+cwltoil --workDir ~/tmp/ encode_mapping_workflow.cwl encode_mapping_workflow.cwl_test.json
+```
+This also returns me the same error message as above: 
+```
+Traceback (most recent call last):
+  File ""/home/nexcbu/tools/venv/bin/cwltoil"", line 11, in <module>
+    sys.exit(main())
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/cwl/cwltoil.py"", line 940, in main
+    outobj = toil.start(wf1)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/common.py"", line 727, in start
+    return self._runMainLoop(rootJobGraph)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/common.py"", line 997, in _runMainLoop
+    jobCache=self._jobCache).run()
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/leader.py"", line 183, in run
+    self.innerLoop()
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/leader.py"", line 388, in innerLoop
+    self.issueJobs(successors)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/leader.py"", line 554, in issueJobs
+    self.issueJob(job)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/leader.py"", line 536, in issueJob
+    jobBatchSystemID = self.batchSystem.issueBatchJob(jobNode)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/batchSystems/singleMachine.py"", line 208, in issueBatchJob
+    self.checkResourceRequest(jobNode.memory, cores, jobNode.disk)
+  File ""/home/nexcbu/tools/venv/lib/python2.7/site-packages/toil/batchSystems/abstractBatchSystem.py"", line 256, in checkResourceRequest
+    raise InsufficientSystemResources('disk', disk, self.maxDisk)
+toil.batchSystems.abstractBatchSystem.InsufficientSystemResources: Requesting more disk than either physically available, or enforced by --maxDisk. Requested: 1073741824000, Available: 69968257024
+```
+
+This time I didn't put any value for `--maxDisk` and by default it measured the freely available space on my machine. 
+
+The other submission from UCSC using Toil was having a `env_disk: ""2Tb""`. So they didn't see this error message. With Toil I am not seeing any option to restrict this greedy disk space use. I have no idea where to check. Please let me know if you would like to do more test from my side. 
+
+Thanks, 
+Vipin"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,12829,2313,72579,syn8507133,2017-09-22T20:51:21.000Z,3352396,2017-09-22T20:51:21.000Z,35eb93a4-024f-4d6a-9410-796be255bd7a,72579/2313/12829/eb5cdbc1-fc61-4ef5-813e-4da42b03b040,FALSE,FALSE,"OK good experiment.  Thank you for doing that, Vipin.  I can see that the amount of disk space Toil is requesting is the same as before, so does not depend on the size of the inputs.  It must be the way we've specified the individual CWL stages.  I will dig deeper and see what I can figure out.  I'll be back with you soon.
+Seth
+"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,12831,2313,72579,syn8507133,2017-09-22T22:12:09.000Z,3352396,2017-09-22T22:12:09.000Z,d1a3725b-63f4-40d6-9a75-4a8375a5f63a,72579/2313/12831/c54673cf-87bb-4334-aa35-d5fc8f32348a,FALSE,FALSE,"Vipin - I know what's wrong.  In our individual stage cwl files we specify a rather large minimum disk (1TB split between output and working directories).  After reducing that to 100GB the workflow ran fine on the test inputs for me on a small machine.  I'm testing the full-sized inputs now.  Assuming that works (I believe it will), then I can think of two ways to address your problem.  One option is I could modify the CWL files deployed to the DREAM contest directory to request less disk space.  Another option is you could modify the CWL files you are running with, reducing the disk space request to fit your system.  I rather prefer the second option.  I would like to avoid changing the workflow in the middle of the contest to remain as consistent as possible with the entries already submitted using the workflow as it is today.
+
+Specifically, you would need to edit your copies of mapping.cwl, post_processing.cwl, filter_qc.cwl, and xcor.cwl.  Since your machine appears to have ~70GB free, setting outdirMin and tmpdirMin to 20000 or 30000 (20G or 30G) should work.
+
+If that's what you do, please include that in your documentation so that others can benefit from what you've learned.
+
+You can also wait until my full-sized test run completes.  I won't have an opportunity to gather those outputs until Monday.
+
+Thanks, again, for hanging in there with us and helping us to smooth some rough edges in our workflow.
+Seth
+"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,12851,2313,72579,syn8507133,2017-09-25T12:04:43.000Z,3360642,2017-09-25T12:04:43.000Z,64e0957b-0adb-49dd-a206-251d7d52facb,72579/2313/12851/e3f8bc24-a6b3-4616-a4ff-c824efc9b635,FALSE,FALSE,"Thank you Seth! I was not able to respond your comments in last day. 
+
+As you suggested, it is better to keep the file as it is in the workflow challenge location, rather I will modify my scripts and try to run. While adding the documentation, I will point to this discussion and add the steps which I took to run the workflow using rabix. 
+
+Thanks again for checking this quickly and I have started running the workflow as you mentioned in the previous thread. I am not seeing the predefined space error now (for the new updated outdirMin and tmpdirMin) values.
+
+I will update how it goes. 
+
+Regards, 
+Vipin"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,12853,2313,72579,syn8507133,2017-09-25T14:16:13.000Z,3360642,2017-09-25T14:16:13.000Z,ea10056e-a35b-42e6-9e82-f76e92cb9986,72579/2313/12853/2e0b46d8-bfb6-4cbf-9784-c50bb5ea6ec6,FALSE,FALSE,"Hi Seth, 
+
+Yes your workflow finished with toil and I ran the result checker. Everything worked well! 
+Thank you, 
+Vipin"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,12895,2313,72579,syn8507133,2017-09-26T16:26:39.000Z,3352396,2017-09-26T16:26:39.000Z,84f62b93-263d-46bf-8c2e-673ffb633fb3,72579/2313/12895/d4d394c3-eba0-41e4-b8a6-75494e8083c1,FALSE,FALSE,"Great.  Thanks for working through this, Vipin.  Your documentation will be especially valuable to help us think about best practices for disk space provisioning.
+
+Talk to you soon,
+Seth
+"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,12925,2313,72579,syn8507133,2017-09-26T23:55:06.000Z,3352027,2017-09-26T23:55:06.000Z,67b6c9fc-74b8-45dd-8b25-2068ccc16c52,72579/2313/12925/a024ca55-df13-4911-acb7-64649bc0866a,FALSE,FALSE,"The WDL version of the encode_mapping_workflow doesn't seem to work when run via Cromwell on JES.  When run locally, everything works:
+```
+java -jar ~/tmp/cromwell/target/scala-2.11/cromwell-28-9a403ba-SNAP.jar run encode_mapping_workflow.wdl encode_mapping_workflow.wdl_test.json - outputmetadata -
+```
+When running with JES (Google), it fails (bucket and non-important prefixes removed from path names):
+```
+Task encode_mapping_workflow.mapping:NA:1 failed. JES error code 10. Message: 11: Docker run failed: command failed: Traceback (most recent call last): File ""/image_software/pipeline-container/src/encode_map.py"", line 266, in <module> main(sys.argv[2], sys.argv[1], ""-q 5 -l 32 -k 2"", False, sys.argv[3], sys.argv[4]) IndexError: list index out of range . See logs at gs://<bucket>/<prefix>/encode_mapping_workflow/8d582ec2-e3d4-4e4d-b923-8a2e019fa31e/call-mapping/
+```
+
+I think the Cromwell-generated exec.sh looks fine?:
+
+
+```sh
+#!/bin/bash
+tmpDir=$(mktemp -d /cromwell_root/tmp.XXXXXX)
+chmod 777 $tmpDir
+export _JAVA_OPTIONS=-Djava.io.tmpdir=$tmpDir
+export TMPDIR=$tmpDir
+
+(
+cd /cromwell_root
+python /image_software/pipeline-container/src/encode_map.py /cromwell_root/167830-46vy7eojpu9h3sogufnigvh2/168006/GRCh38_chr21_bwa.tar.gz native /cromwell_root/167830-46vy7eojpu9h3sogufnigvh2/168006/ENCFF000VOL_chr21.fq.gz
+)
+echo $? > /cromwell_root/mapping-rc.txt.tmp
+(
+cd /cromwell_root
+mkdir /cromwell_root/glob-5173ae221240acd2e2a97be856fec02c
+( ln -L *.sai /cromwell_root/glob-5173ae221240acd2e2a97be856fec02c 2> /dev/null ) || ( ln *.sai /cromwell_root/glob-5173ae221240acd2e2a97be856fec02c )
+ls -1 /cromwell_root/glob-5173ae221240acd2e2a97be856fec02c > /cromwell_root/glob-5173ae221240acd2e2a97be856fec02c.list
+
+mkdir /cromwell_root/glob-14818d7eab137a9180e99ef55bce91d6
+( ln -L *.gz /cromwell_root/glob-14818d7eab137a9180e99ef55bce91d6 2> /dev/null ) || ( ln *.gz /cromwell_root/glob-14818d7eab137a9180e99ef55bce91d6 )
+ls -1 /cromwell_root/glob-14818d7eab137a9180e99ef55bce91d6 > /cromwell_root/glob-14818d7eab137a9180e99ef55bce91d6.list
+
+mkdir /cromwell_root/glob-9c7dddbb736ff5ba3fd769a2cd80ebff
+( ln -L mapping.log /cromwell_root/glob-9c7dddbb736ff5ba3fd769a2cd80ebff 2> /dev/null ) || ( ln mapping.log /cromwell_root/glob-9c7dddbb736ff5ba3fd769a2cd80ebff )
+ls -1 /cromwell_root/glob-9c7dddbb736ff5ba3fd769a2cd80ebff > /cromwell_root/glob-9c7dddbb736ff5ba3fd769a2cd80ebff.list
+
+mkdir /cromwell_root/glob-31ec53741a6e261bb4ef24cf8feae316
+( ln -L mapping.json /cromwell_root/glob-31ec53741a6e261bb4ef24cf8feae316 2> /dev/null ) || ( ln mapping.json /cromwell_root/glob-31ec53741a6e261bb4ef24cf8feae316 )
+ls -1 /cromwell_root/glob-31ec53741a6e261bb4ef24cf8feae316 > /cromwell_root/glob-31ec53741a6e261bb4ef24cf8feae316.list
+
+)
+sync
+mv /cromwell_root/mapping-rc.txt.tmp /cromwell_root/mapping-rc.txt
+```
+Has anybody had success running this workflow via Cromwell with JES?
+"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,12974,2313,72579,syn8507133,2017-09-28T08:50:00.000Z,3360642,2017-09-28T08:50:00.000Z,de55cae5-1d58-4930-b02a-bb6922354957,72579/2313/12974/ab8e852d-a9e1-4e9a-8061-76de253a4ecb,FALSE,FALSE,"Hi Seth, 
+
+Have you tried running your **encode_mapping_workflow** workflow with `rabix` runner? 
+I tried with `rabix` and get the following error message: 
+```shell
+[nexcbu@wfexec encode_mapping_workflow]$ ~/tools/rabix-cli-1.0.0/rabix --tmpdir-prefix ~/tmp/ --tmp-outdir-prefix ~/tmp/ encode_mapping_workflow.cwl encode_mapping_workflow.cwl.json
+[2017-09-28 09:50:59.125] [ERROR] Error: file://encode_mapping_workflow.cwl is not a valid app! Unknown error when parsing the app!
+```
+I am using `rabix-cli-1.0.0` version runner on RHEL 7. 
+
+I saw one submission here with `rabix` https://www.synapse.org/#!Synapse:syn10290494. Unfortunately the documentation is not providing how they performed the run. 
+
+If you have any idea, please share with me. 
+
+Thank you, 
+Vipin
+
+"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,13002,2313,72579,syn8507133,2017-09-28T20:34:50.000Z,3352396,2017-09-28T20:34:50.000Z,8d072b78-5ed2-489d-b205-ce467f8a95de,72579/2313/13002/d9576a95-e047-4c42-83cc-87de782b972d,FALSE,FALSE,"Hi Jim - Thanks for trying our workflow and I'm sorry you're having trouble.  I can recreate the issue you're seeing running on JES.  I inserted some debugging code and found that the argv that the script actually sees at runtime does not match what's in the exec.sh.  I agree that from the exec.sh it _looks_ like it should be getting called correctly, but when the script actually runs it only gets one argument, which I think is the value of TMPDIR.
+
+I don't know what the solution is yet but I am working on it.
+
+Seth
+"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,13003,2313,72579,syn8507133,2017-09-28T20:38:31.000Z,3352396,2017-09-28T20:38:31.000Z,105fc62b-f737-451a-8850-63aa8355775e,72579/2313/13003/16a72e6e-eea8-443c-89c7-f93dce9e89b6,FALSE,FALSE,"Hi Vipin - I have not tried that, yet.  But I will follow up with Bogdan and see if he can give us some more details on how he got it to run.  I'll be in touch.
+Seth
+"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,13014,2313,72579,syn8507133,2017-09-29T09:43:00.000Z,3357304,2017-09-29T09:44:50.000Z,a2f83c63-98a5-4e14-ab58-465fd3f9017f,72579/2313/13014/cb595f68-6cd2-463a-a2a7-e689d2c715fc,TRUE,FALSE,"Hi Vipin,
+
+For the rabix run, please try changing `encode_mapping_workflow.cwl` with `./encode_mapping_workflow.cwl`, i.e. running.
+
+```shell
+ ~/tools/rabix-cli-1.0.0/rabix --tmpdir-prefix ~/tmp/ --tmp-outdir-prefix ~/tmp/ ./encode_mapping_workflow.cwl encode_mapping_workflow.cwl.json
+```
+
+This is a [known bug in rabix](https://github.com/rabix/bunny/issues/330), and hopefully will be fixed soon.
+
+I also updated the report to include the correct command line for running encode workflow with rabix.
+
+Hope this will help.
+
+Best,
+Bogdan"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,13028,2313,72579,syn8507133,2017-09-29T17:11:12.000Z,3360642,2017-09-29T17:11:12.000Z,1900f7de-7888-462f-85f5-4da35c35bd15,72579/2313/13028/893b4c67-3fb6-428f-a19d-de38ad22362b,FALSE,FALSE,"Hi Bogdan, 
+
+Thank you for the suggestion to use `rabix` with `encode_mapping_workflow`. I have tried the above command it escapes the error message which I reported earlier but now the workflow ends with another error message: 
+
+```shell
+rabix --tmpdir-prefix ~/tmp/ --tmp-outdir-prefix ~/tmp/ ./encode_mapping_workflow.cwl encode_mapping_workflow.cwl.json
+```
+```shell
+[STDOUT]
+[2017-09-29 17:57:26.367] [INFO] Job root.mapper has started
+[2017-09-29 17:58:03.657] [INFO] Pulling docker image quay.io/encode-dcc/mapping:v1.0
+[2017-09-29 17:58:04.371] [INFO] Running command line: python /image_software/pipeline-container/src/encode_map.py /home/nexcbu/dream_challenge/2017/workflow_execution/workflows/encode_mapping_workflow/input_data/reference/ENCFF643CGH_ENCODE_GRCh38_bwa.tar.gz native /home/nexcbu/dream_challenge/2017/workflow_execution/workflows/encode_mapping_workflow/input_data/ENCFF000VOL.fastq.gz
+[2017-09-29 17:58:06.104] [ERROR] Job 886be86f-84ea-4ed3-bf35-42ab08876d62 failed with exit code 1.
+[2017-09-29 17:58:06.105] [INFO] Job 886be86f-84ea-4ed3-bf35-42ab08876d62 failed with exit code 1.
+[2017-09-29 17:58:06.182] [WARN] Job root.mapper, rootId: 511170eb-ae2e-45ea-aee2-a9b9a36e79a0 failed: Job 886be86f-84ea-4ed3-bf35-42ab08876d62 failed with exit code 1.
+[2017-09-29 17:58:06.190] [WARN] Root job 511170eb-ae2e-45ea-aee2-a9b9a36e79a0 failed.
+[2017-09-29 17:58:07.181] [INFO] Failed to execute a Job
+```
+I don't see any issue here, but I looked at the `job.err.log` file which created as a part of the `rabix` run: 
+```shell
+cat encode_mapping_workflow-2017-09-29-175723.120/root/mapper/job.err.log
+```
+```shell
+[OUTPUT]
+Traceback (most recent call last):
+  File ""/image_software/pipeline-container/src/encode_map.py"", line 264, in <module>
+    main(sys.argv[2], sys.argv[1], ""-q 5 -l 32 -k 2"", False, sys.argv[3], None)
+  File ""/image_software/pipeline-container/src/encode_map.py"", line 192, in main
+    handler = logging.FileHandler('mapping.log')
+  File ""/usr/lib/python2.7/logging/__init__.py"", line 903, in __init__
+    StreamHandler.__init__(self, self._open())
+  File ""/usr/lib/python2.7/logging/__init__.py"", line 928, in _open
+    stream = open(self.baseFilename, self.mode)
+IOError: [Errno 13] Permission denied: '/home/nexcbu/dream_challenge/2017/workflow_execution/workflows/encode_mapping_workflow/encode_mapping_workflow-2017-09-29-175723.120/root/mapper/mapping.log'
+```
+It sounds to me little strange, the user has full permission in this path. I am not sure from where the error raised. 
+
+Regards, 
+Vipin"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,13118,2313,72579,syn8507133,2017-10-04T09:38:00.000Z,3357304,2017-10-04T09:38:00.000Z,2061b345-2230-4614-9df3-94576607234a,72579/2313/13118/2c0f0377-afce-4cde-b071-580de89f89b0,FALSE,FALSE,"Hi Vipin,
+
+I reproduced the same issue on a local Ubuntu machine (on Mac this does not happen). I think this issue is a result of the fact that Docker image has a custom USER added [in the Dockerfile](https://github.com/ENCODE-DCC/pipeline-container/blob/master/images/mapping/Dockerfile#L56). The docker container is started as this custom user, that has no permission to write to that directory. I think cwltool overrides this USER, and starts the container as USER ""501"", so this error does not appear in cwltool runs. Seth mentioned that the custom USER might be removed from Docker image in the future.
+
+Best,
+Bogdan"
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,13549,2313,72579,syn8507133,2017-10-20T15:12:38.000Z,3357304,2017-10-20T15:12:38.000Z,d9a831d9-0084-46b5-b6fa-3fc91dd5b05f,72579/2313/13549/fd1cc6d9-0f02-4190-8cad-b338e28a8e0f,FALSE,FALSE,"@jseth  We deployed a patch that overcomes the USER issue on the cloud platform, so the workflow can be executed on [CancerGenomicsCloud](https://cgc.sbgenomics.com/), I submitted [instructions](https://www.synapse.org/#!Synapse:syn11272418) for running."
+2313,72579,syn8507133,encode_mapping_workflow workflow help,2017-08-16T18:23:20.000Z,2223305,2017-08-16T18:23:20.000Z,cb9cbed4-bd8c-4fa8-86c1-f99ab994809c,72579/2313/1715179d-cd9c-4f80-9225-d9f9129b2b04,16,17,2017-11-22T20:12:05.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **encode_mapping_workflow** workflow.,13865,2313,72579,syn8507133,2017-11-07T20:20:11.000Z,3352027,2017-11-22T20:12:05.000Z,fd0f849a-2df5-4999-bfb4-57bb477223e9,72579/2313/13865/e302cf9a-b0ff-4e71-a428-86d52621aeca,TRUE,FALSE,"Hello,
+
+I'm still having the problem running this on JES.  @jseth - were you able to find any solution for this?
+
+Thanks!
+Jim
+
+EDIT: Looks like the problem is because some of the docker images used in the WDL specify an entrypoint, which isn't well supported by JES.  (see, e.g., https://github.com/broadinstitute/cromwell/issues/2461#issuecomment-316418026)  I created new docker images without the entrypoint and changed the WDL to reference those, and everything works.     "
+2339,72579,syn8507133,Workflow on-boarding help,2017-08-22T18:39:59.000Z,2223305,2017-08-22T18:40:33.000Z,017be57b-037b-4e37-b1f3-5b465d23261d,72579/2339/bdc01061-6090-42a2-b245-7414a86b65d8,13,3,2017-10-10T15:26:05.000Z,TRUE,FALSE,FALSE,"If you would like to contribute a new workflow to the challenge and have questions about the process described in the [**Workflow Author SOP**](https://www.synapse.org/#!Synapse:syn8507133/wiki/451396), please use this thread to discuss any issues.",13221,2339,72579,syn8507133,2017-10-05T17:33:49.000Z,3362758,2017-10-05T17:33:49.000Z,85ee9406-56fc-45b5-ab7f-c007c4e96134,72579/2339/13221/f51d2753-e5ea-43e7-b267-e529b8b6e9f3,FALSE,FALSE,"I am unable to determine the evaluation queue (eval_id) for submit.cwl.json because I am unable to view ""Monitor & expedite workflow on-boarding process""  in the Workflow Author SOP document. I receive the following message instead ""Sorry, you do not have sufficient privileges for access. You lack DOWNLOAD access to the requested entity."" How can i determine evaluation queue for my workflow? 
+
+Thanks"
+2339,72579,syn8507133,Workflow on-boarding help,2017-08-22T18:39:59.000Z,2223305,2017-08-22T18:40:33.000Z,017be57b-037b-4e37-b1f3-5b465d23261d,72579/2339/bdc01061-6090-42a2-b245-7414a86b65d8,13,3,2017-10-10T15:26:05.000Z,TRUE,FALSE,FALSE,"If you would like to contribute a new workflow to the challenge and have questions about the process described in the [**Workflow Author SOP**](https://www.synapse.org/#!Synapse:syn8507133/wiki/451396), please use this thread to discuss any issues.",13256,2339,72579,syn8507133,2017-10-06T17:21:44.000Z,2223305,2017-10-06T17:21:44.000Z,4747593b-29d3-4d35-9327-593985e3853e,72579/2339/13256/98572b56-9222-4570-a8f1-1663345ebc47,FALSE,FALSE,"Thanks, @bshifaw 
+
+&nbsp;
+
+You bring up two relevant issues here:
+
+1. Folks who are / have been contributing workflows or helping to test workflows have generally been added to the @GA4GHDREAMAdmin Synapse team — this gives a bit more permissions in terms of uploading data and viewing certain pages/tables. I realize that I need to add a note about this as a **""Step 0""**, which would be for new workflow authors to contact me about getting added to that group.
+
+&nbsp;
+
+2. The particular table you mention should be visible by all users, regardless of team. I think something might have changed recently with the behavior of certain Synapse widgets: I believe that the sharing settings for a table need to allow for 'Download' and not just 'View' in order to be visible when embedded in a wiki. I just updated that, and will check for other tables as well. Let me know if that helps (I'll try to confirm with a dummy account)!
+
+&nbsp;
+
+Best,
+James
+"
+2339,72579,syn8507133,Workflow on-boarding help,2017-08-22T18:39:59.000Z,2223305,2017-08-22T18:40:33.000Z,017be57b-037b-4e37-b1f3-5b465d23261d,72579/2339/bdc01061-6090-42a2-b245-7414a86b65d8,13,3,2017-10-10T15:26:05.000Z,TRUE,FALSE,FALSE,"If you would like to contribute a new workflow to the challenge and have questions about the process described in the [**Workflow Author SOP**](https://www.synapse.org/#!Synapse:syn8507133/wiki/451396), please use this thread to discuss any issues.",13348,2339,72579,syn8507133,2017-10-10T15:26:05.000Z,3362758,2017-10-10T15:26:05.000Z,7cbd7707-e02f-4929-a35c-aa350aab1172,72579/2339/13348/476e0e38-e5db-423d-806f-9a78f7406e2d,FALSE,FALSE,"Hi
+
+I wanted to upload a workflow,  Workflow Author SOP mentions using the synapse web client to create a subfolder under workflow_staging but I don't see the ""Upload or Link to File"" and ""Add Folder"" icons. Do I need to gain permission? 
+
+-Beri"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13208,2619,72579,syn8507133,2017-10-05T09:24:59.000Z,3360642,2017-10-05T09:24:59.000Z,f9d594da-7a95-44e0-af94-7cdd8dce6a98,72579/2619/13208/28f9f8b5-6f78-4e7f-b6ab-3c0a1ea2d4a3,FALSE,FALSE,"Hello,
+
+Here is an error when running the `knoweng_gene_prioritization` with `rabix`. 
+```shell
+[nexcbu@wfexecutor knoweng_gene_prioritization]$ ~/tools/rabix-cli-1.0.0/rabix --tmpdir-prefix ~/tmp/ --tmp-outdir-prefix ~/tmp/ ./gp_workflow.cwl gp_workflow_job.yml
+[2017-10-05 11:02:59.880] [INFO] Job root.kn_fetcher has started
+[2017-10-05 11:02:59.882] [INFO] Job root.data_cleaning has started
+[2017-10-05 11:02:59.914] [INFO] Pulling docker image quay.io/cblatti3/kn_fetcher:latest
+[2017-10-05 11:03:01.134] [ERROR] Failed to start container.
+org.rabix.bindings.BindingException: org.rabix.bindings.cwl.expression.CWLExpressionException: Substitution error, unfinished block starting at position 0 : ; else touch empty.edge; fi && date"" && echo $MYCMD > run_fetch.cmd && eval $MYCMD
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLinePart(CWLCommandLineBuilder.java:233) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLineParts(CWLCommandLineBuilder.java:144) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLineObject(CWLCommandLineBuilder.java:86) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLBindings.buildCommandLineObject(CWLBindings.java:98) ~[rabix-cli.jar:na]
+        at org.rabix.executor.container.impl.DockerContainerHandler.start(DockerContainerHandler.java:203) ~[rabix-cli.jar:na]
+        at org.rabix.executor.handler.impl.JobHandlerImpl.start(JobHandlerImpl.java:171) [rabix-cli.jar:na]
+        at org.rabix.executor.execution.command.StartCommand.run(StartCommand.java:32) [rabix-cli.jar:na]
+        at org.rabix.executor.execution.JobHandlerCommand.run(JobHandlerCommand.java:51) [rabix-cli.jar:na]
+        at org.rabix.executor.execution.JobHandlerRunnable.run(JobHandlerRunnable.java:60) [rabix-cli.jar:na]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_144]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_144]
+        at java.lang.Thread.run(Thread.java:748) [na:1.8.0_144]
+Caused by: org.rabix.bindings.cwl.expression.CWLExpressionException: Substitution error, unfinished block starting at position 0 : ; else touch empty.edge; fi && date"" && echo $MYCMD > run_fetch.cmd && eval $MYCMD
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.scanJavascriptExpression(CWLExpressionResolver.java:297) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.javascriptInterpolate(CWLExpressionResolver.java:175) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.resolve(CWLExpressionResolver.java:66) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLinePart(CWLCommandLineBuilder.java:231) ~[rabix-cli.jar:na]
+        ... 11 common frames omitted
+[2017-10-05 11:03:01.135] [ERROR] Failed to start 72ab5c03-0dc9-47ec-a114-36603141b7d5. org.rabix.executor.ExecutorException: Execution failed for 72ab5c03-0dc9-47ec-a114-36603141b7d5. Failed to start container.
+org.rabix.executor.ExecutorException: Execution failed for 72ab5c03-0dc9-47ec-a114-36603141b7d5. Failed to start container.
+        at org.rabix.executor.handler.impl.JobHandlerImpl.start(JobHandlerImpl.java:174) ~[rabix-cli.jar:na]
+        at org.rabix.executor.execution.command.StartCommand.run(StartCommand.java:32) ~[rabix-cli.jar:na]
+        at org.rabix.executor.execution.JobHandlerCommand.run(JobHandlerCommand.java:51) [rabix-cli.jar:na]
+        at org.rabix.executor.execution.JobHandlerRunnable.run(JobHandlerRunnable.java:60) [rabix-cli.jar:na]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_144]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_144]
+        at java.lang.Thread.run(Thread.java:748) [na:1.8.0_144]
+Caused by: org.rabix.executor.container.ContainerException: Failed to start container.
+        at org.rabix.executor.container.impl.DockerContainerHandler.start(DockerContainerHandler.java:268) ~[rabix-cli.jar:na]
+        at org.rabix.executor.handler.impl.JobHandlerImpl.start(JobHandlerImpl.java:171) ~[rabix-cli.jar:na]
+        ... 6 common frames omitted
+Caused by: org.rabix.bindings.BindingException: org.rabix.bindings.cwl.expression.CWLExpressionException: Substitution error, unfinished block starting at position 0 : ; else touch empty.edge; fi && date"" && echo $MYCMD > run_fetch.cmd && eval $MYCMD
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLinePart(CWLCommandLineBuilder.java:233) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLineParts(CWLCommandLineBuilder.java:144) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLineObject(CWLCommandLineBuilder.java:86) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLBindings.buildCommandLineObject(CWLBindings.java:98) ~[rabix-cli.jar:na]
+        at org.rabix.executor.container.impl.DockerContainerHandler.start(DockerContainerHandler.java:203) ~[rabix-cli.jar:na]
+        ... 7 common frames omitted
+Caused by: org.rabix.bindings.cwl.expression.CWLExpressionException: Substitution error, unfinished block starting at position 0 : ; else touch empty.edge; fi && date"" && echo $MYCMD > run_fetch.cmd && eval $MYCMD
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.scanJavascriptExpression(CWLExpressionResolver.java:297) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.javascriptInterpolate(CWLExpressionResolver.java:175) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.resolve(CWLExpressionResolver.java:66) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLinePart(CWLCommandLineBuilder.java:231) ~[rabix-cli.jar:na]
+        ... 11 common frames omitted
+[2017-10-05 11:03:01.136] [ERROR] Failed to start 72ab5c03-0dc9-47ec-a114-36603141b7d5. org.rabix.executor.ExecutorException: Execution failed for 72ab5c03-0dc9-47ec-a114-36603141b7d5. Failed to start container.
+org.rabix.executor.ExecutorException: Execution failed for 72ab5c03-0dc9-47ec-a114-36603141b7d5. Failed to start container.
+        at org.rabix.executor.handler.impl.JobHandlerImpl.start(JobHandlerImpl.java:174) ~[rabix-cli.jar:na]
+        at org.rabix.executor.execution.command.StartCommand.run(StartCommand.java:32) ~[rabix-cli.jar:na]
+        at org.rabix.executor.execution.JobHandlerCommand.run(JobHandlerCommand.java:51) [rabix-cli.jar:na]
+        at org.rabix.executor.execution.JobHandlerRunnable.run(JobHandlerRunnable.java:60) [rabix-cli.jar:na]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_144]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_144]
+        at java.lang.Thread.run(Thread.java:748) [na:1.8.0_144]
+Caused by: org.rabix.executor.container.ContainerException: Failed to start container.
+        at org.rabix.executor.container.impl.DockerContainerHandler.start(DockerContainerHandler.java:268) ~[rabix-cli.jar:na]
+        at org.rabix.executor.handler.impl.JobHandlerImpl.start(JobHandlerImpl.java:171) ~[rabix-cli.jar:na]
+        ... 6 common frames omitted
+Caused by: org.rabix.bindings.BindingException: org.rabix.bindings.cwl.expression.CWLExpressionException: Substitution error, unfinished block starting at position 0 : ; else touch empty.edge; fi && date"" && echo $MYCMD > run_fetch.cmd && eval $MYCMD
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLinePart(CWLCommandLineBuilder.java:233) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLineParts(CWLCommandLineBuilder.java:144) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLineObject(CWLCommandLineBuilder.java:86) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLBindings.buildCommandLineObject(CWLBindings.java:98) ~[rabix-cli.jar:na]
+        at org.rabix.executor.container.impl.DockerContainerHandler.start(DockerContainerHandler.java:203) ~[rabix-cli.jar:na]
+        ... 7 common frames omitted
+Caused by: org.rabix.bindings.cwl.expression.CWLExpressionException: Substitution error, unfinished block starting at position 0 : ; else touch empty.edge; fi && date"" && echo $MYCMD > run_fetch.cmd && eval $MYCMD
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.scanJavascriptExpression(CWLExpressionResolver.java:297) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.javascriptInterpolate(CWLExpressionResolver.java:175) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.resolve(CWLExpressionResolver.java:66) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLinePart(CWLCommandLineBuilder.java:231) ~[rabix-cli.jar:na]
+        ... 11 common frames omitted
+[2017-10-05 11:03:01.137] [INFO] Failed to start 72ab5c03-0dc9-47ec-a114-36603141b7d5. org.rabix.executor.ExecutorException: Execution failed for 72ab5c03-0dc9-47ec-a114-36603141b7d5. Failed to start container.
+[2017-10-05 11:03:01.183] [WARN] Job root.kn_fetcher, rootId: b82e2d2e-8724-4f91-946a-8428dde6cf51 failed: Failed to start 72ab5c03-0dc9-47ec-a114-36603141b7d5. org.rabix.executor.ExecutorException: Execution failed for 72ab5c03-0dc9-47ec-a114-36603141b7d5. Failed to start container.
+[2017-10-05 11:03:01.191] [WARN] Root job b82e2d2e-8724-4f91-946a-8428dde6cf51 failed.
+[2017-10-05 11:03:01.632] [INFO] Failed to execute a Job
+```
+
+I didn't see a submission with `rabix` and any idea what is going wrong here? 
+
+Thanks! 
+Vipin"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13258,2619,72579,syn8507133,2017-10-06T17:47:28.000Z,2223305,2017-10-06T17:47:28.000Z,df0c5689-4d93-44cc-b241-ac8b3fd0fcbd,72579/2619/13258/512250f3-7c52-4fe9-9c1e-212adb4576e3,FALSE,FALSE,"Not sure if this is a `rabix` issue or something specific to the `knoweng_gene_prioritization` workflow itself. I suspect @bogdang is well suited to help troubleshoot `rabix`, but I'll tag @mepstein here as well, in case he can spot any issues with the workflow.
+
+"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13263,2619,72579,syn8507133,2017-10-07T00:55:59.000Z,3351870,2017-10-07T00:55:59.000Z,616367d0-a39a-4a8f-a087-27a0494b3c71,72579/2619/13263/2f69a5a5-bea8-4661-bb34-a1a95bf5a49e,FALSE,FALSE,"I ran into this myself, and happened to be in communication with the rabix developers, and they found and fixed a bug in rabix: https://github.com/rabix/bunny/pull/344.  Don't think it's in any release yet -- maybe you can pull it from the repo, or patch it yourself somehow (it's just a two line change).  It also might be possible to change the cwl to avoid this problem, not sure.  (It does work with cwltool.)"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13265,2619,72579,syn8507133,2017-10-07T15:50:33.000Z,3357304,2017-10-07T15:50:33.000Z,e8b3d456-5b38-4f09-9538-7fd3efbb3444,72579/2619/13265/2a33e0fc-308f-47f8-9b05-0c2034500d37,FALSE,FALSE,"As Milt said, the dollarsign bug was fixed, and there is another bug that should be fixed: https://github.com/rabix/bunny/issues/352
+I modified the CWL just a little bit to work around the second bug and got the workflow running all the way through with valid results(with rabix version with the patch for the bug that Milt explained). Once the fixes are deployed I'll make sure to document a submission both for rabix and the CancerGenomicsCloud platform."
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13377,2619,72579,syn8507133,2017-10-11T11:54:35.000Z,3360642,2017-10-11T12:44:10.000Z,bee348c4-315c-4f0f-a1ed-9de2c9f76bda,72579/2619/13377/2db1b8c9-1254-493f-bba5-a7caada895f0,TRUE,FALSE,"Thanks @jaeddy for pointing to the right people!
+
+Thank you @mepstein & @bogdang for explaining me the solution you found for the problem. Please let me know once you finish the documentation, so that I can follow your steps to resolve the issue.
+
+@mepstein where will I see the script CWLExpressionResolver.java in `rabix` codebase? I have downloaded the version available here: https://github.com/rabix/bunny/releases/download/v1.0.1/rabix-1.0.1.tar.gz 
+Can you point me that ? Sorry if this is something very stupid. 
+
+Regards, Vipin
+
+"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13380,2619,72579,syn8507133,2017-10-11T12:36:16.000Z,3357304,2017-10-11T12:36:16.000Z,47156728-b7da-4192-aaf9-eb2f45bd77de,72579/2619/13380/57ccc460-ca47-4b92-90ee-1c94cdf87c9d,FALSE,FALSE,"Hey Vipin,
+
+Here is the [CWLExpressionResolver.java](https://github.com/rabix/bunny/blob/cd19f792868ec9d3712d7aa7da56ade0eebc53f7/rabix-bindings-cwl/src/main/java/org/rabix/bindings/cwl/expression/CWLExpressionResolver.java)"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13382,2619,72579,syn8507133,2017-10-11T12:51:17.000Z,3360642,2017-10-11T12:51:17.000Z,f1bce39e-4ca7-4e58-b9b0-af8de89dc875,72579/2619/13382/7d6c9864-ed4c-4f33-b367-b7dc1a9a233a,FALSE,FALSE,"Hi @bogdang, 
+
+Thank you! I saw this file from the issue #344 pointed by @mepstein. My questions is how to compile bunny from the source and create the final executable. Do you have documentation somewhere?  
+
+So far I have used the latest release version of the package available with the instruction from the page: https://github.com/rabix/bunny#installing
+This is the directory structure I have for the release of `rabix` which I used for running the workflows. 
+```shell
+tree rabix-cli-1.0.1/ 
+
+rabix-cli-1.0.1/
+├── bin
+│   └── tes-quickstart
+├── config
+│   ├── core.properties
+│   ├── ftp.properties
+│   ├── logback-verbose.xml
+│   ├── logback.xml
+│   └── store.properties
+├── examples
+│   ├── dna2protein
+│   │   ├── data
+│   │   │   └── input.txt
+│   │   ├── dna2protein.cwl.json
+│   │   ├── inputs.json
+│   │   ├── README.md
+│   │   ├── transcribe.cwl.json
+│   │   └── translate.cwl.json
+│   └── README.md
+├── lib
+│   └── rabix-cli.jar
+└── rabix
+
+6 directories, 15 files
+```"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13384,2619,72579,syn8507133,2017-10-11T13:33:49.000Z,3357304,2017-10-11T13:34:29.000Z,9a0b0d1b-48a6-4ef9-ba77-a748700efefa,72579/2619/13384/5f612a64-5a7e-468f-b200-79e6d532c5c4,TRUE,FALSE,"Hi Vipin,
+
+You can do this by:
+1. Pull the code and change to the `develop` branch for latest fixes
+```shell
+git clone https://github.com/rabix/bunny.git
+cd bunny
+git checkout develop
+```
+2. Compile using maven. Install maven if required.
+```shell
+mvn clean install -P all
+```
+3. Tarball with the compiled release will be available in `bunny/rabix-cli/target/rabix-cli-1.0.1-release.tar.gz`
+
+Hope this helps
+
+Best,
+Bogdan"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13416,2619,72579,syn8507133,2017-10-11T23:23:10.000Z,3351870,2017-10-11T23:23:10.000Z,3e652c71-6f74-42b2-b9d8-8f8d85152331,72579/2619/13416/cc8bd402-904e-4540-9fff-b40e28cb71fd,FALSE,FALSE,"@bogdang : Thanks for posting about that backslash escape character bug/fix.  I've run into that one too.  Not sure you specified, but the workaround I've used there is to just not escape things, that seems to allow it to work with both cwltool and rabix.  Glad that rabix and cwltool are getting more in sync!"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13421,2619,72579,syn8507133,2017-10-12T14:38:59.000Z,3360642,2017-10-12T14:38:59.000Z,3b9304bc-8f04-4a0a-aef7-815d4a829fe9,72579/2619/13421/3a61ca72-142c-4243-ae28-62cff21a6409,FALSE,FALSE,"Hi Bogdan, 
+
+Thanks! I have followed the steps you mentioned and created a dev version of the `rabix` executable. Then start using with the dev version of rabix for my run and now it return a different error message with failure to start container. Here is the complete log: 
+```shell
+$ ~/tools/rabix-cli-dev/rabix-cli-1.0.1/rabix --tmpdir-prefix ~/tmp/ --tmp-outdir-prefix ~/tmp/ ./gp_workflow.cwl gp_workflow_job.yml
+[2017-10-12 16:22:00.514] [INFO] Job root.data_cleaning has started
+[2017-10-12 16:22:00.513] [INFO] Job root.kn_fetcher has started
+[2017-10-12 16:22:00.554] [INFO] Pulling docker image quay.io/cblatti3/kn_fetcher:latest
+[2017-10-12 16:22:01.607] [INFO] Running command line: MYCMD=""date && if [ \\""true\\"" = \\""true\\"" ]; then /home/kn_fetcher.sh KnowNets/KN-20rep-1706/userKN-20rep-1706 Gene 9606 STRING_experimental; else touch empty.edge; fi && date"" && echo $MYCMD > run_fetch.cmd && eval $MYCMD
+[2017-10-12 16:22:02.095] [INFO] Pulling docker image knowengdev/data_cleanup_pipeline:07_26_2017
+[2017-10-12 16:22:04.984] [INFO] Running command line: echo ""
+pipeline_type: gene_prioritization_pipeline
+spreadsheet_name_full_path: /home/nexcbu/dream_challenge/2017/workflow_execution/workflows/knoweng_gene_prioritization/data/Hsap.ccle.G.qnorm_probe.pos.df
+taxonid: \'9606\'
+redis_credential:
+  host: knowredis.knoweng.org
+  password: KnowEnG
+  port: 6379
+source_hint: \\'\\'
+results_directory: ./
+"" > run_cleanup.yml && \
+if [ ""Hsap.ccle.P.cyto_ic50.pos"" != ""sh"" ]; then \
+  echo ""phenotype_name_full_path: /home/nexcbu/dream_challenge/2017/workflow_execution/workflows/knoweng_gene_prioritization/data/Hsap.ccle.P.cyto_ic50.pos.df"" >> run_cleanup.yml; fi && \
+if [ ""gene_prioritization_pipeline"" = ""gene_prioritization_pipeline"" ]; then \
+  echo ""correlation_measure: pearson"" >> run_cleanup.yml; fi && \
+date && python3 /home/src/data_cleanup.py -run_directory ./ -run_file run_cleanup.yml && date
+[2017-10-12 16:22:09.433] [INFO] Job root.kn_fetcher has completed
+[2017-10-12 16:22:36.230] [INFO] Job root.data_cleaning has completed
+[2017-10-12 16:22:37.200] [INFO] Job root.gp_runner has started
+[2017-10-12 16:22:37.214] [INFO] Pulling docker image knowengdev/gene_prioritization_pipeline:07_26_2017
+[2017-10-12 16:22:39.929] [ERROR] Failed to start container.
+org.rabix.bindings.BindingException: org.rabix.bindings.cwl.expression.CWLExpressionException: Failed evaluating expression (inputs.genomic_file.path).
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLinePart(CWLCommandLineBuilder.java:234) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLineParts(CWLCommandLineBuilder.java:145) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLineObject(CWLCommandLineBuilder.java:87) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLBindings.buildCommandLineObject(CWLBindings.java:98) ~[rabix-cli.jar:na]
+        at org.rabix.executor.container.impl.DockerContainerHandler.start(DockerContainerHandler.java:217) ~[rabix-cli.jar:na]
+        at org.rabix.executor.handler.impl.JobHandlerImpl.start(JobHandlerImpl.java:195) [rabix-cli.jar:na]
+        at org.rabix.executor.execution.command.StartCommand.run(StartCommand.java:32) [rabix-cli.jar:na]
+        at org.rabix.executor.execution.JobHandlerCommand.run(JobHandlerCommand.java:51) [rabix-cli.jar:na]
+        at org.rabix.executor.execution.JobHandlerRunnable.run(JobHandlerRunnable.java:60) [rabix-cli.jar:na]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_144]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_144]
+        at java.lang.Thread.run(Thread.java:748) [na:1.8.0_144]
+Caused by: org.rabix.bindings.cwl.expression.CWLExpressionException: Failed evaluating expression (inputs.genomic_file.path).
+        at org.rabix.bindings.cwl.expression.javascript.CWLExpressionJavascriptResolver.evaluate(CWLExpressionJavascriptResolver.java:89) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.javascriptInterpolate(CWLExpressionResolver.java:159) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.resolve(CWLExpressionResolver.java:66) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLinePart(CWLCommandLineBuilder.java:232) ~[rabix-cli.jar:na]
+        ... 11 common frames omitted
+Caused by: org.mozilla.javascript.EcmaError: TypeError: Cannot read property ""path"" from null (script#1)
+        at org.mozilla.javascript.ScriptRuntime.constructError(ScriptRuntime.java:3951) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.constructError(ScriptRuntime.java:3929) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.typeError(ScriptRuntime.java:3962) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.typeError2(ScriptRuntime.java:3981) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.undefReadError(ScriptRuntime.java:3993) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.getObjectProp(ScriptRuntime.java:1505) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.Interpreter.interpretLoop(Interpreter.java:1240) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.Interpreter.interpret(Interpreter.java:815) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.InterpretedFunction.call(InterpretedFunction.java:109) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ContextFactory.doTopCall(ContextFactory.java:393) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.doTopCall(ScriptRuntime.java:3282) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.InterpretedFunction.exec(InterpretedFunction.java:120) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.Context.evaluateString(Context.java:1219) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.javascript.CWLExpressionJavascriptResolver.evaluate(CWLExpressionJavascriptResolver.java:69) ~[rabix-cli.jar:na]
+        ... 14 common frames omitted
+[2017-10-12 16:22:39.931] [ERROR] Failed to start 2e156a8a-0ef4-40d4-932b-dca94da9311b. org.rabix.executor.ExecutorException: Execution failed for 2e156a8a-0ef4-40d4-932b-dca94da9311b. Failed to start container.
+org.rabix.executor.ExecutorException: Execution failed for 2e156a8a-0ef4-40d4-932b-dca94da9311b. Failed to start container.
+        at org.rabix.executor.handler.impl.JobHandlerImpl.start(JobHandlerImpl.java:198) ~[rabix-cli.jar:na]
+        at org.rabix.executor.execution.command.StartCommand.run(StartCommand.java:32) ~[rabix-cli.jar:na]
+        at org.rabix.executor.execution.JobHandlerCommand.run(JobHandlerCommand.java:51) [rabix-cli.jar:na]
+        at org.rabix.executor.execution.JobHandlerRunnable.run(JobHandlerRunnable.java:60) [rabix-cli.jar:na]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_144]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_144]
+        at java.lang.Thread.run(Thread.java:748) [na:1.8.0_144]
+Caused by: org.rabix.executor.container.ContainerException: Failed to start container.
+        at org.rabix.executor.container.impl.DockerContainerHandler.start(DockerContainerHandler.java:277) ~[rabix-cli.jar:na]
+        at org.rabix.executor.handler.impl.JobHandlerImpl.start(JobHandlerImpl.java:195) ~[rabix-cli.jar:na]
+        ... 6 common frames omitted
+Caused by: org.rabix.bindings.BindingException: org.rabix.bindings.cwl.expression.CWLExpressionException: Failed evaluating expression (inputs.genomic_file.path).
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLinePart(CWLCommandLineBuilder.java:234) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLineParts(CWLCommandLineBuilder.java:145) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLineObject(CWLCommandLineBuilder.java:87) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLBindings.buildCommandLineObject(CWLBindings.java:98) ~[rabix-cli.jar:na]
+        at org.rabix.executor.container.impl.DockerContainerHandler.start(DockerContainerHandler.java:217) ~[rabix-cli.jar:na]
+        ... 7 common frames omitted
+Caused by: org.rabix.bindings.cwl.expression.CWLExpressionException: Failed evaluating expression (inputs.genomic_file.path).
+        at org.rabix.bindings.cwl.expression.javascript.CWLExpressionJavascriptResolver.evaluate(CWLExpressionJavascriptResolver.java:89) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.javascriptInterpolate(CWLExpressionResolver.java:159) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.resolve(CWLExpressionResolver.java:66) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLinePart(CWLCommandLineBuilder.java:232) ~[rabix-cli.jar:na]
+        ... 11 common frames omitted
+Caused by: org.mozilla.javascript.EcmaError: TypeError: Cannot read property ""path"" from null (script#1)
+        at org.mozilla.javascript.ScriptRuntime.constructError(ScriptRuntime.java:3951) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.constructError(ScriptRuntime.java:3929) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.typeError(ScriptRuntime.java:3962) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.typeError2(ScriptRuntime.java:3981) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.undefReadError(ScriptRuntime.java:3993) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.getObjectProp(ScriptRuntime.java:1505) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.Interpreter.interpretLoop(Interpreter.java:1240) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.Interpreter.interpret(Interpreter.java:815) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.InterpretedFunction.call(InterpretedFunction.java:109) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ContextFactory.doTopCall(ContextFactory.java:393) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.doTopCall(ScriptRuntime.java:3282) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.InterpretedFunction.exec(InterpretedFunction.java:120) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.Context.evaluateString(Context.java:1219) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.javascript.CWLExpressionJavascriptResolver.evaluate(CWLExpressionJavascriptResolver.java:69) ~[rabix-cli.jar:na]
+        ... 14 common frames omitted
+[2017-10-12 16:22:39.931] [ERROR] Failed to start 2e156a8a-0ef4-40d4-932b-dca94da9311b. org.rabix.executor.ExecutorException: Execution failed for 2e156a8a-0ef4-40d4-932b-dca94da9311b. Failed to start container.
+org.rabix.executor.ExecutorException: Execution failed for 2e156a8a-0ef4-40d4-932b-dca94da9311b. Failed to start container.
+        at org.rabix.executor.handler.impl.JobHandlerImpl.start(JobHandlerImpl.java:198) ~[rabix-cli.jar:na]
+        at org.rabix.executor.execution.command.StartCommand.run(StartCommand.java:32) ~[rabix-cli.jar:na]
+        at org.rabix.executor.execution.JobHandlerCommand.run(JobHandlerCommand.java:51) [rabix-cli.jar:na]
+        at org.rabix.executor.execution.JobHandlerRunnable.run(JobHandlerRunnable.java:60) [rabix-cli.jar:na]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_144]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_144]
+        at java.lang.Thread.run(Thread.java:748) [na:1.8.0_144]
+Caused by: org.rabix.executor.container.ContainerException: Failed to start container.
+        at org.rabix.executor.container.impl.DockerContainerHandler.start(DockerContainerHandler.java:277) ~[rabix-cli.jar:na]
+        at org.rabix.executor.handler.impl.JobHandlerImpl.start(JobHandlerImpl.java:195) ~[rabix-cli.jar:na]
+        ... 6 common frames omitted
+Caused by: org.rabix.bindings.BindingException: org.rabix.bindings.cwl.expression.CWLExpressionException: Failed evaluating expression (inputs.genomic_file.path).
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLinePart(CWLCommandLineBuilder.java:234) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLineParts(CWLCommandLineBuilder.java:145) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLineObject(CWLCommandLineBuilder.java:87) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLBindings.buildCommandLineObject(CWLBindings.java:98) ~[rabix-cli.jar:na]
+        at org.rabix.executor.container.impl.DockerContainerHandler.start(DockerContainerHandler.java:217) ~[rabix-cli.jar:na]
+        ... 7 common frames omitted
+Caused by: org.rabix.bindings.cwl.expression.CWLExpressionException: Failed evaluating expression (inputs.genomic_file.path).
+        at org.rabix.bindings.cwl.expression.javascript.CWLExpressionJavascriptResolver.evaluate(CWLExpressionJavascriptResolver.java:89) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.javascriptInterpolate(CWLExpressionResolver.java:159) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.CWLExpressionResolver.resolve(CWLExpressionResolver.java:66) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.CWLCommandLineBuilder.buildCommandLinePart(CWLCommandLineBuilder.java:232) ~[rabix-cli.jar:na]
+        ... 11 common frames omitted
+Caused by: org.mozilla.javascript.EcmaError: TypeError: Cannot read property ""path"" from null (script#1)
+        at org.mozilla.javascript.ScriptRuntime.constructError(ScriptRuntime.java:3951) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.constructError(ScriptRuntime.java:3929) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.typeError(ScriptRuntime.java:3962) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.typeError2(ScriptRuntime.java:3981) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.undefReadError(ScriptRuntime.java:3993) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.getObjectProp(ScriptRuntime.java:1505) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.Interpreter.interpretLoop(Interpreter.java:1240) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.Interpreter.interpret(Interpreter.java:815) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.InterpretedFunction.call(InterpretedFunction.java:109) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ContextFactory.doTopCall(ContextFactory.java:393) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.ScriptRuntime.doTopCall(ScriptRuntime.java:3282) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.InterpretedFunction.exec(InterpretedFunction.java:120) ~[rabix-cli.jar:na]
+        at org.mozilla.javascript.Context.evaluateString(Context.java:1219) ~[rabix-cli.jar:na]
+        at org.rabix.bindings.cwl.expression.javascript.CWLExpressionJavascriptResolver.evaluate(CWLExpressionJavascriptResolver.java:69) ~[rabix-cli.jar:na]
+        ... 14 common frames omitted
+[2017-10-12 16:22:39.933] [INFO] Failed to start 2e156a8a-0ef4-40d4-932b-dca94da9311b. org.rabix.executor.ExecutorException: Execution failed for 2e156a8a-0ef4-40d4-932b-dca94da9311b. Failed to start container.
+[2017-10-12 16:22:40.025] [WARN] Job root.gp_runner, rootId: 3940f7c2-749f-47df-ae8d-6a2f61daee6d failed: Failed to start 2e156a8a-0ef4-40d4-932b-dca94da9311b. org.rabix.executor.ExecutorException: Execution failed for 2e156a8a-0ef4-40d4-932b-dca94da9311b. Failed to start container.
+[2017-10-12 16:22:40.032] [WARN] Root job 3940f7c2-749f-47df-ae8d-6a2f61daee6d failed.
+[2017-10-12 16:22:40.318] [INFO] Failed to execute a Job
+```
+
+Please let me know if you find something strange from the STDOUT. 
+
+Regards, 
+Vipin "
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13422,2619,72579,syn8507133,2017-10-12T14:55:45.000Z,3357304,2017-10-12T14:55:45.000Z,9c10d094-fa84-4155-a52d-67c8638831cd,72579/2619/13422/fde6e3c3-df30-4f53-856b-88f3350b2a4f,FALSE,FALSE,"@mepstein Thanks for the info, this is the same thing I did. Good to hear that it works in cwltool as well. Could you maybe update the CWL with this workaround so it can work with both cwltool and rabix?
+
+@vipints Thanks for testing with rabix. This is the exactly the bug that @mepstein mentioned. 
+```
+Failed evaluating expression (inputs.genomic_file.path)
+```
+from the log. This happened because previous tool did not output the `genomic_file`, and this happened because the command line for that previous tool was not properly built with rabix. You can compare command lines that cwltool and rabix build for certain tools, you will see that rabix has some extra backslash characters. For example, in `kn_fetcher` the cmd line starts with `MYCMD=date && if [ \\true\\ = \\true\\ ]...` for rabix run, while for cwltool it starts with `MYCMD=date && if [ \true\ = \true\ ]...`
+"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13432,2619,72579,syn8507133,2017-10-12T22:40:33.000Z,3351870,2017-10-12T22:44:05.000Z,1f6591f2-b6b3-4241-b7ac-a3dce9dadb3c,72579/2619/13432/1c12f176-7c1b-4625-9c5b-4377b727f16b,TRUE,FALSE,"@bogdang : OK, I've updated the CWL.  At first I just updated data_cleaning.cwl, because that's the one where I had run into this problem with escape characters before.  But from what you wrote about the most recent issue @vipin had, it sounds like this may also be an issue with kn_fetcher.cwl, so I updated that one too.  It works with cwltool, but I don't have a patched/rebuilt version of rabix to try it with.  @vipin , hopefully you can retry it."
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13435,2619,72579,syn8507133,2017-10-13T11:28:45.000Z,3360642,2017-10-13T11:28:45.000Z,6d6abefa-aa3e-4fd8-8b50-d76eb5995ce3,72579/2619/13435/58d3d396-96ce-4e11-98b9-caa797574fd6,FALSE,FALSE,"Hi Bogdan, 
+
+Thanks for pointing that we all are in the same page! 
+Yes I saw the points which you mentioned, from the STDOUT. 
+
+@mepstein: I can try with the recent dev version of `rabix`. But can I have the recent changed version of `kn_fetcher.cwl` and `data_cleaning.cwl`. Or let me know what is the difference so that I can adjust that here in my side. 
+
+Thanks for the help! 
+Vipin"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13436,2619,72579,syn8507133,2017-10-13T13:01:37.000Z,3357304,2017-10-13T13:05:09.000Z,c6555326-8d52-487a-ab87-f81d532ddd9e,72579/2619/13436/d6cc2573-f30b-4713-87e7-139a1da59375,TRUE,FALSE,"@mepstein Thanks a lot for the updated CWL, I tested with the patched version of rabix and can confirm that everything completes and the outputs are validated. We'll make a fresh rabix release today or some time next week, so I will submit step-by-step instructions on Synapse. 
+
+@vipin You can get the latest changes either by pulling again from synapse or from [github](https://github.com/KnowEnG/cwl-gene-prioritization)"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13437,2619,72579,syn8507133,2017-10-13T15:06:11.000Z,3351870,2017-10-13T15:06:11.000Z,8f39c8a9-ef74-4c2a-acbb-8a167e605b13,72579/2619/13437/4dd2ac8b-30f2-4044-b802-fd877dc00167,FALSE,FALSE,"@vipin  : I had uploaded the modified CWL files to synapse (and github), so, as @bogdang states, they are available there.  So. for example, you can just re-run the ""synapse get ..."" command.
+Thanks all for the efforts to get this working with rabix!"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13548,2619,72579,syn8507133,2017-10-20T15:09:02.000Z,3357304,2017-10-20T15:09:02.000Z,17b9a33e-c969-49d4-9d08-b09688f7826e,72579/2619/13548/a4da2d41-5fda-4dfe-a15f-98530ba84c8a,FALSE,FALSE,"Hey @vipin  @mepstein 
+Rabix [release 1.0.2.](https://github.com/rabix/bunny/releases/tag/v1.0.2) is out and can run the gene prioritization workflow. Thanks for all the feedback and for updating the workflow to have it running.
+
+Best,
+Bogdan"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13872,2619,72579,syn8507133,2017-11-08T13:10:13.000Z,3357304,2017-11-08T13:10:13.000Z,f54d7b87-76a7-4085-bfc9-1a374edf0d73,72579/2619/13872/13f4f25d-cd63-4f93-a28a-37fdfc5efdd5,FALSE,FALSE,"Hi @mepstein we made the fixes required to run the workflow on [Cancer Genomics Cloud](https://cgc.sbgenomics.com/), I made a [synapse report](syn11414021) for it. Thanks again for all the help on enabling compatibility for running the workflow."
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13978,2619,72579,syn8507133,2017-11-11T16:32:08.000Z,3351870,2017-11-11T16:32:08.000Z,bdd69692-c7ff-43b1-8616-011045f0a131,72579/2619/13978/f43631b3-a11c-4899-8fde-87a5bd3ddbb8,FALSE,FALSE,"@bogdang : And thanks to you (and your co-workers) for working on compatibility for rabix/CGC.
+
+There is one section of your report that I can't see (even after logging in).  It says:
+
+```
+  Completed task should look something like this:
+
+  Sorry, you do not have sufficient privileges for access. Forbidden
+```
+
+Also, I have some other questions about rabix, unrelated to this workflow -- can you help me with that?  Is there a PM-like feature here on synapse?  Basically I want to be able to run rabix on the command line on some CWL I've exported from the CGC (and have it run on my machine, no involvement of the CGC at all).  I tried that and I get some errors.
+
+Thanks.
+
+Milt
+"
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",13984,2619,72579,syn8507133,2017-11-12T15:04:05.000Z,3357304,2017-11-12T15:04:05.000Z,9bf40f05-e951-496b-adb0-8ca71c7d5e51,72579/2619/13984/43be0e00-06e9-4c87-a519-b43007346688,FALSE,FALSE,"Thanks for noticing that. I updated the sharing settings for the image, should be ok now. 
+I don't know about PM on synapse, we can chat via Direct message on Dream Challenge slack."
+2619,72579,syn8507133,knoweng_gene_prioritization workflow help,2017-10-02T18:26:17.000Z,2223305,2017-10-02T18:26:17.000Z,88e6fe8c-4220-4f2f-ae50-ade40ec1058c,72579/2619/e81fb5cd-5f58-404c-9b7f-a1349e01c743,7,20,2017-12-19T23:25:09.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the **knoweng_gene_prioritization** workflow.
+",14304,2619,72579,syn8507133,2017-12-19T23:25:09.000Z,3352211,2017-12-19T23:25:09.000Z,009751b2-4b07-411a-b364-731cb30144bd,72579/2619/14304/2fa7364d-2566-4bcb-938c-ae7a10be6fd5,FALSE,FALSE,"Hi all!
+I noticed one interesting thing, which is not a bug, but it's better to be fixed or at least noticed.
+Each time when the workflow is started, `kn_fetcher` and `data_cleaning` steps fetch some data from the Internet (about 480MB).
+So if the platform where I run my workflow management system doesn't have Internet connection or there are any other reasons that
+prevent access to Internet from inside the container (e.g. proxy or --network=""none""), the workflow will always fail. "
+2930,72579,syn8507133,pcawg-delly-sv-caller workflow help,2017-11-21T17:58:08.000Z,2223305,2017-11-21T17:58:23.000Z,937ee207-0b8d-4919-8208-f6a8ce47d02e,72579/2930/d5461b59-bb9a-43f6-8e7f-f41922535692,9,8,2017-12-13T12:48:53.000Z,TRUE,FALSE,FALSE,This thread is the designated place to ask questions about running the **pcawg-delly-sv-caller** workflow.,14138,2930,72579,syn8507133,2017-11-22T17:02:10.000Z,3357304,2017-11-22T17:02:10.000Z,926f40c8-c3f5-4d10-9765-5633dcd597dd,72579/2930/14138/80bfb7e5-7c34-4bb5-aeba-9f5ce4f583e8,FALSE,FALSE,"Hi @Junjun 
+I tested the `pcawg-delly-sv-caller` with `rabix` (version 1.0.1) and encountered a minor issue related to differences in environments when running docker with cwltool and rabix. These differences are related to environment variables (HOME and TMPDIR) and directories /var/spool/cwl (which does not exist in rabix execution) and /tmp. These directories are cwltool specific and not defined by the CWL specification. 
+
+To work around this difference I added a couple of lines to `/start.sh` file in the docker. 
+```
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -x
+
+mkdir -p /var/spool/cwl
+export HOME=/var/spool/cwl
+export TMPDIR=/tmp
+gosu root chmod a+wrx /tmp
+gosu root chmod a+wrx /var/spool/cwl
+env
+gosu seqware bash -c ""$*""
+#allow cwltool to pick up the results created by seqware
+gosu root chmod -R a+wrx /var/spool/cwl
+```
+Maybe not all commands really need to be added for the workflow to run with rabix (mkdir -p /var/spool/cwl is definitely required as chmod would fail since it did not exist)
+Does this seem like something that can be added to the `/start.sh` file in the docker image, as I think it would help make the workflow a bit more ""executor agnostic""?
+"
+2930,72579,syn8507133,pcawg-delly-sv-caller workflow help,2017-11-21T17:58:08.000Z,2223305,2017-11-21T17:58:23.000Z,937ee207-0b8d-4919-8208-f6a8ce47d02e,72579/2930/d5461b59-bb9a-43f6-8e7f-f41922535692,9,8,2017-12-13T12:48:53.000Z,TRUE,FALSE,FALSE,This thread is the designated place to ask questions about running the **pcawg-delly-sv-caller** workflow.,14156,2930,72579,syn8507133,2017-11-23T15:51:22.000Z,3357304,2017-11-23T15:52:02.000Z,9d047547-d015-4858-90fa-aac92992b242,72579/2930/14156/ae5e0174-e4dd-46db-b309-91ffad412cff,TRUE,FALSE,"Hi @Junjun  
+One more update, the workflow completed successfully on [CGC](https://cgc.sbgenomics.com/) as well with this update to the file in docker."
+2930,72579,syn8507133,pcawg-delly-sv-caller workflow help,2017-11-21T17:58:08.000Z,2223305,2017-11-21T17:58:23.000Z,937ee207-0b8d-4919-8208-f6a8ce47d02e,72579/2930/d5461b59-bb9a-43f6-8e7f-f41922535692,9,8,2017-12-13T12:48:53.000Z,TRUE,FALSE,FALSE,This thread is the designated place to ask questions about running the **pcawg-delly-sv-caller** workflow.,14252,2930,72579,syn8507133,2017-12-11T14:13:14.000Z,3360642,2017-12-12T11:14:04.000Z,978749ad-b9fd-4c6e-b1c9-950979cd17e7,72579/2930/14252/5d0c283a-14e1-4eae-b69e-6a039fafc118,TRUE,FALSE,"Hi @Junjun, 
+
+I am trying to run your workflow with `cwltoil` and it fails at the result validation step. I can provide you the error message which I am getting: 
+
+```shell
+cwltoil pcawg-delly-sv-caller_checker.cwl pcawg-delly-sv-caller_checker.cwl.json 
+
+wfexecutor 2017-12-11 15:03:23,066 MainThread INFO toil.lib.bioio: Root logger is at level 'INFO', 'toil' logger at level 'INFO'.
+wfexecutor 2017-12-11 15:03:23,067 MainThread INFO toil.lib.bioio: Root logger is at level 'INFO', 'toil' logger at level 'INFO'.
+wfexecutor 2017-12-11 15:03:23,070 MainThread INFO toil.jobStores.abstractJobStore: The workflow ID is: '57fb47ac-6006-4b79-8068-2f3039d9e104'
+Resolved 'pcawg-delly-sv-caller_checker.cwl' to 'file:///home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-delly-sv-caller_toil/pcawg-delly-sv-caller_checker.cwl'
+wfexecutor 2017-12-11 15:03:23,072 MainThread INFO cwltool: Resolved 'pcawg-delly-sv-caller_checker.cwl' to 'file:///home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-delly-sv-caller_toil/pcawg-delly-sv-caller_checker.cwl'
+Traceback (most recent call last):
+  File ""/home/wfrunner/tools/venv/bin/cwltoil"", line 11, in <module>
+    sys.exit(main())
+  File ""/home/wfrunner/tools/venv/lib/python2.7/site-packages/toil/cwl/cwltoil.py"", line 873, in main
+    strict=useStrict)
+  File ""/home/wfrunner/tools/venv/lib/python2.7/site-packages/cwltool/load_tool.py"", line 285, in load_tool
+    strict=strict, fetcher_constructor=fetcher_constructor)
+  File ""/home/wfrunner/tools/venv/lib/python2.7/site-packages/cwltool/load_tool.py"", line 216, in validate_document
+    schema.validate_doc(avsc_names, processobj, document_loader, strict)
+  File ""/home/wfrunner/tools/venv/lib/python2.7/site-packages/schema_salad/schema.py"", line 338, in validate_doc
+    strip_dup_lineno(bullets(anyerrors, ""* "")))
+schema_salad.validate.ValidationException: pcawg-delly-sv-caller_checker.cwl:1:1: Object `pcawg-delly-sv-caller_checker.cwl` is not valid
+                                       because
+                                         tried `CommandLineTool` but
+pcawg-delly-sv-caller_checker.cwl:9:1:     the `inputs` field is not valid because
+pcawg-delly-sv-caller_checker.cwl:15:3:       item is invalid because
+pcawg-delly-sv-caller_checker.cwl:16:5:         the `type` field is not valid because
+                                                  - tried CommandInputRecordSchema but
+pcawg-delly-sv-caller_checker.cwl:17:7:               * the `type` field is not valid
+                                                      because
+                                                          the value 'array' is not a valid
+                                                          Record_symbol, expected 'record'
+pcawg-delly-sv-caller_checker.cwl:18:7:               * invalid field `items`,
+                                                      expected one of: 'fields', 'type', 'label'
+pcawg-delly-sv-caller_checker.cwl:19:7:               * invalid field `default`,
+                                                      expected one of: 'fields', 'type', 'label'
+pcawg-delly-sv-caller_checker.cwl:16:5:           - tried CommandInputEnumSchema but
+                                                      * missing required field `symbols`
+pcawg-delly-sv-caller_checker.cwl:17:7:               * the `type` field is not valid
+                                                      because
+                                                          the value 'array' is not a valid
+                                                          Enum_symbol, expected 'enum'
+pcawg-delly-sv-caller_checker.cwl:18:7:               * invalid field `items`,
+                                                      expected one of: 'symbols', 'type', 'label',
+                                                      'inputBinding'
+pcawg-delly-sv-caller_checker.cwl:19:7:               * invalid field `default`,
+                                                      expected one of: 'symbols', 'type', 'label',
+                                                      'inputBinding'
+pcawg-delly-sv-caller_checker.cwl:16:5:           - tried CommandInputArraySchema but
+pcawg-delly-sv-caller_checker.cwl:19:7:               invalid field `default`,
+                                                      expected one of: 'items', 'type', 'label',
+                                                      'inputBinding'
+```
+
+Here is information about my environment: 
+
+```YAML 
+Environment: RHEL 
+cwltoil --version: 3.11.0
+```
+
+Please let me know if you need any additional information from my side to test. 
+
+Thanks! 
+Vipin"
+2930,72579,syn8507133,pcawg-delly-sv-caller workflow help,2017-11-21T17:58:08.000Z,2223305,2017-11-21T17:58:23.000Z,937ee207-0b8d-4919-8208-f6a8ce47d02e,72579/2930/d5461b59-bb9a-43f6-8e7f-f41922535692,9,8,2017-12-13T12:48:53.000Z,TRUE,FALSE,FALSE,This thread is the designated place to ask questions about running the **pcawg-delly-sv-caller** workflow.,14256,2930,72579,syn8507133,2017-12-11T15:02:17.000Z,3360642,2017-12-11T15:02:17.000Z,2f000c15-d5b2-4cb5-8a51-58e7e69af889,72579/2930/14256/c5838399-15a4-4c95-a446-f97763cbf3ae,FALSE,FALSE,"Hi @Junjun, 
+
+I was trying to run `pcawg-delly-sv-caller` workflow using `rabix` as the runner. But I am encountering the following error message: 
+
+```shell
+ ~/tools/rabix-cli-dev/rabix-cli-1.0.1/rabix --tmpdir-prefix /home/wfrunner/tmp/ --tmp-outdir-prefix /home/wfrunner/tmp/ pcawg-delly-sv-caller.cwl pcawg-delly-sv-caller.cwl.json                                                 
+[2017-12-11 15:45:43.149] [INFO] Job root has started
+[2017-12-11 15:46:59.071] [INFO] Pulling docker image quay.io/pancancer/pcawg_delly_workflow:feature_gosu_and_icgc_portal
+[2017-12-11 15:46:59.934] [INFO] Running command line: /start.sh perl /usr/bin/run_seqware_workflow.pl --run-id run_id --normal-bam /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-delly-sv-caller_rabix/./input/HCC1143_BL.bam --tumor-bam /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-delly-sv-caller_rabix/./input/HCC1143.bam --reference-gz /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-delly-sv-caller_rabix/./input/genome.fa.gz --reference-gc /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-delly-sv-caller_rabix/./input/hs37d5_1000GP.gc
+[2017-12-11 15:47:04.750] [ERROR] Job 0db18949-15e5-4a66-8d77-2dca1718bf30 failed with exit code 1.
+[2017-12-11 15:47:04.751] [INFO] Job 0db18949-15e5-4a66-8d77-2dca1718bf30 failed with exit code 1.
+[2017-12-11 15:47:04.796] [WARN] Root job 0db18949-15e5-4a66-8d77-2dca1718bf30 failed.
+[2017-12-11 15:47:04.887] [INFO] Failed to execute a Job
+```
+
+```YAML
+docker_version: 1.12.6
+runner_version: rabix 1.0.1
+```
+
+Please let me know if you want to get more details from my side to look at the issue. 
+
+@bogdang: I am seeing from the above message that you were able to execute this workflow but I am not seeing the documentation, Can you please provide me if you have a reference. 
+
+Thank you, 
+Vipin"
+2930,72579,syn8507133,pcawg-delly-sv-caller workflow help,2017-11-21T17:58:08.000Z,2223305,2017-11-21T17:58:23.000Z,937ee207-0b8d-4919-8208-f6a8ce47d02e,72579/2930/d5461b59-bb9a-43f6-8e7f-f41922535692,9,8,2017-12-13T12:48:53.000Z,TRUE,FALSE,FALSE,This thread is the designated place to ask questions about running the **pcawg-delly-sv-caller** workflow.,14259,2930,72579,syn8507133,2017-12-11T21:18:09.000Z,3357304,2017-12-11T21:18:09.000Z,b6ff29b5-82fb-45f1-9858-a22c78840525,72579/2930/14259/25a68b0e-abb6-41d1-b059-73ac69764ccb,FALSE,FALSE,"Hi @vipin ,
+I am out of office this week, so I hope to submit a report some time next week.
+In the meantime, you can try to replace the docker image in the pcawg-delly-sv-caller.cwl tool with this one: images.sbgenomics.com/bogdang/pcawg-delly:1
+Setting this docker image instead of the original one (quay.io/pancancer/pcawg_delly_workflow:feature_gosu_and_icgc_portal) should help in running it with rabix and on the CGC.
+
+Hope this will help,
+Bogdan"
+2930,72579,syn8507133,pcawg-delly-sv-caller workflow help,2017-11-21T17:58:08.000Z,2223305,2017-11-21T17:58:23.000Z,937ee207-0b8d-4919-8208-f6a8ce47d02e,72579/2930/d5461b59-bb9a-43f6-8e7f-f41922535692,9,8,2017-12-13T12:48:53.000Z,TRUE,FALSE,FALSE,This thread is the designated place to ask questions about running the **pcawg-delly-sv-caller** workflow.,14275,2930,72579,syn8507133,2017-12-13T07:18:14.000Z,3360642,2017-12-13T07:18:14.000Z,be69e631-ba21-432d-9c51-d45fa00055f1,72579/2930/14275/9834fb66-d390-4fb1-aee7-20a5a24af688,FALSE,FALSE,"Hi @bogdang, 
+
+Not a problem. 
+
+I have tested with your docker image and this works fine. Thank you for the link. Do you have an image for the checker tool as well? 
+
+Regards, 
+Vipin"
+2930,72579,syn8507133,pcawg-delly-sv-caller workflow help,2017-11-21T17:58:08.000Z,2223305,2017-11-21T17:58:23.000Z,937ee207-0b8d-4919-8208-f6a8ce47d02e,72579/2930/d5461b59-bb9a-43f6-8e7f-f41922535692,9,8,2017-12-13T12:48:53.000Z,TRUE,FALSE,FALSE,This thread is the designated place to ask questions about running the **pcawg-delly-sv-caller** workflow.,14277,2930,72579,syn8507133,2017-12-13T08:29:19.000Z,3357304,2017-12-13T08:29:19.000Z,8b912f2f-0660-48f6-a368-c2feacbcbb8a,72579/2930/14277/27fdf67b-73c5-40a6-9490-effabda22f8c,FALSE,FALSE,"Sorry, did not have time to debug the checker tool as well. You can use cwltool for running the checker tool for now."
+2930,72579,syn8507133,pcawg-delly-sv-caller workflow help,2017-11-21T17:58:08.000Z,2223305,2017-11-21T17:58:23.000Z,937ee207-0b8d-4919-8208-f6a8ce47d02e,72579/2930/d5461b59-bb9a-43f6-8e7f-f41922535692,9,8,2017-12-13T12:48:53.000Z,TRUE,FALSE,FALSE,This thread is the designated place to ask questions about running the **pcawg-delly-sv-caller** workflow.,14278,2930,72579,syn8507133,2017-12-13T12:48:53.000Z,3360642,2017-12-13T12:48:53.000Z,b33cc81e-e9f9-4810-86f3-68119002bc02,72579/2930/14278/f553fc45-1dfc-440f-81a1-c72b4526b276,FALSE,FALSE,Sure. Thanks @bogdang! 
+2931,72579,syn8507133,pcawg-sanger-variant-caller workflow help,2017-11-21T17:58:47.000Z,2223305,2017-11-21T17:58:47.000Z,ded3e32d-69d3-4819-af52-96d1f13c748a,72579/2931/fff157a8-4831-4bbb-9e27-426f3f1f1d27,7,3,2017-12-18T17:22:16.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **pcawg-sanger-variant-caller** workflow.,14157,2931,72579,syn8507133,2017-11-23T17:45:20.000Z,3357304,2017-11-23T17:45:20.000Z,03c9c9e7-fbc6-47f9-8e15-00c7b0c23234,72579/2931/14157/7f2ed119-daae-4089-8ddb-ff00a824ca20,FALSE,FALSE,"Hey @Junjun 
+Similar to the Delly workflow, I had to edit the start.sh to run on rabix and CGC:
+
+
+```
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -x
+
+mkdir -p /var/spool/cwl
+gosu root chmod a+wrx /tmp
+gosu root chmod a+wrx /var/spool/cwl
+export TMPDIR=/tmp
+export HOME=/var/spool/cwl
+env
+gosu root bash -c ""$*""
+#allow cwltool to pick up the results created by seqware
+gosu root chmod -R a+wrx  /var/spool/cwl
+
+```
+"
+2931,72579,syn8507133,pcawg-sanger-variant-caller workflow help,2017-11-21T17:58:47.000Z,2223305,2017-11-21T17:58:47.000Z,ded3e32d-69d3-4819-af52-96d1f13c748a,72579/2931/fff157a8-4831-4bbb-9e27-426f3f1f1d27,7,3,2017-12-18T17:22:16.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **pcawg-sanger-variant-caller** workflow.,14276,2931,72579,syn8507133,2017-12-13T07:22:19.000Z,3360642,2017-12-13T07:22:19.000Z,276dd288-486f-46df-a142-2a626f646720,72579/2931/14276/42151b95-a0f6-43b8-9e6f-ec75d1df2fbe,FALSE,FALSE,"Hi @bogdang, 
+
+I am interested in using your image for running the `pcawg-sanger-variant-caller` workflow with `rabix`. Could you please share me your docker image link? 
+
+Thanks! 
+Vipin"
+2931,72579,syn8507133,pcawg-sanger-variant-caller workflow help,2017-11-21T17:58:47.000Z,2223305,2017-11-21T17:58:47.000Z,ded3e32d-69d3-4819-af52-96d1f13c748a,72579/2931/fff157a8-4831-4bbb-9e27-426f3f1f1d27,7,3,2017-12-18T17:22:16.000Z,FALSE,FALSE,FALSE,This thread is the designated place to ask questions about running the **pcawg-sanger-variant-caller** workflow.,14294,2931,72579,syn8507133,2017-12-18T17:21:33.000Z,3357304,2017-12-18T17:22:16.000Z,10b6458f-126e-472e-b27f-26250cb038ba,72579/2931/14294/f243d7d7-88c4-48ce-b607-0fe98147ec64,TRUE,FALSE,"Hi @vipin 
+For running the workflow with `rabix`, you can try to modify `pcawg-sanger-variant-caller.cwl` to add this snippet of CWL
+
+```YAML
+arguments:
+- position: 50
+  shellQuote: false
+  valueFrom: "" && cp -r /var/spool/cwl/* .""
+requirements:
+- class: ShellCommandRequirement
+- class: DockerRequirement
+  dockerPull: images.sbgenomics.com/bogdang/pcawg-sanger:1.0
+```
+in place of:
+
+```YAML
+requirements:
+- class: DockerRequirement
+  dockerPull: quay.io/pancancer/pcawg-sanger-cgp-workflow:2.0.3
+```
+
+I had to change the docker image to add the `/var/spool/cwl` directory to the system. Since all outputs are created in that directory, the extension to the command line is added to make these files available in the workdir:
+```shell
+&& cp -r /var/spool/cwl/* . 
+```
+"
+2966,72579,syn8507133,pcawg-bwa-mem-aligner workflow help,2017-12-08T20:23:48.000Z,2223305,2017-12-08T20:23:48.000Z,d3c560fd-dd99-45e5-8d02-8d0f1ea05481,72579/2966/c3d2f1db-4846-4849-a2e8-6f14d2d8bd21,5,3,2017-12-20T17:09:27.000Z,FALSE,FALSE,FALSE,"
+This thread is the designated place to ask questions about running the pcawg-bwa-mem-aligner workflow.
+
+",14282,2966,72579,syn8507133,2017-12-14T12:01:32.000Z,3360642,2017-12-14T12:01:32.000Z,82f4c4c4-24e9-4588-a878-18e4c36330fe,72579/2966/14282/fe62f488-383d-45e8-aed4-f39cb80c8cd7,FALSE,FALSE,"Hi, 
+
+I tried to run the workflow `pcawg-bwa-mem-aligner` using `rabix` platform. It ends up with the following error message: 
+
+```shell
+~/rabix-cli-1.0.1/rabix --tmpdir-prefix /home/wfrunner/tmp/ pcawg-bwa-mem-aligner.cwl pcawg-bwa-mem-aligner.json 
+[2017-12-14 09:19:21.270] [INFO] Job root has started
+[2017-12-14 09:20:09.222] [INFO] Pulling docker image quay.io/pancancer/pcawg-bwa-mem-workflow:2.6.8_1.2
+[2017-12-14 09:20:10.190] [INFO] Running command line: /start.sh python /home/seqware/Seqware-BWA-Workflow/run_seqware_workflow.py --files /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-bwa-mem-aligner_rabix/input/hg19.chr22.5x.normal.bam /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-bwa-mem-aligner_rabix/input/hg19.chr22.5x.normal2.bam --reference-gz /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-bwa-mem-aligner_rabix/input/genome.fa.gz --reference-gz-fai /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-bwa-mem-aligner_rabix/input/genome.fa.gz.fai --reference-gz-amb /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-bwa-mem-aligner_rabix/input/genome.fa.gz.64.amb --reference-gz-ann /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-bwa-mem-aligner_rabix/input/genome.fa.gz.64.ann --reference-gz-bwt /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-bwa-mem-aligner_rabix/input/genome.fa.gz.64.bwt --reference-gz-pac /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-bwa-mem-aligner_rabix/input/genome.fa.gz.64.pac --reference-gz-sa /home/wfrunner/dream_challenge/2017/workflow_execution/workflows/pcawg-bwa-mem-aligner_rabix/input/genome.fa.gz.64.sa --output-dir datastore --output-file-basename hg19.chr22.5x.normal --download-reference-files true
+[2017-12-14 09:20:15.237] [ERROR] Job d1e06e0b-2545-4e1f-ac0c-cc41fccb19db failed with exit code 1.
+[2017-12-14 09:20:15.240] [INFO] Job d1e06e0b-2545-4e1f-ac0c-cc41fccb19db failed with exit code 1.
+[2017-12-14 09:20:15.313] [WARN] Root job d1e06e0b-2545-4e1f-ac0c-cc41fccb19db failed.
+[2017-12-14 09:20:16.006] [INFO] Failed to execute a Job
+```
+
+Is this something related the issue pointed out in `pcawg-delly-sv-caller` workflow? 
+
+Thanks! 
+Vipin"
+2966,72579,syn8507133,pcawg-bwa-mem-aligner workflow help,2017-12-08T20:23:48.000Z,2223305,2017-12-08T20:23:48.000Z,d3c560fd-dd99-45e5-8d02-8d0f1ea05481,72579/2966/c3d2f1db-4846-4849-a2e8-6f14d2d8bd21,5,3,2017-12-20T17:09:27.000Z,FALSE,FALSE,FALSE,"
+This thread is the designated place to ask questions about running the pcawg-bwa-mem-aligner workflow.
+
+",14292,2966,72579,syn8507133,2017-12-18T17:10:11.000Z,3357304,2017-12-18T17:10:20.000Z,c62682b2-4feb-4e68-a8f4-0219a44366cb,72579/2966/14292/070f76c4-b9ce-4d4e-a019-e019d4e8e7ad,TRUE,FALSE,"Hi @vipin
+It is a similar issue. You can use the docker image `images.sbgenomics.com/bogdang/pcawg-bwa:2.0` for running with `rabix` and on `CGC`. This should get the workflow completed.
+"
+2966,72579,syn8507133,pcawg-bwa-mem-aligner workflow help,2017-12-08T20:23:48.000Z,2223305,2017-12-08T20:23:48.000Z,d3c560fd-dd99-45e5-8d02-8d0f1ea05481,72579/2966/c3d2f1db-4846-4849-a2e8-6f14d2d8bd21,5,3,2017-12-20T17:09:27.000Z,FALSE,FALSE,FALSE,"
+This thread is the designated place to ask questions about running the pcawg-bwa-mem-aligner workflow.
+
+",14306,2966,72579,syn8507133,2017-12-20T17:09:27.000Z,3352211,2017-12-20T17:09:27.000Z,76e03b43-6d51-4974-b8b9-30d8a388b378,72579/2966/14306/b992b96c-65f8-473d-b6f3-cf6d0c1aedf2,FALSE,FALSE,"Hi all!
+
+This workflow fails on macOS 10.12.6, cwltool==1.0.20170217172322
+When running container `quay.io/pancancer/pcawg-bwa-mem-workflow:2.6.8_1.2`
+cwltool sets `--workdir` to `/var/spool/cwl`, which on macOS is resolved to `/private/var/spool/cwl`, because `var -> private/var`, so the working directory is set to `--workdir=/private/var/spool/cwl`. Tool expects working directory to be set to `--workdir=/var/spool/cwl`
+Containerized tool fails on
+```
++ gosu root chmod a+wrx /var/spool/cwl
+chmod: cannot access `/var/spool/cwl': No such file or directory 
+```"
+2967,72579,syn8507133,Retroactively associating submissions with teams,2017-12-08T22:19:41.000Z,2223305,2017-12-08T22:19:41.000Z,2c6f8048-03a7-4c5e-a899-19272ba11a40,72579/2967/f2b869d7-12a0-466d-9a5e-9395dad97b20,8,1,2017-12-09T02:18:38.000Z,FALSE,FALSE,FALSE,"This is mostly an administrative / tidying item, but thought I'd share to make sure it's clear:
+
+&nbsp;
+
+A few participants have asked about assigning submissions to teams after they were initially submitted as an individual (and I've noticed a couple others for whom this issue would apply). While there's currently no mechanism to set the `teamId` for a submission retroactively, I'm actually using a separate `team` annotation for most leaderboards and summary tables — and I **can** change the value of this annotation. 
+
+&nbsp;
+
+I've gone ahead and updated `team` for any individual submissions where the user has joined and submitted as part of a team, and the numbers in the [Participation Overview]() and [Final Results] should reflect these changes.
+
+&nbsp;
+
+Note that there's one catch to look out for: for each evaluation queue (i.e., each workflow), you can only submit as an individual OR as part of a team. Thus, if you've previously submitted results for a workflow as an individual and want to submit new results for the same workflow, you'll need to submit the new results as an individual — otherwise you'll get the following error: `403 Client Error: Forbidden`. If this happens, let me know and I can update your team annotation after the fact.
+
+&nbsp;
+
+Thanks!
+James
+
+&nbsp;
+
+cc @mkrause @vipin @benstory @madelyngreyes 
+
+",14239,2967,72579,syn8507133,2017-12-09T02:18:38.000Z,3363440,2017-12-09T02:18:38.000Z,66788679-756b-4d9a-81d6-258365388409,72579/2967/14239/a25efd0d-3d0f-438f-8aad-b0da3bf6ba9d,FALSE,FALSE,"Hi James,
+THanks for your effort, really appreciate it.
+Cheers,
+Michael"
+2991,72579,syn8507133,broad-gatk-validate-bam workflow help,2017-12-21T19:11:06.000Z,2223305,2017-12-21T19:11:06.000Z,fa2dc019-1b63-4780-9bf3-d75be10e857f,72579/2991/8460c121-1407-47b0-86bf-db3a2982be96,5,4,2018-01-03T18:23:15.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the broad-gatk-validate-bam workflow.
+",14316,2991,72579,syn8507133,2018-01-03T03:41:27.000Z,3365727,2018-01-03T03:41:27.000Z,f0f13328-a5df-4f00-8660-99fe823f4fb8,72579/2991/14316/dcd35e83-649b-40cf-b7ea-659a3d15eac3,FALSE,FALSE,"Hi, I submitted results for this workflow a few days ago, and the result files were uploaded to the correct directory, but they were never validated.  I see now that I got an error from running the submission command: `cwltool --non-strict dockstore-tool-synapse-submit.cwl ValidateBam_submit.cwl.json`.
+My `ValidateBam_submit.cwl.json` file contains the following: 
+```
+{
+    ""config_file"": {
+        ""class"": ""File"",
+        ""path"": "".synapseConfig""
+    },
+    ""team_name"": ""BioGenLink"",
+    ""eval_id"": ""9607590"",
+    ""file"": [
+        {
+            ""class"": ""File"",
+            ""path"": ""H06HDADXX130110.1.ATCACGAT.20k_reads.validation_SUMMARY.txt""
+        },
+        {
+            ""class"": ""File"",
+            ""path"": ""H06HDADXX130110.2.ATCACGAT.20k_reads.validation_SUMMARY.txt""
+        }
+
+    ],
+    ""parent_id"": ""syn11638646""
+}
+```
+My two results files both contain the phrase ""No errors found"" in them.
+
+I got the following error message: 
+```shell
+SynapseHTTPError: 403 Client Error: Forbidden
+User lacks SUBMIT access to Evaluation 9607590
+```
+
+But overall, it appears that the submission succeeded, because everything else looked normal and I got the following message at the end:
+```
+##################################################
+ Uploading file to Synapse storage 
+##################################################
+[job dockstore-tool-synapse-submit.cwl] completed success
+{}
+Final process status is success
+```
+
+Any ideas?  This happened before December 31st, so it doesn't appear to be because the submission queue was closed."
+2991,72579,syn8507133,broad-gatk-validate-bam workflow help,2017-12-21T19:11:06.000Z,2223305,2017-12-21T19:11:06.000Z,fa2dc019-1b63-4780-9bf3-d75be10e857f,72579/2991/8460c121-1407-47b0-86bf-db3a2982be96,5,4,2018-01-03T18:23:15.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the broad-gatk-validate-bam workflow.
+",14319,2991,72579,syn8507133,2018-01-03T17:41:02.000Z,2223305,2018-01-03T17:41:02.000Z,b65d476c-8440-4f3e-8668-420fff0469ea,72579/2991/14319/e6a81bec-5b2d-4110-9be4-bbffa8d5a3aa,FALSE,FALSE,"Hey @bernest - I'll take a look this morning and see if we can get the issue resolved. I'm certainly happy to count the submission! 
+"
+2991,72579,syn8507133,broad-gatk-validate-bam workflow help,2017-12-21T19:11:06.000Z,2223305,2017-12-21T19:11:06.000Z,fa2dc019-1b63-4780-9bf3-d75be10e857f,72579/2991/8460c121-1407-47b0-86bf-db3a2982be96,5,4,2018-01-03T18:23:15.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the broad-gatk-validate-bam workflow.
+",14320,2991,72579,syn8507133,2018-01-03T17:43:57.000Z,3365727,2018-01-03T17:43:57.000Z,6e6a2408-b961-4a29-a248-a6d3ea27f6fb,72579/2991/14320/7a3f6389-c85d-4f6e-933c-08612f17f8de,FALSE,FALSE,"Awesome, thanks!"
+2991,72579,syn8507133,broad-gatk-validate-bam workflow help,2017-12-21T19:11:06.000Z,2223305,2017-12-21T19:11:06.000Z,fa2dc019-1b63-4780-9bf3-d75be10e857f,72579/2991/8460c121-1407-47b0-86bf-db3a2982be96,5,4,2018-01-03T18:23:15.000Z,FALSE,FALSE,FALSE,"This thread is the designated place to ask questions about running the broad-gatk-validate-bam workflow.
+",14321,2991,72579,syn8507133,2018-01-03T18:23:15.000Z,2223305,2018-01-03T18:23:15.000Z,aea18bb5-fd5d-484a-916d-caf1195a3ad3,72579/2991/14321/a8b9a90f-7c4c-4469-9536-3b3c9fbd035e,FALSE,FALSE,"Apparently I had the sharing settings wrong on the evaluation queue, so only admins were able to submit. That's fixed now.
+
+&nbsp;
+
+You should be able to submit your results through Synapse, without re-running the `synapse-submit` tool:
+1. Navigate to the folder where you stored the results (https://www.synapse.org/#!Synapse:syn11638646);
+2. Find the file that was uploaded (should be a zipped folder named `9607590_BioGenLink_<datestamp>.zip`), click on the file to open the Synapse page for that entity;
+3. Click the **Tools** icon in the top right corner of the screen and select **Submit File to Challenge**;
+4. Select `GA4GH-DREAM_broad-gatk-data-processing` from the list and proceed through the remaining steps.
+
+&nbsp;
+
+You can also submit using the CWL tool as you did before — whichever is easier! Let me know when you've re-submitted and I'll manually run the validation for that workflow.
+
+&nbsp;
+Best,
+James
+
+"
+2994,72579,syn8507133,Editing submission reports within team project,2017-12-27T14:47:53.000Z,3365727,2017-12-27T14:47:53.000Z,00d56315-7d3b-4090-8029-e3c28df07388,72579/2994/7d83b70b-2b5f-4080-abd7-69977347841b,3,1,2017-12-27T18:45:40.000Z,FALSE,FALSE,FALSE,"When we submit workflow results, they appear in our team project under the parent ID we choose.  Each results file has a wiki page associated with it.  However, it appears that this wiki page within our team project isn't what is evaluated.  We need to find our submission in a table on the Submission tracker page for each workflow, or go to the link sent to us by email from Synapse.  It is this wiki page that is evaluated, correct?  If so, is there a more direct way to access and edit these wiki pages from within our team project?",14312,2994,72579,syn8507133,2017-12-27T18:42:22.000Z,2223305,2017-12-27T18:45:40.000Z,cbf54b21-48e0-47c4-b3dc-03cf1bd2005b,72579/2994/14312/f4aa4787-6848-48a6-869b-dd9db426166e,TRUE,FALSE,"Hi @bernest,
+
+&nbsp;
+
+Good questions... There's no convenient and consistent way to ensure that the validation system has write permissions within each participant's/team's project, which is why the report wikis are not directly associated with the workflow *results* that are stored in Synapse. Instead, each wiki is associated with an individual *submission*, and is automatically created and stored within the main project for the challenge ([here](https://www.synapse.org/#!Synapse:syn10156687)). You are correct that these are the wiki pages that get checked and evaluated by the validation system.
+
+&nbsp;
+I realize that digging through old emails or the submission tracker tables to find the relevant wiki links might be a bit of a hassle. To make things easier, I uploaded a new table that lists **all** submissions for the challenge so far. You can filter the results in this table to quickly view all the submissions from your team:
+
+[(example query results — **note:** `reportEntityId` is the field you want)](https://www.synapse.org/#!Synapse:syn11637902/tables/query/eyJzcWwiOiJTRUxFQ1Qgb2JqZWN0SWQsIHdvcmtmbG93LCB1c2VyLCBlbnRpdHlJZCwgc3RhdHVzLCByZXBvcnRFbnRpdHlJZCwgcmVwb3J0U3RhdHVzIEZST00gc3luMTE2Mzc5MDIgV0hFUkUgKCAoIFwidGVhbVwiID0gJ0Jpb0dlbkxpbmsnICkgKSIsICJpbmNsdWRlRW50aXR5RXRhZyI6dHJ1ZSwgImlzQ29uc2lzdGVudCI6dHJ1ZSwgIm9mZnNldCI6MCwgImxpbWl0IjoyNX0=)
+
+&nbsp;
+Here's the query associated with the above link, in case you want to make adjustments:
+```
+SELECT objectId, workflow, user, entityId, status, reportEntityId, reportStatus FROM syn11637902 WHERE ( ( ""team"" = 'BioGenLink' ) )
+```
+
+&nbsp;
+You can navigate to each wiki page as follows:
+```
+https://www.synapse.org/#!Synapse:<reportEntityId>
+```
+
+&nbsp;
+Hopefully that helps! Let me know if you have any questions.
+
+&nbsp;
+
+Best,
+James
+
+"
