@@ -1,0 +1,151 @@
+---
+title: "GA4GH/DREAM Workflow Execution Challenge Submission Summary"
+output: html_notebook
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(stringr)
+library(ggplot2)
+library(forcats)
+library(viridis)
+# devtools::install_github("thomasp85/patchwork")
+library(patchwork)
+
+custom_theme_bw <- function() {
+    theme_bw() +
+        theme(axis.title = element_text(face = "bold"),
+              legend.title = element_text(face = "bold"),
+              plot.title = element_text(face = "bold"))
+}
+```
+
+```{r}
+valid_clean_df <- readr::read_csv("../data/ValidSubmissions_clean.csv")
+```
+
+```{r}
+valid_clean_df %>% 
+    group_by(.dots = c("workflow", "platform")) %>% 
+    tally() %>% 
+    ungroup() %>% 
+    complete(platform, workflow, fill = list(n = 0))
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+observed_types <- valid_clean_df %>% 
+    group_by(workflow) %>% 
+    summarise(types = str_c(unique(workflow_type), collapse = ",")) %>% 
+    mutate(types = str_split(types, ",")) %>% 
+    unnest(types)
+
+all_types <- expand(observed_types, workflow, types)
+
+
+workflow_type_df <- all_types %>% 
+    left_join(observed_types %>% mutate(count = 1L)) 
+    # replace_na(list(count = NA)) %>% 
+    # mutate(count = ifelse)
+
+p2 <- workflow_type_df %>% 
+    ggplot(aes(x = types, y = workflow)) +
+    geom_tile(aes(fill = count)) +
+    scale_x_discrete(expand = c(0, 0), position = "top") +
+    scale_y_discrete(expand = c(0, 0)) +
+    xlab("") +
+    ylab("") +
+    guides(fill = FALSE) +
+    theme_bw(base_size = 14) +
+    theme(
+        axis.text.x = element_text(angle = 45, hjust = 0, vjust = 0)
+    )
+
+p1 <- plot_workflow_matrix <- function(groupvar) {
+    submission_df <- valid_clean_df
+    y_vals <- unique(submission_df[["workflow"]])
+    x_vals <- unique(submission_df[[names(groupvar)]])
+    num_x <- length(x_vals)
+    
+    y_margin <- max(purrr::map_int(y_vals, stringr::str_length))
+    x_margin <- max(purrr::map_int(x_vals, stringr::str_length))
+    
+    groupcol = as.name(names(groupvar))
+    plot_df <- submission_df %>% 
+        group_by(.dots = c("workflow", names(groupvar))) %>% 
+        tally() %>% 
+        ungroup() %>% 
+        complete(platform, workflow, fill = list(n = NA)) %>%
+        mutate(workflow = forcats::fct_rev(workflow))
+
+    p <- plot_df %>% 
+        ggplot(aes_string(x = names(groupvar), y = "workflow")) +
+        geom_tile(aes(fill = n), alpha = 1, colour = "gray", size = 0.2) +
+        geom_label(aes(label = n), size = 3, alpha = 0.5, 
+                   label.padding = unit(0.1, "lines")) +
+        scale_fill_viridis_c("Submissions") +
+        guides(fill = guide_colorbar(title.position = "top")) +
+        scale_x_discrete(expand = c(0, 0)) +
+        scale_y_discrete(expand = c(0, 0)) +
+        xlab("") +
+        ylab("") +
+        theme_bw(base_size = 14) +
+        theme(axis.title = element_text(face = "bold"),
+              legend.title = element_text(face = "bold"),
+              plot.title = element_text(face = "bold"),
+              # legend.title = element_blank(),
+              legend.position = "top",
+              axis.text.x = element_text(angle = 45, hjust = 1),
+              axis.text.y = element_blank(),
+              axis.ticks.y = element_blank(),
+              panel.grid.major = element_blank()
+              # panel.grid.minor = element_line(colour = "black", size = 1, linetype = 1)
+              # panel.grid = element_line(colour = "gray", size = 2, linetype = 1)
+        ) +
+        guides(fill = FALSE)
+    p
+}
+p1 <- plot_workflow_matrix(groupvar = list(platform = "Platform"))
+
+p3 <- valid_clean_df %>% 
+    select(platform, environment) %>% 
+    group_by(platform, environment) %>% 
+    tally() %>% 
+    ungroup() %>% 
+    complete(environment, platform, fill = list(n = NA)) %>%
+    ggplot(aes(x = platform, y = environment)) +
+    geom_tile(aes(fill = n), alpha = 1, colour = "gray", size = 0.2) +
+    geom_label(aes(label = n), size = 3, alpha = 0.5, 
+               label.padding = unit(0.1, "lines")) +
+    scale_fill_viridis_c(option = "B") +
+    guides(fill = FALSE) +
+    scale_x_discrete(expand = c(0, 0)) +
+    scale_y_discrete(expand = c(0, 0), position = "right") +
+    xlab("") +
+    ylab("") +
+    theme_bw(base_size = 14) +
+    theme(axis.title = element_text(face = "bold"),
+              legend.title = element_text(face = "bold"),
+              plot.title = element_text(face = "bold"),
+              # legend.title = element_blank(),
+              legend.position = "top",
+              axis.text.x = element_blank(),
+              axis.ticks.x = element_blank(),
+              panel.grid.major = element_blank()
+              # panel.grid.minor = element_line(colour = "black", size = 1, linetype = 1),
+              # panel.grid = element_line(colour = "gray", size = 2, linetype = 1)
+        )
+
+# { plot_spacer() + p3 + plot_layout(nrow = 1, widths = c(0.1, 1)) } +
+{ p2 + p1 + plot_layout(nrow = 1, widths = c(0.1, 1)) }
+
+ggsave("../figures/workflow_platform_matrix.pdf", p1, width = 6, height = 3.5, units = "in")
+```
+
+
+
+
+
+
+
